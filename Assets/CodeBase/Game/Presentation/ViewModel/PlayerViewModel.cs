@@ -17,14 +17,12 @@ namespace Game.Presentation.ViewModel
 
         private readonly PlayerShootHandler.PlayerSettings _playerSettings;
         private readonly PlayerDamageHandler.PlayerSettings _hitsSettings;
-        private readonly IPauseHandler _pauseHandler;
 
         public PlayerViewModel(IWindowFsm windowFsm, PlayerDamageHandler.PlayerSettings hitsSettings,
-            PlayerShootHandler.PlayerSettings shootSettings, IPauseHandler pauseHandler) : base(windowFsm)
+            PlayerShootHandler.PlayerSettings shootSettings) : base(windowFsm)
         {
             _playerSettings = shootSettings;
             _hitsSettings = hitsSettings;
-            _pauseHandler = pauseHandler;
         }
 
         protected override void HandleOpenedWindow(Type uiWindow)
@@ -32,7 +30,6 @@ namespace Game.Presentation.ViewModel
             base.HandleOpenedWindow(uiWindow);
             _playerSettings.InvokeShot += ReloadUpdate;
             _hitsSettings.InvokeHitPointsChange += HitPointsUpdate;
-            _pauseHandler.SubscribeElement(this);
         }
 
         protected override void HandleClosedWindow(Type uiWindow)
@@ -40,7 +37,6 @@ namespace Game.Presentation.ViewModel
             base.HandleClosedWindow(uiWindow);
             _playerSettings.InvokeShot -= ReloadUpdate;
             _hitsSettings.InvokeHitPointsChange -= HitPointsUpdate;
-            _pauseHandler.UnsubscribeElement(this);
         }
 
         public override void InvokeClose()

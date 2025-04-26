@@ -16,7 +16,7 @@ namespace Installers
         {
             InstallFactories();
             InstallPlayerComponents();
-            InstallViewModels();
+            //InstallViewModels();
             InstallFsm();
 
         }
@@ -56,7 +56,7 @@ namespace Installers
             Container.BindInstance(_settings.Body).AsSingle();
 
             Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerShootHandler>().AsSingle();
+            //Container.BindInterfacesAndSelfTo<PlayerShootHandler>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMoveHandler>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerDamageHandler>().AsSingle();
         }

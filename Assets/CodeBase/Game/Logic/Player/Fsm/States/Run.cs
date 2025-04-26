@@ -7,54 +7,47 @@ namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
-        private readonly PlayerShootHandler _playerShoot;
+        //private readonly PlayerShootHandler _playerShoot;
         private readonly PlayerInput _playerInput;
         private readonly PlayerMoveHandler _playerMove;
 
         public Run(IGameStateMachine stateMachine,
             PlayerInput playerInput,
             PlayerMoveHandler playerMove,
-            PlayerDamageHandler.PlayerSettings damageSettings,
-            PlayerShootHandler playerShoot) : base(stateMachine, damageSettings)
+            PlayerDamageHandler.PlayerSettings damageSettings) : base(stateMachine, damageSettings)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;
-            _playerShoot = playerShoot;
+            //_playerShoot = playerShoot;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _playerInput.InvokeMoveButtonsUp += OnMoveEnd;
-            _playerInput.InvokeMove += Move;
-
-            _playerShoot.StartAutomatic();
+            _playerInput.InvokeMoveVertical += Move;
+            _playerInput.InvokeMoveHorizontal += Rotate;
+            //_playerShoot.StartAutomatic();
         }
 
-        private void Move(Vector2 direction)
+        private void Move(float speed)
         {
-            _playerMove.Move(direction);
+            if (speed > 0)
+                _playerMove.Move();
+            else
+                _playerMove.ReverseMove();
         }
 
-        private void OnMoveEnd()
+        private void Rotate(float speed)
         {
-            _playerMove.Stop();
-            _stateMachine.Enter<Idle>();
-
-        }
-
-        protected override void OnHit()
-        {
-            base.OnHit();
-            _playerMove.Stop();
+            _playerMove.Rotate(speed);
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            _playerInput.InvokeMoveButtonsUp -= OnMoveEnd;
-            _playerInput.InvokeMove -= Move;
-            _playerShoot.StopAutomatic();
+            _playerInput.InvokeMoveVertical -= Move;
+            _playerInput.InvokeMoveHorizontal -= Rotate;
+            //_playerShoot.StopAutomatic();
         }
 
 

@@ -5,7 +5,7 @@ namespace Game.Logic.Player
 {
     public class PlayerDamageHandler : DamageHandler
     {
-        public PlayerDamageHandler(PlayerSettings stats, IPauseHandler pauseHandler) : base(stats, pauseHandler)
+        public PlayerDamageHandler(PlayerSettings stats) : base(stats)
         { }
 
         [Serializable]

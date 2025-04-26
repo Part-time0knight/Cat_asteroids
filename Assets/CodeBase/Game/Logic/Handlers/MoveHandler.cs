@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Logic.Handlers
 {
-    public class MoveHandler : IPauseble, IInitializable, IDisposable
+    public class MoveHandler
     {
         protected Vector2 Velocity 
         {
@@ -15,68 +15,26 @@ namespace Game.Logic.Handlers
 
         protected readonly Rigidbody2D _body;
         protected readonly Settings _stats;
-        protected readonly IPauseHandler _pause;
 
-        protected readonly List<RaycastHit2D> _raycastsX;
-        protected readonly List<RaycastHit2D> _raycastsY;
 
-        protected ContactFilter2D _filter;
-        protected float _collisionOffset;
-        protected float _collisionDistance;
-        protected float _distanceBetween;
-        protected Vector2 _closestColliderPoint;
-
-        protected Vector2 _pausedVelocity;
-        protected bool _paused;
-
-        public MoveHandler(Rigidbody2D body, Settings stats, IPauseHandler pause)
+        public MoveHandler(Rigidbody2D body, Settings stats)
         {
             _body = body;
             _stats = stats;
-            _pause = pause;
-
-            _filter = new();
-            _raycastsX = new();
-            _raycastsY = new();
-
-            _collisionOffset = 0.1f;
-            _stats.CurrentSpeed = _stats.Speed;
-            _stats.CurrentPosition = _body.position;
-            _paused = false;
-        }
-
-        public void Initialize()
-        {
-            _pause.SubscribeElement(this);
-        }
-
-        public void Dispose()
-        {
-            _pause.UnsubscribeElement(this);
         }
 
         public virtual void Move(Vector2 speedMultiplier)
-        { 
-            Velocity = CollisionCheck(speedMultiplier) *
-            _stats.CurrentSpeed * PauseSpeed();
-            _stats.CurrentPosition = _body.position;
+        {
+            _body.AddForce(speedMultiplier * _stats.Speed, ForceMode2D.Impulse);
+            if (_body.linearVelocity.magnitude > _stats.MaxSpeed)
+                _body.linearVelocity = _body.linearVelocity.normalized * _stats.MaxSpeed;
         }
 
 
         public void Stop()
             => _body.linearVelocity = Vector2.zero;
 
-        public virtual void OnPause(bool active)
-        {
-            _paused = active;
-            if (_paused )
-                Velocity = Vector2.zero;
-        }
-
-        protected virtual float PauseSpeed()
-            => _paused == false ? 1f : 0f;
-
-        protected virtual Vector2 CollisionCheck(Vector2 speedMultiplier)
+        /*protected virtual Vector2 CollisionCheck(Vector2 speedMultiplier)
         {
             _raycastsX.Clear();
             _raycastsY.Clear();
@@ -97,29 +55,26 @@ namespace Game.Logic.Handlers
                 speedMultiplier = new(speedMultiplier.x, speedMultiplier.normalized.y * _distanceBetween);
             }
             return speedMultiplier;
-        }
+        }*/
 
         public class Settings
         {
             [field: SerializeField] public float Speed { get; protected set; }
-            public float CurrentSpeed { get; set; }
+
+            [field: SerializeField] public float MaxSpeed { get; protected set; }
 
             public Vector2 CurrentPosition { get; set; }
 
             public Settings()
             { }
 
-            public Settings(float speed, float currentSpeed, Vector2 currentPosition)
+            public Settings(float speed)
             {
                 Speed = speed;
-                CurrentSpeed = currentSpeed;
-                CurrentPosition = currentPosition;
             }
 
             public Settings(Settings settings) : this(
-                settings.Speed,
-                settings.CurrentSpeed,
-                settings.CurrentPosition)
+                settings.Speed)
             { }
         }
     }

@@ -5,7 +5,7 @@ namespace Game.Logic.Enemy
 {
     public class EnemyDamageHandler : DamageHandler
     {
-        public EnemyDamageHandler(EnemySettingsHandler stats, IPauseHandler pauseHandler) : base(stats.DamageSettings, pauseHandler)
+        public EnemyDamageHandler(EnemySettingsHandler stats) : base(stats.DamageSettings)
         { }
 
         public void Reset()

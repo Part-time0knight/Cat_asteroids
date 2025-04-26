@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerInput : ITickable, IFixedTickable, IPauseble, IInitializable, IDisposable
+    public class PlayerInput : ITickable, IFixedTickable
     {
         public event Action InvokeMoveButtonsDown;
 
@@ -26,8 +26,6 @@ namespace Game.Logic.Player
         private bool _pause;
         private bool _buttonUp = false;
 
-        private IPauseHandler _pauseHandler;
-
         public float Horizontal => OnMoveHorizontal();
         public float Vertical => OnMoveVertical();
 
@@ -37,20 +35,8 @@ namespace Game.Logic.Player
                 || Input.GetButton("Horizontal");
         }
 
-        public PlayerInput(IPauseHandler pauseHandler)
+        public PlayerInput()
         {
-            _pauseHandler = pauseHandler;
-        }
-
-        public void Initialize()
-        {
-            _pauseHandler.SubscribeElement(this);
-        }
-
-
-        public void Dispose()
-        {
-            _pauseHandler.UnsubscribeElement(this);
         }
 
         public Vector2 MousePosition()
@@ -95,8 +81,8 @@ namespace Game.Logic.Player
 
             //if (OnAttackButton())
                 //InvokeAttackButton?.Invoke();
-            if (OnSpellButton())
-                InvokeSpellButton?.Invoke();
+            //if (OnSpellButton())
+                //InvokeSpellButton?.Invoke();
         }
 
         public void FixedTick()

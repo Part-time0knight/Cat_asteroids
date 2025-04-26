@@ -22,7 +22,7 @@ namespace Game.Logic.Enemy
             IPauseHandler pause,
             PlayerMoveHandler.PlayerSettings playerSettings,
             Animator animator)
-            : base(body, stats.MoveSettings, pause)
+            : base(body, stats.MoveSettings)
         {
             _playerSettings = playerSettings;
             _playerDirection = Vector2.zero;
@@ -49,14 +49,14 @@ namespace Game.Logic.Enemy
             Move(_playerDirection);
         }
 
-        protected override Vector2 CollisionCheck(Vector2 speedMultiplier)
+        /*protected override Vector2 CollisionCheck(Vector2 speedMultiplier)
         {
             _body.Cast(speedMultiplier, _filter, _raycasts, _stats.CurrentSpeed * Time.fixedDeltaTime + _collisionOffset);
 
             foreach (var hit in _raycasts)
                 InvokeCollision?.Invoke(hit.transform.gameObject);
             return speedMultiplier;
-        }
+        }*/
 
         [Serializable]
         public class EnemySettings : Settings

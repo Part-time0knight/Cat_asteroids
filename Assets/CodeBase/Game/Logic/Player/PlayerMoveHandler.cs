@@ -7,24 +7,38 @@ namespace Game.Logic.Player
     public class PlayerMoveHandler : MoveHandler
     {
 
-        private Vector3 _standartScale;
+        private PlayerSettings _playerSettings;
+
 
         public PlayerMoveHandler(Rigidbody2D body,
-            PlayerSettings stats,
-            IPauseHandler pauseHandler) : base(body, stats, pauseHandler)
+            PlayerSettings stats) : base(body, stats)
         {
+            _playerSettings = stats;
         }
 
-        public override void Move(Vector2 speedMultiplier)
+        public void Move()
         {
-            base.Move(speedMultiplier);
-            Vector3 scale = new(
-                _standartScale.x * Mathf.Sign(speedMultiplier.x),
-                _standartScale.y, _standartScale.z);
+            base.Move(_body.transform.up * Time.fixedDeltaTime);
+        }
+
+        public void ReverseMove()
+        {
+            base.Move(_body.transform.up * -1f * _playerSettings.ReverseSpeedMultiplier * Time.fixedDeltaTime);
+        }
+
+        public void Rotate(float horizontal)
+        {
+            _body.AddTorque(horizontal * _playerSettings.RotateSpeed * Time.fixedDeltaTime * -1f);
         }
 
         [Serializable]
         public class PlayerSettings : Settings
-        { }
+        {
+            [field: SerializeField, Range(0f, 1f)] 
+            public float ReverseSpeedMultiplier { get; private set; }
+
+            [field: SerializeField] public float RotateSpeed { get; private set; }
+        
+        }
     }
 }
