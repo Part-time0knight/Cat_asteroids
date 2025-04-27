@@ -1,4 +1,3 @@
-using Game.Logic.Enemy;
 using Game.Logic.Handlers;
 using Game.Logic.Misc;
 using System;
@@ -8,12 +7,11 @@ using Zenject;
 
 namespace Game.Logic.Weapon
 {
-    public abstract class ShootHandler : IPauseble, IInitializable, IDisposable
+    public abstract class ShootHandler : IInitializable
     {
 
         protected readonly Bullet.Pool _bulletPool;
         protected readonly Settings _settings;
-        protected readonly IPauseHandler _pauseHandler;
         protected readonly Timer _timer = new();
 
         protected List<Bullet> _bullets = new();
@@ -21,12 +19,10 @@ namespace Game.Logic.Weapon
 
         private UnitHandler _unitHandler;
 
-        public ShootHandler(Bullet.Pool bulletPool, Settings settings,
-            IPauseHandler pauseHandler)
+        public ShootHandler(Bullet.Pool bulletPool, Settings settings)
         {
             _bulletPool = bulletPool;
             _settings = settings;
-            _pauseHandler = pauseHandler;
 
             _settings.CurrentAttackDelay = _settings.AttackDelay;
             _settings.CurrentDamage = _settings.Damage;
@@ -38,23 +34,6 @@ namespace Game.Logic.Weapon
             _timer.Initialize(
                 time: 0f, step: 0f, null)
                 .Play();
-            _pauseHandler.SubscribeElement(this);
-        }
-
-        public virtual void Dispose()
-        {
-            _pauseHandler.UnsubscribeElement(this);
-        }
-
-        public virtual void OnPause(bool active)
-        {
-            if (_timer.Active)
-            {
-                if (active)
-                    _timer.Pause();
-                else
-                    _timer.Play();
-            }
         }
 
         /// <summary>
@@ -86,20 +65,6 @@ namespace Game.Logic.Weapon
 
             _timer.Initialize(
                 _settings.CurrentAttackDelay, step: 0.05f, onEnd).Play();
-        }
-
-        public virtual void SetPause(bool active)
-        {
-            if (_timer.Active)
-                if (active)
-                    _timer.Pause();
-                else
-                    _timer.Play();
-
-            foreach (var bullet in _bullets)
-                bullet.SetPause(active);
-
-
         }
 
         protected virtual void Hit(Bullet bullet, GameObject target)

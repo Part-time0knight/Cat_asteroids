@@ -1,6 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Game.Logic.Enemy;
-using Game.Logic.Handlers;
 using Game.Logic.StaticData;
 using Game.Logic.Weapon;
 using System;
@@ -11,30 +9,15 @@ namespace Game.Logic.Player
     public class PlayerShootHandler : ShootHandler
     {
         private readonly Transform _weapon;
-        private readonly EnemySpawner _enemy;
 
         private bool _breakAutomatic = false;
 
         public PlayerShootHandler(Bullet.Pool bulletPool, 
             PlayerSettings settings,
-            IPauseHandler pauseHandler,
-            Transform weaponPoint,
-            EnemySpawner enemy) : base(bulletPool, settings, pauseHandler)
+            Transform weaponPoint) : base(bulletPool, settings)
         {
             _weapon = weaponPoint;
             _settings.Owner = Tags.Player;
-            _enemy = enemy;
-
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
         }
 
         public void StartAutomatic()
@@ -53,8 +36,10 @@ namespace Game.Logic.Player
             do
             {
                 await UniTask.WaitWhile(() => _timer.Active);
+                Vector2 target = _weapon.TransformPoint(
+                    new(_weapon.localPosition.x, _weapon.localPosition.y + 1f));
                 if (!_breakAutomatic)
-                    Shoot(_weapon.position, _enemy.NearestEnemy);
+                    Shoot(_weapon.position, target);
             } while (!_breakAutomatic);
         }
 

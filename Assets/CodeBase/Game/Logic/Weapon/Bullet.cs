@@ -13,14 +13,6 @@ namespace Game.Logic.Weapon
         protected Vector2 _sampleDirection = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
 
-        public void SetPause(bool active)
-        {
-            if (active)
-                _direction = Vector2.zero;
-            else
-                _direction = _sampleDirection;
-        }
-
         protected virtual void Awake()
         {
             _bulletMove.InvokeCollision += OnHit;
@@ -31,17 +23,13 @@ namespace Game.Logic.Weapon
             transform.position = startPos;
             _direction = (targetPos - startPos).normalized;
             _sampleDirection = _direction;
+            _bulletMove.Move(_direction);
         }
 
         [Inject]
         private void Construct(BulletMoveHandler bulletMove)
         {
             _bulletMove = bulletMove;
-        }
-
-        private void FixedUpdate()
-        {
-            _bulletMove.Move(_direction);
         }
 
         private void OnHit(GameObject objectHit)

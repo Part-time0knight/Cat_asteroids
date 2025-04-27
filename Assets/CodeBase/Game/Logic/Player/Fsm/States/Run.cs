@@ -7,18 +7,19 @@ namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
-        //private readonly PlayerShootHandler _playerShoot;
+        private readonly PlayerShootHandler _playerShoot;
         private readonly PlayerInput _playerInput;
         private readonly PlayerMoveHandler _playerMove;
 
         public Run(IGameStateMachine stateMachine,
             PlayerInput playerInput,
-            PlayerMoveHandler playerMove,
-            PlayerDamageHandler.PlayerSettings damageSettings) : base(stateMachine, damageSettings)
+            PlayerMoveHandler playerMove, 
+            PlayerDamageHandler.PlayerSettings damageSettings,
+            PlayerShootHandler playerShoot) : base(stateMachine, damageSettings)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;
-            //_playerShoot = playerShoot;
+            _playerShoot = playerShoot;
         }
 
         public override void OnEnter()
@@ -26,7 +27,7 @@ namespace Game.Logic.Player.Fsm.States
             base.OnEnter();
             _playerInput.InvokeMoveVertical += Move;
             _playerInput.InvokeMoveHorizontal += Rotate;
-            //_playerShoot.StartAutomatic();
+            _playerShoot.StartAutomatic();
         }
 
         private void Move(float speed)
@@ -47,7 +48,7 @@ namespace Game.Logic.Player.Fsm.States
             base.OnExit();
             _playerInput.InvokeMoveVertical -= Move;
             _playerInput.InvokeMoveHorizontal -= Rotate;
-            //_playerShoot.StopAutomatic();
+            _playerShoot.StopAutomatic();
         }
 
 

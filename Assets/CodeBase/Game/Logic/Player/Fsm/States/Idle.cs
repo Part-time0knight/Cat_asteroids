@@ -6,28 +6,29 @@ namespace Game.Logic.Player.Fsm.States
     public class Idle : Hitable
     {
         private readonly PlayerInput _playerInput;
-        //private readonly PlayerShootHandler _playerShoot;
+        private readonly PlayerShootHandler _playerShoot;
 
 
         public Idle(IGameStateMachine stateMachine,
-            PlayerInput playerInput,
-            PlayerDamageHandler.PlayerSettings damageSettings) : base(stateMachine, damageSettings)
+            PlayerInput playerInput, 
+            PlayerDamageHandler.PlayerSettings damageSettings,
+            PlayerShootHandler playerShoot) : base(stateMachine, damageSettings)
         {
             _playerInput = playerInput;
-            //_playerShoot = _shootHandler;
+            _playerShoot = playerShoot;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
             _playerInput.InvokeMoveButtonsDown += OnMoveBegin;
-            //_playerShoot.StartAutomatic();
+            _playerShoot.StartAutomatic();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            //_playerShoot.StopAutomatic();
+            _playerShoot.StopAutomatic();
             _playerInput.InvokeMoveButtonsDown -= OnMoveBegin;
         }
 

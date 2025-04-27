@@ -17,16 +17,16 @@ MonoBehaviour:
       <AttackDelay>k__BackingField: 0.75
       <Damage>k__BackingField: 1
     Move:
-      <Speed>k__BackingField: 5
+      <Speed>k__BackingField: 4
       <MaxSpeed>k__BackingField: 3
       <ReverseSpeedMultiplier>k__BackingField: 0.262
-      <RotateSpeed>k__BackingField: 8
+      <RotateSpeed>k__BackingField: 16
     Hits:
       <HitPoints>k__BackingField: 3
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 10
-      <MaxSpeed>k__BackingField: 0
+      <MaxSpeed>k__BackingField: 10
   <SpawnerSettings>k__BackingField:
     Spawner:
       <HorizontalBorders>k__BackingField: {x: -10, y: 10}

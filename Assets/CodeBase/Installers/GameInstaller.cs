@@ -20,7 +20,7 @@ namespace Installers
             InstallFactory();
             InstallPools();
             InstallService();
-            InstallViewModel();
+            //InstallViewModel();
             
         }
 
@@ -36,10 +36,10 @@ namespace Installers
         {
             Container.Bind<BulletBuffer>().FromComponentInNewPrefab(_settings.BufferPrefab).AsSingle();
             Container.BindMemoryPool<Bullet, Bullet.Pool>()
-                .FromComponentInNewPrefab(_settings.BulletPrfab);
+                .FromComponentInNewPrefab(_settings.BulletPrefab);
 
-            Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
-                .FromComponentInNewPrefab(_settings.EnemyHandler);
+            //Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+            //    .FromComponentInNewPrefab(_settings.EnemyHandler);
         }
 
         private void InstallViewModel()
@@ -64,15 +64,15 @@ namespace Installers
 
         private void InstallService()
         {
-            Container
-                .BindInterfacesTo<PauseHandler>()
-                .AsSingle()
-                .NonLazy();
+            //Container
+            //    .BindInterfacesTo<PauseHandler>()
+            //    .AsSingle()
+            //    .NonLazy();
 
-            Container
-                .BindInterfacesAndSelfTo<EnemySpawner>()
-                .AsSingle()
-                .NonLazy();
+            //Container
+            //    .BindInterfacesAndSelfTo<EnemySpawner>()
+            //    .AsSingle()
+            //    .NonLazy();
 
             Container
                 .BindInterfacesAndSelfTo<WindowFsm>()
@@ -92,10 +92,10 @@ namespace Installers
             public BulletBuffer BufferPrefab { get; private set; }
 
             [field: SerializeField]
-            public Bullet BulletPrfab { get; private set; }
+            public Bullet BulletPrefab { get; private set; }
 
-            [field: SerializeField]
-            public EnemyHandler EnemyHandler { get; private set; }
+            //[field: SerializeField]
+            //public EnemyHandler EnemyHandler { get; private set; }
         }
     }
 }

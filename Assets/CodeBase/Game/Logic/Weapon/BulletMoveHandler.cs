@@ -1,5 +1,7 @@
 using Game.Logic.Handlers;
 using System;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Game.Logic.Misc
@@ -10,17 +12,11 @@ namespace Game.Logic.Misc
         
         public BulletMoveHandler(Rigidbody2D body, BulletSettngs stats) : base(body, stats)
         {
+            body.OnTriggerEnter2DAsObservable().Subscribe(collision => Collision(collision.gameObject));
         }
 
-        /*protected override Vector2 CollisionCheck(Vector2 speedMultiplier)
-        {
-            _body.Cast(Vector2.zero, _filter, _raycasts, _stats.CurrentSpeed * Time.fixedDeltaTime + _collisionOffset);
-
-            foreach (var hit in _raycasts)
-                InvokeCollision?.Invoke(hit.transform.gameObject);
-
-            return speedMultiplier;
-        }*/
+        private void Collision(GameObject collisionObject)
+            => InvokeCollision?.Invoke(collisionObject);
 
         [Serializable]
         public class BulletSettngs : Settings
