@@ -3,28 +3,43 @@ using Game.Logic.Misc;
 using Game.Logic.Player;
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Game.Logic.Enemy
 {
     public class EnemyWeaponHandler
     {
         private readonly Settings _settings;
-        private readonly Timer _timer = new();
-        private readonly PlayerHandler _playerHandler;
+        private readonly Timer _reloadTimer = new();
+        private readonly Timer _delayTimer = new();
 
-        public EnemyWeaponHandler(Settings settings, PlayerHandler playerHandler)
+        private UnitHandler _target;
+
+        public EnemyWeaponHandler(Settings settings)
         {
             _settings = settings;
             _settings.CurrentDamage = _settings.Damage;
-            _playerHandler = playerHandler;
         }
 
         public void TickableDamage(UnitHandler target)
         {
-            if (_timer.Active)
+            if (_reloadTimer.Active)
                 return;
-            target.MakeCollizion(_settings.CurrentDamage);
-            _timer.Initialize(_settings.DamageDelay).Play();
+            _target = target;
+            DamageWithDelay();
+        }
+
+        private void DamageWithDelay()
+        {
+            if (_delayTimer.Active)
+                return;
+            _delayTimer.Initialize(0.01f, 0.01f, MakeDamage).Play();
+        }
+
+        private void MakeDamage()
+        {
+            _target.MakeCollizion(_settings.CurrentDamage);
+            _reloadTimer.Initialize(_settings.DamageDelay).Play();
         }
 
         [Serializable]
