@@ -1,5 +1,4 @@
 using Core.Infrastructure.GameFsm;
-using Game.Logic.StaticData;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -11,8 +10,8 @@ namespace Game.Logic.Player.Fsm.States
 
         public Idle(IGameStateMachine stateMachine,
             PlayerInput playerInput, 
-            PlayerDamageHandler.PlayerSettings damageSettings,
-            PlayerShootHandler playerShoot) : base(stateMachine, damageSettings)
+            PlayerDamageHandler damageHandler,
+            PlayerShootHandler playerShoot) : base(stateMachine, damageHandler)
         {
             _playerInput = playerInput;
             _playerShoot = playerShoot;

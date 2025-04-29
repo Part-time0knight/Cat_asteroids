@@ -14,8 +14,8 @@ namespace Game.Logic.Player.Fsm.States
         public Run(IGameStateMachine stateMachine,
             PlayerInput playerInput,
             PlayerMoveHandler playerMove, 
-            PlayerDamageHandler.PlayerSettings damageSettings,
-            PlayerShootHandler playerShoot) : base(stateMachine, damageSettings)
+            PlayerDamageHandler damageHandler,
+            PlayerShootHandler playerShoot) : base(stateMachine, damageHandler)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;

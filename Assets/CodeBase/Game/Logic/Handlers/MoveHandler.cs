@@ -63,8 +63,6 @@ namespace Game.Logic.Handlers
 
             [field: SerializeField] public float MaxSpeed { get; protected set; }
 
-            public Vector2 CurrentPosition { get; set; }
-
             public Settings()
             { }
 

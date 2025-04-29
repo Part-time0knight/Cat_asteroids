@@ -15,22 +15,20 @@ namespace Game.Presentation.ViewModel
         protected override Type Window => typeof(EnemyView);
 
         public EnemyViewModel(IWindowFsm windowFsm,
-            EnemySettingsHandler settings) : base(windowFsm)
+            EnemyDamageHandler.EnemySettings settings) : base(windowFsm)
         {
-            _hitsSettings = settings.DamageSettings;
+            _hitsSettings = settings;
         }
 
         protected override void HandleOpenedWindow(Type uiWindow)
         {
             base.HandleOpenedWindow(uiWindow);
-            _hitsSettings.InvokeHitPointsChange += HitPointsUpdate;
             HitPointsUpdate();
         }
 
         protected override void HandleClosedWindow(Type uiWindow)
         {
             base.HandleClosedWindow(uiWindow);
-            _hitsSettings.InvokeHitPointsChange -= HitPointsUpdate;
         }
 
         public override void InvokeClose()
@@ -45,7 +43,7 @@ namespace Game.Presentation.ViewModel
 
         private void HitPointsUpdate()
         {
-            InvokeHitsUpdate?.Invoke((float)_hitsSettings.CurrentHits / _hitsSettings.HitPoints);
+            
         }
     }
 }

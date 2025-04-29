@@ -1,68 +1,54 @@
 using Game.Logic.Handlers;
-using Game.Logic.Player;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using Random = UnityEngine.Random;
 
 namespace Game.Logic.Enemy
 {
     public class EnemyMoveHandler : MoveHandler
     {
         public Action<GameObject> InvokeCollision;
+        public Action<GameObject> InvokeTrigger;
 
-        private readonly PlayerMoveHandler.PlayerSettings _playerSettings;
-        private readonly Animator _animator;
-        private readonly List<RaycastHit2D> _raycasts;
+        private EnemySettings _settings;
 
-        private Vector2 _playerDirection;
-        private Vector3 _standartScale;
+        public Vector2 Direction { get; set; }
 
         public EnemyMoveHandler(Rigidbody2D body,
-            EnemySettingsHandler stats,
-            IPauseHandler pause,
-            PlayerMoveHandler.PlayerSettings playerSettings,
-            Animator animator)
-            : base(body, stats.MoveSettings)
+            EnemySettings stats) : base(body, stats)
         {
-            _playerSettings = playerSettings;
-            _playerDirection = Vector2.zero;
-            _animator = animator;
-            _standartScale = new(
-                _animator.transform.localScale.x,
-                _animator.transform.localScale.y,
-                _animator.transform.localScale.z);
-            _raycasts = new();
+            _settings = stats;
+            body.OnCollisionEnter2DAsObservable().Subscribe(Collision);
+            body.OnTriggerEnter2DAsObservable().Subscribe(Trigger);
         }
+
+        public void Move()
+            => Move(Direction);
 
         public override void Move(Vector2 speedMultiplier)
         {
-            base.Move(speedMultiplier);
-            Vector3 scale = new(
-                _standartScale.x * Mathf.Sign(speedMultiplier.x),
-                _standartScale.y, _standartScale.z);
-            _animator.transform.localScale = scale;
+            _body.AddForce(speedMultiplier * Random.Range(_settings.RandomRangeSpeed, _settings.Speed), ForceMode2D.Impulse);
+            if (_body.linearVelocity.magnitude > _stats.MaxSpeed)
+                _body.linearVelocity = _body.linearVelocity.normalized * _stats.MaxSpeed;
         }
 
-        public void MoveToPlayer()
-        {
-            _playerDirection = (_playerSettings.CurrentPosition - _body.position).normalized;
-            Move(_playerDirection);
-        }
+        private void Collision(Collision2D collisionObject)
+            => InvokeCollision?.Invoke(collisionObject.gameObject);
 
-        /*protected override Vector2 CollisionCheck(Vector2 speedMultiplier)
-        {
-            _body.Cast(speedMultiplier, _filter, _raycasts, _stats.CurrentSpeed * Time.fixedDeltaTime + _collisionOffset);
-
-            foreach (var hit in _raycasts)
-                InvokeCollision?.Invoke(hit.transform.gameObject);
-            return speedMultiplier;
-        }*/
+        private void Trigger(Collider2D triggerObject)
+            => InvokeTrigger?.Invoke(triggerObject.gameObject);
 
         [Serializable]
         public class EnemySettings : Settings
         {
+            [field: SerializeField] public float RandomRangeSpeed { get; private set; }
+
             public EnemySettings(Settings settings) : base(settings)
-            { }
+            { 
+            
+            }
         }
     }
 }

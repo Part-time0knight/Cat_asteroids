@@ -1,10 +1,11 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
-using Game.Logic.Player;
+using Game.Logic.Handlers;
 using Game.Logic.StaticData;
 using Game.Presentation.View;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Game.Logic.Enemy.Fsm.States
 {
@@ -14,59 +15,56 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly IWindowFsm _windowFsm;
 
         private readonly EnemyMoveHandler _moveHandler;
-        private readonly EnemyTickHandler _tickHandler;
         private readonly EnemyWeaponHandler _weapon;
-        private readonly EnemyDamageHandler.EnemySettings _damageSettings;
+        private readonly EnemyDamageHandler _damageHandler;
 
         public Run(IGameStateMachine stateMachine,
             IWindowFsm windowFsm,
             EnemyMoveHandler moveHandler,
-            EnemyTickHandler tickHandler,
             EnemyWeaponHandler weapon,
-            EnemySettingsHandler settings)
+            EnemyDamageHandler damageHandler)
         {
             _stateMachine = stateMachine;
             _windowFsm = windowFsm;
 
             _moveHandler = moveHandler;
-            _tickHandler = tickHandler;
             _weapon = weapon;
-            _damageSettings = settings.DamageSettings;
+            _damageHandler = damageHandler;
         }
 
         public void OnEnter()
         {
-            _windowFsm.OpenWindow(typeof(EnemyView), inHistory: false);
-            _tickHandler.OnFixedTick += UpdateMove;
-            _damageSettings.InvokeHitPointsChange += OnHit;
-            _moveHandler.InvokeCollision += HitPlayer;
+            _moveHandler.InvokeCollision += Hit;
+            _damageHandler.OnDeath += OnDeath;
+            _moveHandler.InvokeTrigger += OnDisable;
+            _moveHandler.Move();
         }
 
         public void OnExit()
         {
-            _windowFsm.CloseWindow(typeof(EnemyView));
-            _tickHandler.OnFixedTick -= UpdateMove;
-            _damageSettings.InvokeHitPointsChange -= OnHit;
-            _moveHandler.InvokeCollision -= HitPlayer;
+            _moveHandler.InvokeCollision -= Hit;
+            _moveHandler.InvokeTrigger -= OnDisable;
+            _damageHandler.OnDeath -= OnDeath;
             _moveHandler.Stop();
         }
 
-        private void HitPlayer(GameObject gameObject)
+        private void Hit(GameObject gameObject)
         {
-            if (gameObject.tag != Tags.Player)
+            var target = gameObject.GetComponent<UnitHandler>();
+            if (target == null) return;
+            _weapon.TickableDamage(target);
+        }
+
+        private void OnDeath()
+        {
+            _stateMachine.Enter<Dead>();
+        }
+
+        private void OnDisable(GameObject gameObject)
+        {
+            if (gameObject.tag != "Border")
                 return;
-            _weapon.TickableDamage();
-        }
 
-        private void UpdateMove()
-        {
-            _moveHandler.MoveToPlayer();
-        }
-
-        private void OnHit()
-        {
-            if (_damageSettings.CurrentHits == 0f)
-                _stateMachine.Enter<Dead>();
         }
     }
 }

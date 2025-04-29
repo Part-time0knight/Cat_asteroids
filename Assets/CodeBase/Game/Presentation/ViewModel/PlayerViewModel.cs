@@ -29,14 +29,12 @@ namespace Game.Presentation.ViewModel
         {
             base.HandleOpenedWindow(uiWindow);
             _playerSettings.InvokeShot += ReloadUpdate;
-            _hitsSettings.InvokeHitPointsChange += HitPointsUpdate;
         }
 
         protected override void HandleClosedWindow(Type uiWindow)
         {
             base.HandleClosedWindow(uiWindow);
             _playerSettings.InvokeShot -= ReloadUpdate;
-            _hitsSettings.InvokeHitPointsChange -= HitPointsUpdate;
         }
 
         public override void InvokeClose()
@@ -51,7 +49,7 @@ namespace Game.Presentation.ViewModel
 
         private void HitPointsUpdate()
         {
-            InvokeHitsUpdate?.Invoke((float)_hitsSettings.CurrentHits/_hitsSettings.HitPoints);
+            
         }
 
         private void ReloadUpdate()

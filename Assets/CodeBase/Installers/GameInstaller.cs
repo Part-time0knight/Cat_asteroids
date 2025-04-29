@@ -2,7 +2,7 @@ using Core.MVVM.Windows;
 using Game.Domain.Factories.GameFsm;
 using Game.Infrastructure;
 using Game.Logic.Enemy;
-using Game.Logic.Handlers;
+using Game.Logic.Player;
 using Game.Logic.Weapon;
 using Game.Presentation.ViewModel;
 using System;
@@ -20,8 +20,9 @@ namespace Installers
             InstallFactory();
             InstallPools();
             InstallService();
+            InstallDataObjects();
             //InstallViewModel();
-            
+
         }
 
         private void InstallFactory()
@@ -34,12 +35,21 @@ namespace Installers
 
         private void InstallPools()
         {
-            Container.Bind<BulletBuffer>().FromComponentInNewPrefab(_settings.BufferPrefab).AsSingle();
+            Container.Bind<BulletBuffer>().FromComponentInNewPrefab(_settings.Projectiles.BufferPrefab).AsSingle();
             Container.BindMemoryPool<Bullet, Bullet.Pool>()
-                .FromComponentInNewPrefab(_settings.BulletPrefab);
+                .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab);
 
-            //Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
-            //    .FromComponentInNewPrefab(_settings.EnemyHandler);
+            Container.Bind<EnemyBuffer>().FromComponentInNewPrefab(_settings.Enemies.BufferPrefab).AsSingle();
+            Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .FromComponentInNewPrefab(_settings.Enemies.EnemyHandlerPrefab);
+        }
+
+        private void InstallDataObjects()
+        {
+            Container
+                .BindInterfacesAndSelfTo<PlayerData>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallViewModel()
@@ -69,10 +79,10 @@ namespace Installers
             //    .AsSingle()
             //    .NonLazy();
 
-            //Container
-            //    .BindInterfacesAndSelfTo<EnemySpawner>()
-            //    .AsSingle()
-            //    .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<EnemySpawner>()
+                .AsSingle()
+                .NonLazy();
 
             Container
                 .BindInterfacesAndSelfTo<WindowFsm>()
@@ -89,13 +99,30 @@ namespace Installers
         public class Settings
         {
             [field: SerializeField]
-            public BulletBuffer BufferPrefab { get; private set; }
+            public ProjectileSettings Projectiles { get; private set; }
 
             [field: SerializeField]
-            public Bullet BulletPrefab { get; private set; }
+            public EnemySettings Enemies { get; private set; }
 
-            //[field: SerializeField]
-            //public EnemyHandler EnemyHandler { get; private set; }
+            [Serializable]
+            public class ProjectileSettings
+            {
+                [field: SerializeField]
+                public BulletBuffer BufferPrefab { get; private set; }
+
+                [field: SerializeField]
+                public Bullet BulletPrefab { get; private set; }
+            }
+
+            [Serializable]
+            public class EnemySettings
+            {
+                [field: SerializeField]
+                public EnemyHandler EnemyHandlerPrefab { get; private set; }
+
+                [field: SerializeField]
+                public EnemyBuffer BufferPrefab { get; private set; }
+            }
         }
     }
 }

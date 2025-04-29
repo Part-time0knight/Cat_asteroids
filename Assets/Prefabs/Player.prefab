@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5294866936387796420}
   - component: {fileID: 1716016325613425548}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Installer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089958364504637357}
   - component: {fileID: 3607845911613521027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.009382287}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7766512923665431578}
@@ -143,7 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6175339281961653993}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 7580841583255809537}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.196, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7973738547693138740}
   - component: {fileID: 3101597203207834015}
   - component: {fileID: 8884880344640054757}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1.25
   m_LinearDamping: 0.5
   m_AngularDamping: 4
   m_GravityScale: 0
@@ -276,9 +276,9 @@ MonoBehaviour:
   _components:
   - {fileID: 7973738547693138740}
   _identifier: 
-  _useSceneContext: 0
+  _useSceneContext: 1
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 2
 --- !u!60 &8884880344640054757
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -325,7 +325,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.25}
-      - {x: -0.28, y: -0.31}
-      - {x: 0.28, y: -0.31}
+    - - {x: 0, y: 0.15}
+      - {x: -0.18, y: -0.2}
+      - {x: 0.18, y: -0.2}
   m_UseDelaunayMesh: 0

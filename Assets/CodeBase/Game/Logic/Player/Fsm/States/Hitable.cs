@@ -6,28 +6,26 @@ namespace Game.Logic.Player.Fsm.States
     public abstract class Hitable : IState
     {
         protected readonly IGameStateMachine _stateMachine;
-        protected readonly PlayerDamageHandler.PlayerSettings _damageSettings;
+        protected readonly PlayerDamageHandler _damageHandler;
         public Hitable(IGameStateMachine stateMachine,
-            PlayerDamageHandler.PlayerSettings damageSettings)
+            PlayerDamageHandler damageHandler)
         {
             _stateMachine = stateMachine;
-            _damageSettings = damageSettings;
+            _damageHandler = damageHandler;
         }
 
         public virtual void OnEnter()
         {
-            _damageSettings.InvokeHitPointsChange += OnHit;
+            _damageHandler.OnDeath += OnHit;
         }
 
         public virtual void OnExit()
         {
-            _damageSettings.InvokeHitPointsChange -= OnHit;
+            _damageHandler.OnDeath -= OnHit;
         }
 
         protected virtual void OnHit()
         {
-            if (_damageSettings.CurrentHits > 0)
-                return;
             _stateMachine.Enter<Dead>();
         }
     }

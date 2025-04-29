@@ -12,31 +12,20 @@ public class EnemyInstaller : MonoInstaller
     public override void InstallBindings()
     {
         InstallFactories();
-        InstallViewModels();
         InstallFsm();
 
-        InstallPlayerComponents();
+        InstallEnemyComponents();
 
     }
 
-    private void InstallPlayerComponents()
+    private void InstallEnemyComponents()
     {
         Container.BindInstance(_settings.Body).AsSingle();
-        Container.BindInstance(_settings.Animator).AsSingle();
 
         Container.BindInterfacesAndSelfTo<EnemyWeaponHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyMoveHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyTickHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyDamageHandler>().AsSingle();
-        Container.BindInterfacesAndSelfTo<EnemySettingsHandler>().AsSingle();
-    }
-
-    private void InstallViewModels()
-    {
-        Container
-            .BindInterfacesAndSelfTo<EnemyViewModel>()
-            .AsSingle()
-            .NonLazy();
     }
 
     private void InstallFsm()
@@ -64,6 +53,5 @@ public class EnemyInstaller : MonoInstaller
     public class Settings
     {
         [field: SerializeField] public Rigidbody2D Body { get; private set; }
-        [field: SerializeField] public Animator Animator { get; private set; }
     }
 }

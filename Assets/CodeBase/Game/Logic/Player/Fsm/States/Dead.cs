@@ -1,5 +1,4 @@
 using Core.Infrastructure.GameFsm;
-using Game.Logic.StaticData;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -7,7 +6,7 @@ namespace Game.Logic.Player.Fsm.States
     {
 
         public Dead(IGameStateMachine stateMachine,
-            PlayerDamageHandler.PlayerSettings damageSettings) : base(stateMachine, damageSettings)
+            PlayerDamageHandler damageHandler) : base(stateMachine, damageHandler)
         {
         }
 
@@ -18,9 +17,7 @@ namespace Game.Logic.Player.Fsm.States
 
         protected override void OnHit()
         {
-            if (_damageSettings.CurrentHits <= 0)
-                return;
-            _stateMachine.Enter<Idle>();
+            //_stateMachine.Enter<Idle>();
         }
     }
 }

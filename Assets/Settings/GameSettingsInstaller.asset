@@ -17,12 +17,12 @@ MonoBehaviour:
       <AttackDelay>k__BackingField: 0.75
       <Damage>k__BackingField: 1
     Move:
-      <Speed>k__BackingField: 4
-      <MaxSpeed>k__BackingField: 3
-      <ReverseSpeedMultiplier>k__BackingField: 0.262
-      <RotateSpeed>k__BackingField: 16
+      <Speed>k__BackingField: 3.5
+      <MaxSpeed>k__BackingField: 2.5
+      <ReverseSpeedMultiplier>k__BackingField: 0.206
+      <RotateSpeed>k__BackingField: 12
     Hits:
-      <HitPoints>k__BackingField: 3
+      <HitPoints>k__BackingField: 10
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 10
@@ -31,13 +31,15 @@ MonoBehaviour:
     Spawner:
       <HorizontalBorders>k__BackingField: {x: -10, y: 10}
       <VerticalBorders>k__BackingField: {x: -6, y: 6}
+      <MinimalRangeToPlayer>k__BackingField: 3
       <Delay>k__BackingField: 1
   <Enemy>k__BackingField:
     Move:
-      <Speed>k__BackingField: 3
-      <MaxSpeed>k__BackingField: 0
+      <Speed>k__BackingField: 2
+      <MaxSpeed>k__BackingField: 2
+      <RandomRangeSpeed>k__BackingField: 0.5
     Hits:
-      <HitPoints>k__BackingField: 2
+      <HitPoints>k__BackingField: 1
     Damage:
       <Damage>k__BackingField: 1
       <DamageDelay>k__BackingField: 0.5

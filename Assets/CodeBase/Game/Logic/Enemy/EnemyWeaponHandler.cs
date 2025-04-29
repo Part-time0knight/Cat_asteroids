@@ -1,3 +1,4 @@
+using Game.Logic.Handlers;
 using Game.Logic.Misc;
 using Game.Logic.Player;
 using System;
@@ -11,18 +12,18 @@ namespace Game.Logic.Enemy
         private readonly Timer _timer = new();
         private readonly PlayerHandler _playerHandler;
 
-        public EnemyWeaponHandler(EnemySettingsHandler settings, PlayerHandler playerHandler)
+        public EnemyWeaponHandler(Settings settings, PlayerHandler playerHandler)
         {
-            _settings = settings.WeaponSettings;
+            _settings = settings;
             _settings.CurrentDamage = _settings.Damage;
             _playerHandler = playerHandler;
         }
 
-        public void TickableDamage()
+        public void TickableDamage(UnitHandler target)
         {
             if (_timer.Active)
                 return;
-            _playerHandler.MakeCollizion(_settings.CurrentDamage);
+            target.MakeCollizion(_settings.CurrentDamage);
             _timer.Initialize(_settings.DamageDelay).Play();
         }
 

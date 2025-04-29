@@ -7,23 +7,27 @@ namespace Game.Logic.Player
     public class PlayerMoveHandler : MoveHandler
     {
 
-        private PlayerSettings _playerSettings;
+        private readonly PlayerSettings _playerSettings;
+        private readonly IPlayerDataWriter _playerDataWriter;
 
 
         public PlayerMoveHandler(Rigidbody2D body,
-            PlayerSettings stats) : base(body, stats)
+            PlayerSettings stats, IPlayerDataWriter dataWriter) : base(body, stats)
         {
             _playerSettings = stats;
+            _playerDataWriter = dataWriter;
         }
 
         public void Move()
         {
             base.Move(_body.transform.up * Time.fixedDeltaTime);
+            _playerDataWriter.Position = _body.transform.position;
         }
 
         public void ReverseMove()
         {
             base.Move(_body.transform.up * -1f * _playerSettings.ReverseSpeedMultiplier * Time.fixedDeltaTime);
+            _playerDataWriter.Position = _body.transform.position;
         }
 
         public void Rotate(float horizontal)
