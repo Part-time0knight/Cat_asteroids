@@ -1,8 +1,8 @@
 using Game.Logic.Enemy;
+using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Misc;
 using Game.Logic.Player;
 using System;
-using System.ComponentModel;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +14,7 @@ namespace Installers
         [field: SerializeField] public PlayerSettings Player { get; private set; }
         [field: SerializeField] public ProjectileSettings Projectile { get; private set; }
         [field: SerializeField] public EnemySpawnerSettings SpawnerSettings { get; private set; }
-        [field: SerializeField] public EnemySettings Enemy { get; private set; }
+        [field: SerializeField] public EnemiesSettings Enemies { get; private set; }
 
 
         [Serializable]
@@ -32,11 +32,19 @@ namespace Installers
         }
 
         [Serializable]
-        public class EnemySettings
+        public class EnemiesSettings
         {
-            public EnemyMoveHandler.EnemySettings Move;
-            public EnemyDamageHandler.EnemySettings Hits;
-            public EnemyWeaponHandler.Settings Damage;
+            public AsteroidSettings Asteroid;
+
+            [Serializable]
+            public class AsteroidSettings
+            {
+                public EnemyMoveHandler.EnemySettings Move;
+                public EnemyDamageHandler.EnemySettings Hits;
+                public EnemyWeaponHandler.Settings Damage;
+                public AsteroidRotate.Settings Rotate;
+            }
+
         }
 
         [Serializable]
@@ -55,9 +63,10 @@ namespace Installers
 
             Container.BindInstance(SpawnerSettings.Spawner).AsSingle();
 
-            Container.BindInstance(Enemy.Move).AsSingle();
-            Container.BindInstance(Enemy.Hits).AsSingle();
-            Container.BindInstance(Enemy.Damage).AsSingle();
+            Container.BindInstance(Enemies.Asteroid.Move).AsSingle();
+            Container.BindInstance(Enemies.Asteroid.Hits).AsSingle();
+            Container.BindInstance(Enemies.Asteroid.Damage).AsSingle();
+            Container.BindInstance(Enemies.Asteroid.Rotate).AsSingle();
         }
     }
 }

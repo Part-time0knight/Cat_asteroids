@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 7794001429822833844}
+  - {fileID: 7430137560375397357}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -128,8 +128,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.34
+  m_Offset: {x: 0, y: 0.03}
+  m_Radius: 0.31
 --- !u!1 &5040762080325144264
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7814718574830470454}
-  - component: {fileID: 7794001429822833844}
+  - component: {fileID: 7430137560375397357}
   m_Layer: 6
   m_Name: Installer
   m_TagString: Untagged
@@ -162,7 +162,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8610461250106029131}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7794001429822833844
+--- !u!114 &7430137560375397357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,11 +171,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5040762080325144264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41bd3f62c45a92e4c8e555ec64646c42, type: 3}
+  m_Script: {fileID: 11500000, guid: 02c317a3c3e039f4a9c8edf897b3fe4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
     <Body>k__BackingField: {fileID: 6674403964096117228}
+  _asteroidSettings:
+    <Sprite>k__BackingField: {fileID: 2655189692305472034}
 --- !u!1 &6318196271678188511
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +254,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1839377291145181718, guid: 87878b8d16fd35f44b1d762edd890e44, type: 3}
+  m_Sprite: {fileID: 7051816730889191394, guid: 246198ca2d1469348be1a6b3f0d236ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -1,6 +1,7 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
+using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Handlers;
 using Game.Logic.StaticData;
 using Game.Presentation.View;
@@ -17,12 +18,14 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly EnemyMoveHandler _moveHandler;
         private readonly EnemyWeaponHandler _weapon;
         private readonly EnemyDamageHandler _damageHandler;
+        private readonly AsteroidRotate _rotate;
 
         public Run(IGameStateMachine stateMachine,
             IWindowFsm windowFsm,
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
-            EnemyDamageHandler damageHandler)
+            EnemyDamageHandler damageHandler,
+            AsteroidRotate rotate)
         {
             _stateMachine = stateMachine;
             _windowFsm = windowFsm;
@@ -30,6 +33,7 @@ namespace Game.Logic.Enemy.Fsm.States
             _moveHandler = moveHandler;
             _weapon = weapon;
             _damageHandler = damageHandler;
+            _rotate = rotate;
         }
 
         public void OnEnter()
@@ -38,6 +42,7 @@ namespace Game.Logic.Enemy.Fsm.States
             _damageHandler.OnDeath += OnDeath;
             _moveHandler.InvokeTrigger += OnDisable;
             _moveHandler.Move();
+            _rotate.Play();
         }
 
         public void OnExit()
@@ -46,6 +51,7 @@ namespace Game.Logic.Enemy.Fsm.States
             _moveHandler.InvokeTrigger -= OnDisable;
             _damageHandler.OnDeath -= OnDeath;
             _moveHandler.Stop();
+            _rotate.Stop();
         }
 
         private void Hit(GameObject gameObject)

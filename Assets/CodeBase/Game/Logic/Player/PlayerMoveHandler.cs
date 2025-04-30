@@ -21,6 +21,8 @@ namespace Game.Logic.Player
         public void Move()
         {
             base.Move(_body.transform.up * Time.fixedDeltaTime);
+            if (_body.linearVelocity.magnitude > _playerSettings.MaxSpeed)
+                _body.linearVelocity = _body.linearVelocity.normalized * _playerSettings.MaxSpeed;
             _playerDataWriter.Position = _body.transform.position;
         }
 
@@ -42,7 +44,7 @@ namespace Game.Logic.Player
             public float ReverseSpeedMultiplier { get; private set; }
 
             [field: SerializeField] public float RotateSpeed { get; private set; }
-        
+            [field: SerializeField] public float MaxSpeed { get; protected set; }
         }
     }
 }

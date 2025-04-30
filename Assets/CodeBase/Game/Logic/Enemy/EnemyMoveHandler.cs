@@ -29,9 +29,7 @@ namespace Game.Logic.Enemy
 
         public override void Move(Vector2 speedMultiplier)
         {
-            _body.AddForce(speedMultiplier * Random.Range(_settings.RandomRangeSpeed, _settings.Speed), ForceMode2D.Impulse);
-            if (_body.linearVelocity.magnitude > _stats.MaxSpeed)
-                _body.linearVelocity = _body.linearVelocity.normalized * _stats.MaxSpeed;
+            _body.AddForce(speedMultiplier * Random.Range(_settings.MinimalSpeed, _settings.Speed), ForceMode2D.Impulse);
         }
 
         private void Collision(Collision2D collisionObject)
@@ -43,7 +41,7 @@ namespace Game.Logic.Enemy
         [Serializable]
         public class EnemySettings : Settings
         {
-            [field: SerializeField] public float RandomRangeSpeed { get; private set; }
+            [field: SerializeField] public float MinimalSpeed { get; private set; }
 
             public EnemySettings(Settings settings) : base(settings)
             { 
