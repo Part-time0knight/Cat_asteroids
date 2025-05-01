@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Game.Logic.Player.Fsm;
 using Game.Presentation.ViewModel;
+using Game.Logic.Effects.Particles;
 
 namespace Installers
 {

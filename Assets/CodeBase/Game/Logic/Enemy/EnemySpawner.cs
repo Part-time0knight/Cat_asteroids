@@ -45,15 +45,6 @@ namespace Game.Logic.Enemy
             StopSpawn();
         }
 
-        public void OnPause(bool active)
-        {
-            if (_timer.Active)
-                if (active)
-                    _timer.Pause();
-                else
-                    _timer.Play();
-        }
-
         public void BeginSpawn()
         {
             _breakTimer = false;

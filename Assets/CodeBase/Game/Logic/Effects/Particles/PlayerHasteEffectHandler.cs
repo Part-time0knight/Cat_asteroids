@@ -1,9 +1,10 @@
 using Game.Logic.Misc;
+using Game.Logic.Player;
 using System;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Effects.Particles
 {
     public class PlayerHasteEffectHandler : IInitializable, IDisposable
     {
@@ -47,6 +48,7 @@ namespace Game.Logic.Player
             if (_timer.Active)
                 _timer.Stop();
             float emissionRate = _settings.EmissionMin + Mathf.InverseLerp(0, _moveSettings.MaxSpeed, speed) * _settings.EmissionRate;
+            Debug.Log(Mathf.InverseLerp(0, _moveSettings.MaxSpeed, speed));
             _emission.rateOverTime = emissionRate;
             _timer.Initialize(Time.fixedDeltaTime * 2, Time.fixedDeltaTime, StopHaste).Play();
         }

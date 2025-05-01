@@ -43,6 +43,10 @@ namespace Installers
             Container.Bind<EnemyBuffer>().FromComponentInNewPrefab(_settings.Enemies.BufferPrefab).AsSingle();
             Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
                 .FromComponentInNewPrefab(_settings.Enemies.EnemyHandlerPrefab);
+
+            Container.Bind<ExplosionBuffer>().FromComponentInNewPrefab(_settings.Explosion.BufferPrefab).AsSingle();
+            Container.BindMemoryPool<Explosion, Explosion.Pool>()
+                .FromComponentInNewPrefab(_settings.Explosion.ExplosionPrefab);
         }
 
         private void InstallDataObjects()
@@ -86,6 +90,11 @@ namespace Installers
                 .NonLazy();
 
             Container
+                .BindInterfacesAndSelfTo<ExplosionSpawner>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
                 .BindInterfacesAndSelfTo<WindowFsm>()
                 .AsSingle()
                 .NonLazy();
@@ -104,6 +113,8 @@ namespace Installers
 
             [field: SerializeField]
             public EnemySettings Enemies { get; private set; }
+            [field: SerializeField]
+            public ExplosionSettings Explosion { get; private set; }
 
             [Serializable]
             public class ProjectileSettings
@@ -121,8 +132,8 @@ namespace Installers
                 [field: SerializeField]
                 public ExplosionBuffer BufferPrefab { get; private set; }
 
-                //[field: SerializeField]
-
+                [field: SerializeField]
+                public Explosion ExplosionPrefab { get; private set; }
 
             }
 
