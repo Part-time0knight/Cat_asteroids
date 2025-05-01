@@ -79,11 +79,6 @@ namespace Installers
 
         private void InstallService()
         {
-            //Container
-            //    .BindInterfacesTo<PauseHandler>()
-            //    .AsSingle()
-            //    .NonLazy();
-
             Container
                 .BindInterfacesAndSelfTo<EnemySpawner>()
                 .AsSingle()

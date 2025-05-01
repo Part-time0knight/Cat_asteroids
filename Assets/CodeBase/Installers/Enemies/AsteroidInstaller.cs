@@ -14,7 +14,12 @@ namespace Installers.Enemies
             Container
                 .BindInstance(_asteroidSettings.Sprite)
                 .AsSingle();
-            Container.BindInterfacesAndSelfTo<AsteroidRotate>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<AsteroidRotate>()
+                .AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<AsteroidViewHandler>()
+                .AsSingle();
         }
 
         [Serializable]

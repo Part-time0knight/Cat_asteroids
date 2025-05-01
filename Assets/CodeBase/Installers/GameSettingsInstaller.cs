@@ -45,6 +45,7 @@ namespace Installers
                 public EnemyDamageHandler.EnemySettings Hits;
                 public EnemyWeaponHandler.Settings Damage;
                 public AsteroidRotate.Settings Rotate;
+                public AsteroidViewHandler.Settings View;
             }
 
         }
@@ -70,6 +71,7 @@ namespace Installers
             Container.BindInstance(Enemies.Asteroid.Hits).AsSingle();
             Container.BindInstance(Enemies.Asteroid.Damage).AsSingle();
             Container.BindInstance(Enemies.Asteroid.Rotate).AsSingle();
+            Container.BindInstance(Enemies.Asteroid.View).AsSingle();
         }
     }
 }
