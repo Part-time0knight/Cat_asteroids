@@ -1,12 +1,8 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
-using Core.MVVM.Windows;
 using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Handlers;
-using Game.Logic.StaticData;
-using Game.Presentation.View;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Game.Logic.Enemy.Fsm.States
 {

@@ -17,14 +17,17 @@ MonoBehaviour:
       <AttackDelay>k__BackingField: 0.65
       <Damage>k__BackingField: 1
     Move:
-      <Speed>k__BackingField: 6
-      <ReverseSpeedMultiplier>k__BackingField: 0.206
+      <Speed>k__BackingField: 5
+      <ReverseSpeedMultiplier>k__BackingField: 0.3
       <MaxSpeed>k__BackingField: 10
-      <RotateSpeed>k__BackingField: 100
+      <RotateSpeed>k__BackingField: 180
       <RotateDampingOnPress>k__BackingField: 0.1
       <RotateDampingOnFree>k__BackingField: 20
     Hits:
       <HitPoints>k__BackingField: 10
+    Haste:
+      <EmissionMin>k__BackingField: 10
+      <EmissionRate>k__BackingField: 120
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 30

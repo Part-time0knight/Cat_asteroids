@@ -1,6 +1,4 @@
 using Core.Infrastructure.GameFsm;
-using Game.Logic.StaticData;
-using UnityEngine;
 
 
 namespace Game.Logic.Player.Fsm.States

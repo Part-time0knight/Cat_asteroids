@@ -23,6 +23,7 @@ namespace Installers
             public PlayerShootHandler.PlayerSettings Weapon;
             public PlayerMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
+            public PlayerHasteEffectHandler.Settings Haste;
         }
 
         [Serializable]
@@ -58,6 +59,7 @@ namespace Installers
             Container.BindInstance(Player.Weapon).AsSingle();
             Container.BindInstance(Player.Move).AsSingle();
             Container.BindInstance(Player.Hits).AsSingle();
+            Container.BindInstance(Player.Haste).AsSingle();
 
             Container.BindInstance(Projectile.Move).AsSingle();
 

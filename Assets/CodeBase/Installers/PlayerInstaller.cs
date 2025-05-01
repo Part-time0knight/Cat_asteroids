@@ -52,13 +52,31 @@ namespace Installers
 
         private void InstallPlayerComponents()
         {
-            Container.BindInstance(_settings.Weapon).AsSingle();
-            Container.BindInstance(_settings.Body).AsSingle();
+            Container
+                .BindInstance(_settings.Weapon)
+                .AsSingle();
+            Container
+                .BindInstance(_settings.Body)
+                .AsSingle();
+            Container
+                .BindInstance(_settings.HasteParticles)
+                .AsSingle();
 
-            Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerShootHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerMoveHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerDamageHandler>().AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<PlayerInput>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<PlayerShootHandler>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<PlayerMoveHandler>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<PlayerDamageHandler>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<PlayerHasteEffectHandler>()
+                .AsSingle();
         }
 
         [Serializable]
@@ -66,6 +84,7 @@ namespace Installers
         {
             [field: SerializeField] public Transform Weapon { get; private set; }
             [field: SerializeField] public Rigidbody2D Body { get; private set; }
+            [field: SerializeField] public ParticleSystem HasteParticles { get; private set; }
         }
     }
 }
