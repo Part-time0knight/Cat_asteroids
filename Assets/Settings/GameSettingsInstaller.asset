@@ -14,29 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Player>k__BackingField:
     Weapon:
-      <AttackDelay>k__BackingField: 0.5
+      <AttackDelay>k__BackingField: 0.65
       <Damage>k__BackingField: 1
     Move:
-      <Speed>k__BackingField: 3.5
+      <Speed>k__BackingField: 6
       <ReverseSpeedMultiplier>k__BackingField: 0.206
-      <RotateSpeed>k__BackingField: 12
-      <MaxSpeed>k__BackingField: 2.5
+      <MaxSpeed>k__BackingField: 10
+      <RotateSpeed>k__BackingField: 100
+      <RotateDampingOnPress>k__BackingField: 0.1
+      <RotateDampingOnFree>k__BackingField: 20
     Hits:
       <HitPoints>k__BackingField: 10
   <Projectile>k__BackingField:
     Move:
-      <Speed>k__BackingField: 10
+      <Speed>k__BackingField: 30
   <SpawnerSettings>k__BackingField:
     Spawner:
-      <HorizontalBorders>k__BackingField: {x: -10, y: 10}
-      <VerticalBorders>k__BackingField: {x: -6, y: 6}
+      <HorizontalBorders>k__BackingField: {x: -32, y: 32}
+      <VerticalBorders>k__BackingField: {x: -20, y: 20}
       <MinimalRangeToPlayer>k__BackingField: 3
       <Delay>k__BackingField: 1
   <Enemies>k__BackingField:
     Asteroid:
       Move:
-        <Speed>k__BackingField: 2
-        <MinimalSpeed>k__BackingField: 0
+        <Speed>k__BackingField: 6
+        <MinimalSpeed>k__BackingField: 0.4
       Hits:
         <HitPoints>k__BackingField: 1
       Damage:

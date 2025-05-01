@@ -1,6 +1,7 @@
 using Core.MVVM.Windows;
 using Game.Domain.Factories.GameFsm;
 using Game.Infrastructure;
+using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
 using Game.Logic.Player;
 using Game.Logic.Weapon;
@@ -112,6 +113,17 @@ namespace Installers
 
                 [field: SerializeField]
                 public Bullet BulletPrefab { get; private set; }
+            }
+
+            [Serializable]
+            public class ExplosionSettings
+            {
+                [field: SerializeField]
+                public ExplosionBuffer BufferPrefab { get; private set; }
+
+                //[field: SerializeField]
+
+
             }
 
             [Serializable]

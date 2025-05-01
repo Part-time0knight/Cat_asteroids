@@ -13,7 +13,6 @@ namespace Game.Logic.Enemy.Fsm.States
     public class Run : IState
     {
         private readonly IGameStateMachine _stateMachine;
-        private readonly IWindowFsm _windowFsm;
 
         private readonly EnemyMoveHandler _moveHandler;
         private readonly EnemyWeaponHandler _weapon;
@@ -21,14 +20,12 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly AsteroidRotate _rotate;
 
         public Run(IGameStateMachine stateMachine,
-            IWindowFsm windowFsm,
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
             EnemyDamageHandler damageHandler,
             AsteroidRotate rotate)
         {
             _stateMachine = stateMachine;
-            _windowFsm = windowFsm;
 
             _moveHandler = moveHandler;
             _weapon = weapon;
