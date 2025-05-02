@@ -19,7 +19,7 @@ namespace Game.Logic.Handlers
         }
 
 
-        public void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage)
         {
             _hits -= damage;
             _hits = Mathf.Max(Mathf.Min(_hits, _stats.HitPoints), 0);

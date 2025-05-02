@@ -9,15 +9,19 @@ namespace Game.Logic.Player.Animation
         private readonly SpriteRenderer _sprite;
         private readonly Settings _settings;
         private readonly Color _baseColor;
+        private readonly ParticleSystem _particleSystem;
 
         private Sequence _sequence;
 
 
-        public PlayerTakeDamage(SpriteRenderer spriteRenderer, Settings settings)
+        public PlayerTakeDamage(SpriteRenderer spriteRenderer,
+            ParticleSystem particleSystem,
+            Settings settings)
         {
             _sprite = spriteRenderer;
             _settings = settings;
             _baseColor = _sprite.color;
+            _particleSystem = particleSystem;
         }
 
         public void Dispose()
@@ -46,12 +50,14 @@ namespace Game.Logic.Player.Animation
             }
 
             _sequence.OnComplete(Reset).Play();
+            _particleSystem.Play();
         }
 
         private void Reset()
         {
             if (_sequence != null)
                 _sequence.Kill();
+            _particleSystem.Stop();
             _sprite.color = _baseColor;
         }
 

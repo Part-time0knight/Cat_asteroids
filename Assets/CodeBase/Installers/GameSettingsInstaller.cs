@@ -28,6 +28,7 @@ namespace Installers
             public PlayerHasteEffectHandler.Settings Haste;
             public PlayerWeaponHandler.PlayerSettings Damage;
             public PlayerTakeDamage.Settings TakeDamageAnimation;
+            public PlayerInvincibilityHandler.Settings Invincibility;
         }
 
         [Serializable]
@@ -67,6 +68,7 @@ namespace Installers
             Container.BindInstance(Player.Haste).AsSingle();
             Container.BindInstance(Player.Damage).AsSingle();
             Container.BindInstance(Player.TakeDamageAnimation).AsSingle();
+            Container.BindInstance(Player.Invincibility).AsSingle();
 
             Container.BindInstance(Projectile.Move).AsSingle();
 

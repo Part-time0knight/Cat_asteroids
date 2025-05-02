@@ -1,32 +1,20 @@
-using Core.Infrastructure.GameFsm;
-using Game.Logic.Player.Animation;
+using Core.Infrastructure.GameFsm.States;
 
 namespace Game.Logic.Player.Fsm.States
 {
-    public class Dead : Hitable
+    public class Dead : IState
     {
 
-        public Dead(IGameStateMachine stateMachine,
-            PlayerDamageHandler damageHandler,
-            PlayerMoveHandler moveHandler,
-            PlayerWeaponHandler weaponHandler,
-            PlayerTakeDamage takeDamageAnimation)
-            : base(stateMachine,
-                  damageHandler,
-                  moveHandler,
-                  weaponHandler,
-                  takeDamageAnimation)
+        public Dead()
         {
         }
 
-        public override void OnEnter()
+        public void OnEnter()
         {
-            base.OnEnter();
         }
 
-        protected override void InvokeDead()
+        public void OnExit()
         {
-            //_stateMachine.Enter<Idle>();
         }
     }
 }

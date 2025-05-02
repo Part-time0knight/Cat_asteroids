@@ -61,9 +61,6 @@ namespace Installers
                 .BindInstance(_settings.Body)
                 .AsSingle();
             Container
-                .BindInstance(_settings.HasteParticles)
-                .AsSingle();
-            Container
                 .BindInstance(_settings.SpriteRenderer)
                 .AsSingle();
 
@@ -85,10 +82,16 @@ namespace Installers
 
             Container.
                 BindInterfacesAndSelfTo<PlayerHasteEffectHandler>()
-                .AsSingle();
+                .AsSingle()
+                .WithArguments(_settings.HasteParticles);
 
             Container.
                 BindInterfacesAndSelfTo<PlayerTakeDamage>()
+                .AsSingle()
+                .WithArguments(_settings.DamageParticles);
+
+            Container.
+                BindInterfacesAndSelfTo<PlayerInvincibilityHandler>()
                 .AsSingle();
         }
 
@@ -98,7 +101,7 @@ namespace Installers
             [field: SerializeField] public Transform Weapon { get; private set; }
             [field: SerializeField] public Rigidbody2D Body { get; private set; }
             [field: SerializeField] public ParticleSystem HasteParticles { get; private set; }
-
+            [field: SerializeField] public ParticleSystem DamageParticles { get; private set; }
             [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         }
     }

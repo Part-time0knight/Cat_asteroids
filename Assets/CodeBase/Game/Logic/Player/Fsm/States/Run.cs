@@ -12,16 +12,20 @@ namespace Game.Logic.Player.Fsm.States
 
         public Run(IGameStateMachine stateMachine,
             PlayerInput playerInput,
+            PlayerHandler playerHandler,
             PlayerMoveHandler playerMove, 
             PlayerDamageHandler damageHandler,
             PlayerShootHandler playerShoot,
             PlayerWeaponHandler weaponHandler,
-            PlayerTakeDamage takeDamageAnimation) 
+            PlayerTakeDamage takeDamageAnimation,
+            PlayerInvincibilityHandler playerInvincibility) 
             : base(stateMachine,
                 damageHandler,
                 playerMove,
                 weaponHandler,
-                takeDamageAnimation)
+                takeDamageAnimation,
+                playerHandler,
+                playerInvincibility)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;
