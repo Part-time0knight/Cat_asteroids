@@ -11,7 +11,13 @@ namespace Game.Logic.Player.Fsm.States
         public Idle(IGameStateMachine stateMachine,
             PlayerInput playerInput, 
             PlayerDamageHandler damageHandler,
-            PlayerShootHandler playerShoot) : base(stateMachine, damageHandler)
+            PlayerShootHandler playerShoot,
+            PlayerMoveHandler moveHandler,
+            PlayerWeaponHandler weaponHandler) 
+            : base(stateMachine,
+                  damageHandler,
+                  moveHandler,
+                  weaponHandler)
         {
             _playerInput = playerInput;
             _playerShoot = playerShoot;

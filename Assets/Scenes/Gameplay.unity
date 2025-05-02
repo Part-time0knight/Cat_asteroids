@@ -560,22 +560,6 @@ PrefabInstance:
       propertyPath: _context
       value: 
       objectReference: {fileID: 1851656408}
-    - target: {fileID: 3607845911613521027, guid: 26636cf884a4ff249af81ee7d9767056, type: 3}
-      propertyPath: m_Size.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3607845911613521027, guid: 26636cf884a4ff249af81ee7d9767056, type: 3}
-      propertyPath: m_Size.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3607845911613521027, guid: 26636cf884a4ff249af81ee7d9767056, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cd6218a83145cd54395af6f132038a7f, type: 3}
-    - target: {fileID: 3607845911613521027, guid: 26636cf884a4ff249af81ee7d9767056, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7766512923665431578, guid: 26636cf884a4ff249af81ee7d9767056, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -31,17 +31,17 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public void OnEnter()
         {
-            _moveHandler.InvokeCollision += Hit;
+            _moveHandler.OnCollision += Hit;
             _damageHandler.OnDeath += OnDeath;
-            _moveHandler.InvokeTrigger += OnDisable;
+            _moveHandler.OnTrigger += OnDisable;
             _moveHandler.Move();
             _rotate.Play();
         }
 
         public void OnExit()
         {
-            _moveHandler.InvokeCollision -= Hit;
-            _moveHandler.InvokeTrigger -= OnDisable;
+            _moveHandler.OnCollision -= Hit;
+            _moveHandler.OnTrigger -= OnDisable;
             _damageHandler.OnDeath -= OnDeath;
             _moveHandler.Stop();
             _rotate.Stop();

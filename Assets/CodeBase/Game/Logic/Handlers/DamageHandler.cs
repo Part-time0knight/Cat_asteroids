@@ -26,7 +26,6 @@ namespace Game.Logic.Handlers
             OnTakeDamage?.Invoke(_hits);
             if (_hits <= 0)
                 OnDeath?.Invoke();
-            Debug.Log("take damage! " + GetType().ToString());
         }
 
         public class Settings

@@ -37,7 +37,7 @@ namespace Game.Logic.Enemy
             _moveHandler = moveHandler;
             _fsm = fsm;
             _damageHandler.OnDeath += InvokeDeath;
-            _moveHandler.InvokeTrigger += InvokeDeactivate;
+            _moveHandler.OnTrigger += InvokeDeactivate;
         }
 
         private void InvokeDeath()
@@ -65,7 +65,7 @@ namespace Game.Logic.Enemy
         private void OnDestroy()
         {
             _damageHandler.OnDeath -= InvokeDeath;
-            _moveHandler.InvokeTrigger -= InvokeDeactivate;
+            _moveHandler.OnTrigger -= InvokeDeactivate;
         }
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>

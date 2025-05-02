@@ -15,7 +15,7 @@ namespace Game.Logic.Weapon
 
         protected virtual void Awake()
         {
-            _bulletMove.InvokeCollision += OnHit;
+            _bulletMove.OnTrigger += OnHit;
         }
 
         protected virtual void Initialize(Vector2 startPos, Vector2 targetPos)
@@ -39,7 +39,7 @@ namespace Game.Logic.Weapon
 
         private void OnDestroy()
         {
-            _bulletMove.InvokeCollision -= OnHit;
+            _bulletMove.OnTrigger -= OnHit;
         }
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, Bullet>

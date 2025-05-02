@@ -6,7 +6,13 @@ namespace Game.Logic.Player.Fsm.States
     {
 
         public Dead(IGameStateMachine stateMachine,
-            PlayerDamageHandler damageHandler) : base(stateMachine, damageHandler)
+            PlayerDamageHandler damageHandler,
+            PlayerMoveHandler moveHandler,
+            PlayerWeaponHandler weaponHandler)
+            : base(stateMachine,
+                  damageHandler,
+                  moveHandler,
+                  weaponHandler)
         {
         }
 

@@ -26,13 +26,16 @@ MonoBehaviour:
     Haste:
       <EmissionMin>k__BackingField: 0
       <EmissionRate>k__BackingField: 160
+    Damage:
+      <Damage>k__BackingField: 1
+      <DamageDelay>k__BackingField: 1
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 30
   <SpawnerSettings>k__BackingField:
     Spawner:
-      <HorizontalBorders>k__BackingField: {x: -32, y: 32}
-      <VerticalBorders>k__BackingField: {x: -20, y: 20}
+      <HorizontalBorders>k__BackingField: {x: -28, y: 28}
+      <VerticalBorders>k__BackingField: {x: -16, y: 16}
       <MinimalRangeToPlayer>k__BackingField: 3
       <Delay>k__BackingField: 0.8
   <Enemies>k__BackingField:

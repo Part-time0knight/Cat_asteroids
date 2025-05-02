@@ -25,6 +25,7 @@ namespace Installers
             public PlayerMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
             public PlayerHasteEffectHandler.Settings Haste;
+            public PlayerWeaponHandler.PlayerSettings Damage;
         }
 
         [Serializable]
@@ -43,7 +44,7 @@ namespace Installers
             {
                 public EnemyMoveHandler.EnemySettings Move;
                 public EnemyDamageHandler.EnemySettings Hits;
-                public EnemyWeaponHandler.Settings Damage;
+                public EnemyWeaponHandler.EnemySettings Damage;
                 public AsteroidRotate.Settings Rotate;
                 public AsteroidViewHandler.Settings View;
             }
@@ -62,6 +63,7 @@ namespace Installers
             Container.BindInstance(Player.Move).AsSingle();
             Container.BindInstance(Player.Hits).AsSingle();
             Container.BindInstance(Player.Haste).AsSingle();
+            Container.BindInstance(Player.Damage).AsSingle();
 
             Container.BindInstance(Projectile.Move).AsSingle();
 

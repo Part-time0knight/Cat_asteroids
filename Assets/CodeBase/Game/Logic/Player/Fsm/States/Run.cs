@@ -13,7 +13,12 @@ namespace Game.Logic.Player.Fsm.States
             PlayerInput playerInput,
             PlayerMoveHandler playerMove, 
             PlayerDamageHandler damageHandler,
-            PlayerShootHandler playerShoot) : base(stateMachine, damageHandler)
+            PlayerShootHandler playerShoot,
+            PlayerWeaponHandler weaponHandler) 
+            : base(stateMachine,
+                damageHandler,
+                playerMove,
+                weaponHandler)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;

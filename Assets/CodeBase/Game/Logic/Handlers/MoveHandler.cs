@@ -1,12 +1,15 @@
 using System;
-using System.Collections.Generic;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Logic.Handlers
 {
     public class MoveHandler
     {
+        public Action<GameObject> OnTrigger;
+        public Action<GameObject> OnCollision;
+
         protected Vector2 Velocity 
         {
             get => _body.linearVelocity;
@@ -21,6 +24,8 @@ namespace Game.Logic.Handlers
         {
             _body = body;
             _stats = stats;
+            body.OnTriggerEnter2DAsObservable().Subscribe(InvokeTrigger);
+            body.OnCollisionEnter2DAsObservable().Subscribe(InvokeCollision);
         }
 
         public virtual void Move(Vector2 speedMultiplier)
@@ -32,24 +37,15 @@ namespace Game.Logic.Handlers
         public void Stop()
             => _body.linearVelocity = Vector2.zero;
 
+        private void InvokeTrigger(Collider2D collision)
+            => OnTrigger?.Invoke(collision.gameObject);
+
+        private void InvokeCollision(Collision2D collisionObject)
+            => OnCollision?.Invoke(collisionObject.gameObject);
 
         public class Settings
         {
             [field: SerializeField] public float Speed { get; protected set; }
-
-            
-
-            public Settings()
-            { }
-
-            public Settings(float speed)
-            {
-                Speed = speed;
-            }
-
-            public Settings(Settings settings) : this(
-                settings.Speed)
-            { }
         }
     }
 }

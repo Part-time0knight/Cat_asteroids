@@ -76,6 +76,10 @@ namespace Installers
                 BindInterfacesAndSelfTo<PlayerDamageHandler>()
                 .AsSingle();
             Container.
+                BindInterfacesAndSelfTo<PlayerWeaponHandler>()
+                .AsSingle();
+
+            Container.
                 BindInterfacesAndSelfTo<PlayerHasteEffectHandler>()
                 .AsSingle();
         }
