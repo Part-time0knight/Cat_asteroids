@@ -1,6 +1,19 @@
 using UnityEngine;
 
-public interface IPlayerDataWriter
+namespace Game.Logic.Player
 {
-    Vector2 Position { set; }
+    public interface IPlayerPositionWriter
+    {
+        Vector2 Position { set; }
+    }
+
+    public interface IPlayerScoreWriter
+    {
+        int Score { set; }
+    }
+
+    public interface IPlayerHitsWriter
+    {
+        int Hits { set; }
+    }
 }

@@ -5,7 +5,6 @@ using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
 using Game.Logic.Player;
 using Game.Logic.Weapon;
-using Game.Presentation.ViewModel;
 using System;
 using UnityEngine;
 using Zenject;
@@ -59,22 +58,10 @@ namespace Installers
 
         private void InstallViewModel()
         {
-            Container
-                .BindInterfacesAndSelfTo<TestingToolsViewModel>()
-                .AsSingle()
-                .NonLazy();
-            Container
-                .BindInterfacesAndSelfTo<GameplayButtonsViewModel>()
-                .AsSingle()
-                .NonLazy();
-            Container
-                .BindInterfacesAndSelfTo<MenuPauseViewModel>()
-                .AsSingle()
-                .NonLazy();
-            Container
-                .BindInterfacesAndSelfTo<SettingsViewModel>()
-                .AsSingle()
-                .NonLazy();
+            //Container
+            //    .BindInterfacesAndSelfTo<TestingToolsViewModel>()
+            //    .AsSingle()
+            //    .NonLazy();
         }
 
         private void InstallService()

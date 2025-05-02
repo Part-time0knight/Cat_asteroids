@@ -3,7 +3,6 @@ using Zenject;
 using UnityEngine;
 using System;
 using Game.Logic.Player.Fsm;
-using Game.Presentation.ViewModel;
 using Game.Logic.Effects.Particles;
 using Game.Logic.Player.Animation;
 
@@ -18,7 +17,6 @@ namespace Installers
         {
             InstallFactories();
             InstallPlayerComponents();
-            //InstallViewModels();
             InstallFsm();
 
         }
@@ -32,14 +30,6 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<PlayerFsm>()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallViewModels()
-        {
-            Container
-                .BindInterfacesAndSelfTo<PlayerViewModel>()
                 .AsSingle()
                 .NonLazy();
         }

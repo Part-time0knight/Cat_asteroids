@@ -1,7 +1,6 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
-using Game.Presentation.View;
 
 namespace Game.Infrastructure
 {
@@ -21,7 +20,7 @@ namespace Game.Infrastructure
         public void OnEnter()
         { 
             WindowResolve();
-            _windowFsm.OpenWindow(typeof(GameplayButtonsView), true);
+            //_windowFsm.OpenWindow(typeof(GameplayButtonsView), true);
         }
 
         public void OnExit()
@@ -32,10 +31,10 @@ namespace Game.Infrastructure
         private void WindowResolve()
         {
             _windowResolve.CleanUp();
-            _windowResolve.Set<TestingToolsView>();
-            _windowResolve.Set<GameplayButtonsView>();
-            _windowResolve.Set<MenuPauseView>();
-            _windowResolve.Set<SettingsView>();
+            //_windowResolve.Set<TestingToolsView>();
+            //_windowResolve.Set<GameplayButtonsView>();
+            //_windowResolve.Set<MenuPauseView>();
+            //_windowResolve.Set<SettingsView>();
         }
     }
 }

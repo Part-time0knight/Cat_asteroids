@@ -33,6 +33,8 @@ MonoBehaviour:
       <DamageColor>k__BackingField: {r: 1, g: 0, b: 0, a: 0.74509805}
       <Length>k__BackingField: 2
       <TicLength>k__BackingField: 0.15
+    Invincibility:
+      <Duration>k__BackingField: 1
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 30

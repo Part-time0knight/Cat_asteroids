@@ -1,6 +1,19 @@
 using UnityEngine;
 
-public interface IPlayerDataReader
+namespace Game.Logic.Player
 {
-    Vector2 Position { get; }
+    public interface IPlayerPositionReader
+    {
+        Vector2 Position { get; }
+    }
+
+    public interface IPlayerScoreReader
+    {
+        int Score { get; }
+    }
+
+    public interface IPlayerHitsReader
+    {
+        int Hits { get; }
+    }
 }

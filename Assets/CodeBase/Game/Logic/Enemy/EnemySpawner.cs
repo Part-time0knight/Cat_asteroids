@@ -13,7 +13,7 @@ namespace Game.Logic.Enemy
     public class EnemySpawner : IInitializable, IDisposable
     {
 
-        private readonly IPlayerDataReader _playerDataReader;
+        private readonly IPlayerPositionReader _playerDataReader;
         private readonly EnemyHandler.Pool _pool;
         private readonly Timer _timer;
         private readonly Settings _settings;
@@ -26,7 +26,7 @@ namespace Game.Logic.Enemy
 
         public EnemySpawner(EnemyHandler.Pool pool,
             Settings settings,
-            IPlayerDataReader playerDataReader)
+            IPlayerPositionReader playerDataReader)
         {
             _pool = pool;
             _timer = new();

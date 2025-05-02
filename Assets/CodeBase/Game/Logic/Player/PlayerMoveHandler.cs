@@ -9,10 +9,10 @@ namespace Game.Logic.Player
         public event Action<float> OnHaste;
 
         private readonly PlayerSettings _playerSettings;
-        private readonly IPlayerDataWriter _playerDataWriter;
+        private readonly IPlayerPositionWriter _playerDataWriter;
 
         public PlayerMoveHandler(Rigidbody2D body,
-            PlayerSettings stats, IPlayerDataWriter dataWriter) : base(body, stats)
+            PlayerSettings stats, IPlayerPositionWriter dataWriter) : base(body, stats)
         {
             _playerSettings = stats;
             _playerDataWriter = dataWriter;
