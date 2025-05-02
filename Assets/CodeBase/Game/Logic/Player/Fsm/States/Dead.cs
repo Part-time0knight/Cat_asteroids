@@ -1,4 +1,5 @@
 using Core.Infrastructure.GameFsm;
+using Game.Logic.Player.Animation;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -8,11 +9,13 @@ namespace Game.Logic.Player.Fsm.States
         public Dead(IGameStateMachine stateMachine,
             PlayerDamageHandler damageHandler,
             PlayerMoveHandler moveHandler,
-            PlayerWeaponHandler weaponHandler)
+            PlayerWeaponHandler weaponHandler,
+            PlayerTakeDamage takeDamageAnimation)
             : base(stateMachine,
                   damageHandler,
                   moveHandler,
-                  weaponHandler)
+                  weaponHandler,
+                  takeDamageAnimation)
         {
         }
 
@@ -21,7 +24,7 @@ namespace Game.Logic.Player.Fsm.States
             base.OnEnter();
         }
 
-        protected override void OnHit()
+        protected override void InvokeDead()
         {
             //_stateMachine.Enter<Idle>();
         }

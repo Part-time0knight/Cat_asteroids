@@ -1,4 +1,5 @@
 using Core.Infrastructure.GameFsm;
+using Game.Logic.Player.Animation;
 
 
 namespace Game.Logic.Player.Fsm.States
@@ -14,11 +15,13 @@ namespace Game.Logic.Player.Fsm.States
             PlayerMoveHandler playerMove, 
             PlayerDamageHandler damageHandler,
             PlayerShootHandler playerShoot,
-            PlayerWeaponHandler weaponHandler) 
+            PlayerWeaponHandler weaponHandler,
+            PlayerTakeDamage takeDamageAnimation) 
             : base(stateMachine,
                 damageHandler,
                 playerMove,
-                weaponHandler)
+                weaponHandler,
+                takeDamageAnimation)
         {
             _playerInput = playerInput;
             _playerMove = playerMove;

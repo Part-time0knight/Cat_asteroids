@@ -5,6 +5,7 @@ using System;
 using Game.Logic.Player.Fsm;
 using Game.Presentation.ViewModel;
 using Game.Logic.Effects.Particles;
+using Game.Logic.Player.Animation;
 
 namespace Installers
 {
@@ -62,6 +63,9 @@ namespace Installers
             Container
                 .BindInstance(_settings.HasteParticles)
                 .AsSingle();
+            Container
+                .BindInstance(_settings.SpriteRenderer)
+                .AsSingle();
 
             Container.
                 BindInterfacesAndSelfTo<PlayerInput>()
@@ -82,6 +86,10 @@ namespace Installers
             Container.
                 BindInterfacesAndSelfTo<PlayerHasteEffectHandler>()
                 .AsSingle();
+
+            Container.
+                BindInterfacesAndSelfTo<PlayerTakeDamage>()
+                .AsSingle();
         }
 
         [Serializable]
@@ -90,6 +98,8 @@ namespace Installers
             [field: SerializeField] public Transform Weapon { get; private set; }
             [field: SerializeField] public Rigidbody2D Body { get; private set; }
             [field: SerializeField] public ParticleSystem HasteParticles { get; private set; }
+
+            [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         }
     }
 }

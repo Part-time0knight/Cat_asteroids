@@ -48,6 +48,7 @@ MonoBehaviour:
     <Weapon>k__BackingField: {fileID: 6175339281961653993}
     <Body>k__BackingField: {fileID: 2992995325668881788}
     <HasteParticles>k__BackingField: {fileID: 4321611265248477923}
+    <SpriteRenderer>k__BackingField: {fileID: 3607845911613521027}
 --- !u!1 &3370239302682018318
 GameObject:
   m_ObjectHideFlags: 0

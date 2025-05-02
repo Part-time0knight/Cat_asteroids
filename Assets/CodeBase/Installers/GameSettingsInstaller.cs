@@ -3,6 +3,7 @@ using Game.Logic.Enemy;
 using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Misc;
 using Game.Logic.Player;
+using Game.Logic.Player.Animation;
 using System;
 using UnityEngine;
 using Zenject;
@@ -26,6 +27,7 @@ namespace Installers
             public PlayerDamageHandler.PlayerSettings Hits;
             public PlayerHasteEffectHandler.Settings Haste;
             public PlayerWeaponHandler.PlayerSettings Damage;
+            public PlayerTakeDamage.Settings TakeDamageAnimation;
         }
 
         [Serializable]
@@ -64,6 +66,7 @@ namespace Installers
             Container.BindInstance(Player.Hits).AsSingle();
             Container.BindInstance(Player.Haste).AsSingle();
             Container.BindInstance(Player.Damage).AsSingle();
+            Container.BindInstance(Player.TakeDamageAnimation).AsSingle();
 
             Container.BindInstance(Projectile.Move).AsSingle();
 
