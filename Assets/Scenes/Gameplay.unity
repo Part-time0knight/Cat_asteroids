@@ -269,7 +269,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 16.875
+  orthographic size: 14.0625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -314,8 +314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 32
-  m_RefResolutionX: 1920
-  m_RefResolutionY: 1080
+  m_RefResolutionX: 1600
+  m_RefResolutionY: 900
   m_CropFrame: 0
   m_GridSnapping: 0
   m_FilterMode: 0
@@ -635,23 +635,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 808594516397433895, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2304254013490705026, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 3233584174888669434, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 3714606895854026194, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31
+      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 4010673912364973529, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.x
-      value: 63
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 4010673912364973529, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
@@ -667,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389378602309027750, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
-      value: 45
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 4389378602309027750, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Offset.x
@@ -679,7 +679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5085119255901137215, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.x
-      value: 71
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 5085119255901137215, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
@@ -691,7 +691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6072790257629836014, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.x
-      value: 71
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 6072790257629836014, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6117491100411790350, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
-      value: 45
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 6117491100411790350, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Offset.x
@@ -727,7 +727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640964400267987289, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
-      value: 37
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 7640964400267987289, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
@@ -739,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8212871555419323947, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
-      value: 37
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 8212871555419323947, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
@@ -787,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8896471229659988001, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.x
-      value: 63
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 8896471229659988001, guid: 3e68ce84d55585d419d32826e8b2a0e5, type: 3}
       propertyPath: m_Size.y
