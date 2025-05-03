@@ -7,14 +7,20 @@ namespace Game.Logic.Player
     {
         public bool Pause { get; set; }
 
-        public PlayerDamageHandler(PlayerSettings stats) : base(stats)
+        private readonly IPlayerHitsWriter _playerHitsWriter;
+
+        public PlayerDamageHandler(IPlayerHitsWriter playerHitsWriter, PlayerSettings stats) : base(stats)
         {
+            _playerHitsWriter = playerHitsWriter;
+            _playerHitsWriter.Hits = stats.HitPoints;
         }
 
         public override void TakeDamage(int damage)
         {
-            if (!Pause)
-                base.TakeDamage(damage);
+            if (Pause)
+                return;
+            base.TakeDamage(damage);
+            _playerHitsWriter.Hits = _hits;
         }
 
 

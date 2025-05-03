@@ -46,6 +46,7 @@ namespace Game.Presentation.ViewModel
                 return;
             InvokeUpdate();
             _scoreReader.OnScoreUpdate += InvokeUpdate;
+            _hitsReader.OnHitsUpdate += InvokeUpdate;
             _scoreReader.OnScoreAdd += InvokeShowScores;
         }
 
@@ -55,6 +56,7 @@ namespace Game.Presentation.ViewModel
             if (Window != uiWindow)
                 return;
             _scoreReader.OnScoreUpdate -= InvokeUpdate;
+            _hitsReader.OnHitsUpdate -= InvokeUpdate;
             _scoreReader.OnScoreAdd -= InvokeShowScores;
         }
 
@@ -62,6 +64,7 @@ namespace Game.Presentation.ViewModel
         {
             _dto.Score = _scoreReader.Score.ToString();
             _dto.Hits = _hitsReader.Hits;
+            _dto.ShowHits = _hitsReader.Hits == 0 ? false : true;
             OnUpdate?.Invoke(_dto);
         }
 

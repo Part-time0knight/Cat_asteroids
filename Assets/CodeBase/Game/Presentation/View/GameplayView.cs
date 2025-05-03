@@ -1,5 +1,6 @@
 using Core.MVVM.View;
 using Game.Domain.Dto;
+using Game.Presentation.Elements;
 using Game.Presentation.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,14 @@ namespace Game.Presentation.View
         private void InvokeUpdate(GameplayDto dto)
         {
             _settings.ScoreCountText.text = dto.Score;
+            _settings.HitsViewer.SetHits(dto.Hits);
+            _settings.HitsViewer.SetPanelActive(dto.ShowHits);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
         }
 
         private void InvokeScoresShow(List<GameplayViewModel.ScoreData> scores)
         {
-            _settings.ScoresView.Show(scores);
+            _settings.ScoreViewer.Show(scores);
         }
 
         [Serializable]
@@ -44,7 +47,8 @@ namespace Game.Presentation.View
         {
             [field: SerializeField] public TMP_Text ScoreTitleText { get; private set; }
             [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
-            [field: SerializeField] public ScoresView ScoresView { get; private set; }
+            [field: SerializeField] public ScoreViewer ScoreViewer { get; private set; }
+            [field: SerializeField] public HitsViewer HitsViewer { get; private set; }
         }
     }
 }
