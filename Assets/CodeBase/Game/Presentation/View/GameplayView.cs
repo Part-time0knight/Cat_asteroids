@@ -1,0 +1,50 @@
+using Core.MVVM.View;
+using Game.Domain.Dto;
+using Game.Presentation.ViewModel;
+using System;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+
+namespace Game.Presentation.View
+{
+    public class GameplayView : AbstractPayloadView<GameplayViewModel>
+    {
+        [SerializeField] private Settings _settings;
+
+        [Inject]
+        protected override void Construct(GameplayViewModel viewModel)
+        {
+            base.Construct(viewModel);
+            _viewModel.OnUpdate += InvokeUpdate;
+            _viewModel.OnScoresShow += InvokeScoresShow;
+        }
+
+        private void OnDestroy()
+        {
+            _viewModel.OnUpdate -= InvokeUpdate;
+            _viewModel.OnScoresShow -= InvokeScoresShow;
+        }
+
+        private void InvokeUpdate(GameplayDto dto)
+        {
+            _settings.ScoreCountText.text = dto.Score;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
+        }
+
+        private void InvokeScoresShow(List<GameplayViewModel.ScoreData> scores)
+        {
+            _settings.ScoresView.Show(scores);
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            [field: SerializeField] public TMP_Text ScoreTitleText { get; private set; }
+            [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
+            [field: SerializeField] public ScoresView ScoresView { get; private set; }
+        }
+    }
+}

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GameSettingsInstaller
   m_EditorClassIdentifier: 
   <Player>k__BackingField:
+    MainSettings:
+      <Score>k__BackingField: 0
     Weapon:
       <AttackDelay>k__BackingField: 0.6
       <Damage>k__BackingField: 1
@@ -46,6 +48,8 @@ MonoBehaviour:
       <Delay>k__BackingField: 0.8
   <Enemies>k__BackingField:
     Asteroid:
+      MainSettings:
+        <Score>k__BackingField: 1
       Move:
         <Speed>k__BackingField: 8
         <MinimalSpeed>k__BackingField: 0.4

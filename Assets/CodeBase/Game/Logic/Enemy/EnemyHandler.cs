@@ -1,7 +1,6 @@
 using Game.Logic.Enemy.Fsm;
 using Game.Logic.Enemy.Fsm.States;
 using Game.Logic.Handlers;
-using Game.Logic.Weapon;
 using System;
 using UnityEngine;
 using Zenject;
@@ -39,6 +38,10 @@ namespace Game.Logic.Enemy
             _damageHandler.OnDeath += InvokeDeath;
             _moveHandler.OnTrigger += InvokeDeactivate;
         }
+
+        [Inject]
+        private void SetEnemySettings(EnemySettings settings)
+            => SetSettings(settings);
 
         private void InvokeDeath()
         {
@@ -89,6 +92,12 @@ namespace Game.Logic.Enemy
                 base.Reinitialize(spawnPoint, direction, item);
                 item.Initialize(spawnPoint, direction, _buffer);
             }
+        }
+
+        [Serializable]
+        public class EnemySettings : Settings
+        {
+
         }
     }
 }

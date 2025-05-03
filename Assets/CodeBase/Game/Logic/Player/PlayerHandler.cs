@@ -1,5 +1,6 @@
 using Game.Logic.Handlers;
 using System;
+using Zenject;
 
 namespace Game.Logic.Player
 {
@@ -13,6 +14,15 @@ namespace Game.Logic.Player
         public void TakeDamage(int damage)
         {
             OnTakeDamage?.Invoke(damage);
+        }
+
+        [Inject]
+        private void SetPlayerSettings(PlayerSettings settings)
+            => SetSettings(settings);
+
+        [Serializable]
+        public class PlayerSettings : Settings
+        {
         }
     }
 }

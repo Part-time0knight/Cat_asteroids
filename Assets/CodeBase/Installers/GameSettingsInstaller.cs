@@ -22,6 +22,7 @@ namespace Installers
         [Serializable]
         public class PlayerSettings
         {
+            public PlayerHandler.PlayerSettings MainSettings;
             public PlayerShootHandler.PlayerSettings Weapon;
             public PlayerMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
@@ -45,6 +46,7 @@ namespace Installers
             [Serializable]
             public class AsteroidSettings
             {
+                public EnemyHandler.EnemySettings MainSettings;
                 public EnemyMoveHandler.EnemySettings Move;
                 public EnemyDamageHandler.EnemySettings Hits;
                 public EnemyWeaponHandler.EnemySettings Damage;
@@ -62,6 +64,7 @@ namespace Installers
 
         public override void InstallBindings()
         {
+            Container.BindInstance(Player.MainSettings).AsSingle();
             Container.BindInstance(Player.Weapon).AsSingle();
             Container.BindInstance(Player.Move).AsSingle();
             Container.BindInstance(Player.Hits).AsSingle();
@@ -74,6 +77,7 @@ namespace Installers
 
             Container.BindInstance(SpawnerSettings.Spawner).AsSingle();
 
+            Container.BindInstance(Enemies.Asteroid.MainSettings).AsSingle();
             Container.BindInstance(Enemies.Asteroid.Move).AsSingle();
             Container.BindInstance(Enemies.Asteroid.Hits).AsSingle();
             Container.BindInstance(Enemies.Asteroid.Damage).AsSingle();

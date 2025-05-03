@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Game.Logic.Handlers;
 using Game.Logic.StaticData;
 using Game.Logic.Weapon;
 using System;
@@ -9,15 +10,18 @@ namespace Game.Logic.Player
     public class PlayerShootHandler : ShootHandler
     {
         private readonly Transform _weapon;
+        private readonly IPlayerScoreWriter _scoreWriter;
 
         private bool _breakAutomatic = false;
 
         public PlayerShootHandler(Bullet.Pool bulletPool, 
             PlayerSettings settings,
-            Transform weaponPoint) : base(bulletPool, settings)
+            Transform weaponPoint,
+            IPlayerScoreWriter scoreWriter) : base(bulletPool, settings)
         {
             _weapon = weaponPoint;
             _settings.Owner = Tags.Player;
+            _scoreWriter = scoreWriter;
         }
 
         public void StartAutomatic()
@@ -41,6 +45,14 @@ namespace Game.Logic.Player
                 if (!_breakAutomatic)
                     Shoot(_weapon.position, target);
             } while (!_breakAutomatic);
+        }
+
+        protected override void OnHit(UnitHandler unitHandler)
+        {
+            base.OnHit(unitHandler);
+            if (unitHandler == null)
+                return;
+            _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
         }
 
         [Serializable]

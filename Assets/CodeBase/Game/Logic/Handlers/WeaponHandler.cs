@@ -6,11 +6,11 @@ namespace Game.Logic.Handlers
 {
     public class WeaponHandler
     {
-        private readonly Settings _settings;
-        private readonly Timer _reloadTimer = new();
-        private readonly Timer _delayTimer = new();
+        protected readonly Settings _settings;
+        protected readonly Timer _reloadTimer = new();
+        protected readonly Timer _delayTimer = new();
 
-        private UnitHandler _target;
+        protected UnitHandler _target;
 
         public WeaponHandler(Settings settings)
         {
@@ -18,7 +18,7 @@ namespace Game.Logic.Handlers
             _settings.CurrentDamage = _settings.Damage;
         }
 
-        public void TickableDamage(UnitHandler target)
+        public virtual void TickableDamage(UnitHandler target)
         {
             if (_reloadTimer.Active)
                 return;
@@ -33,7 +33,7 @@ namespace Game.Logic.Handlers
             _delayTimer.Initialize(0.01f, 0.01f, MakeDamage).Play();
         }
 
-        private void MakeDamage()
+        protected virtual void MakeDamage()
         {
             _target.MakeCollizion(_settings.CurrentDamage);
             _reloadTimer.Initialize(_settings.DamageDelay).Play();

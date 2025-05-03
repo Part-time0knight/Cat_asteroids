@@ -5,6 +5,7 @@ using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
 using Game.Logic.Player;
 using Game.Logic.Weapon;
+using Game.Presentation.ViewModel;
 using System;
 using UnityEngine;
 using Zenject;
@@ -21,7 +22,7 @@ namespace Installers
             InstallPools();
             InstallService();
             InstallDataObjects();
-            //InstallViewModel();
+            InstallViewModel();
 
         }
 
@@ -62,6 +63,11 @@ namespace Installers
             //    .BindInterfacesAndSelfTo<TestingToolsViewModel>()
             //    .AsSingle()
             //    .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<GameplayViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallService()

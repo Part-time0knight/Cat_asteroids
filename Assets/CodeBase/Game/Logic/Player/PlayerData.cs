@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Logic.Player
@@ -9,6 +10,9 @@ namespace Game.Logic.Player
         IPlayerHitsWriter,
         IPlayerScoreWriter
     {
+        public event Action OnScoreUpdate;
+        public event Action<int, Vector2> OnScoreAdd;
+        public event Action OnHitsUpdate;
 
         private Vector2 _position;
         private int _score;
@@ -23,13 +27,27 @@ namespace Game.Logic.Player
         public int Score
         {
             get => _score;
-            set => _score = value;
+            set 
+            { 
+                _score = value;
+                OnScoreUpdate?.Invoke();
+            }
         }
 
         public int Hits
         {
             get => _hits;
-            set => _hits = value;
+            set 
+            {
+                _hits = value;
+                OnHitsUpdate?.Invoke();
+            }
+        }
+
+        public void AddScore(int score, Vector2 targetPosition)
+        {
+            Score += score;
+            OnScoreAdd?.Invoke(score, targetPosition);
         }
     }
 }

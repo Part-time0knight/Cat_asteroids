@@ -77,6 +77,12 @@ namespace Game.Logic.Weapon
             _bullets.Remove(bullet);
             if (_unitHandler)
                 _unitHandler.MakeCollizion(_settings.CurrentDamage);
+            OnHit(_unitHandler);
+        }
+
+        protected virtual void OnHit(UnitHandler unitHandler)
+        {
+
         }
 
         [Serializable]

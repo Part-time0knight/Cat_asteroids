@@ -10,10 +10,12 @@ namespace Game.Logic.Player
     public interface IPlayerScoreWriter
     {
         int Score { set; }
+
+        void AddScore(int score, Vector2 targetPosition);
     }
 
     public interface IPlayerHitsWriter
     {
-        int Hits { set; }
+        int Hits { set; get; }
     }
 }
