@@ -36,20 +36,6 @@ namespace Game.Logic.Effects.Explosion
 
         public class Pool : MonoMemoryPool<Vector2, Explosion>
         {
-            protected Transform _buffer;
-
-            [Inject]
-            private void Construct(ExplosionBuffer buffer)
-            {
-                _buffer = buffer.transform;
-            }
-
-            protected override void OnCreated(Explosion item)
-            {
-                item.transform.SetParent(_buffer);
-                base.OnCreated(item);
-            }
-
             protected override void OnSpawned(Explosion item)
             {
                 base.OnSpawned(item);

@@ -36,17 +36,20 @@ namespace Installers
 
         private void InstallPools()
         {
-            Container.Bind<BulletBuffer>().FromComponentInNewPrefab(_settings.Projectiles.BufferPrefab).AsSingle();
-            Container.BindMemoryPool<Bullet, Bullet.Pool>()
-                .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab);
+            Container
+                .BindMemoryPool<Bullet, Bullet.Pool>()
+                .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab)
+                .UnderTransform(_settings.Projectiles.Container);
 
-            Container.Bind<EnemyBuffer>().FromComponentInNewPrefab(_settings.Enemies.BufferPrefab).AsSingle();
-            Container.BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
-                .FromComponentInNewPrefab(_settings.Enemies.EnemyHandlerPrefab);
+            
+            Container
+                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .FromComponentInNewPrefab(_settings.Enemies.EnemyHandlerPrefab)
+                .UnderTransform(_settings.Enemies.Container);
 
-            Container.Bind<ExplosionBuffer>().FromComponentInNewPrefab(_settings.Explosion.BufferPrefab).AsSingle();
             Container.BindMemoryPool<Explosion, Explosion.Pool>()
-                .FromComponentInNewPrefab(_settings.Explosion.ExplosionPrefab);
+                .FromComponentInNewPrefab(_settings.Explosion.ExplosionPrefab)
+                .UnderTransform(_settings.Explosion.Container);
         }
 
         private void InstallDataObjects()
@@ -108,7 +111,7 @@ namespace Installers
             public class ProjectileSettings
             {
                 [field: SerializeField]
-                public BulletBuffer BufferPrefab { get; private set; }
+                public Transform Container { get; private set; }
 
                 [field: SerializeField]
                 public Bullet BulletPrefab { get; private set; }
@@ -118,7 +121,7 @@ namespace Installers
             public class ExplosionSettings
             {
                 [field: SerializeField]
-                public ExplosionBuffer BufferPrefab { get; private set; }
+                public Transform Container { get; private set; }
 
                 [field: SerializeField]
                 public Explosion ExplosionPrefab { get; private set; }
@@ -132,7 +135,7 @@ namespace Installers
                 public EnemyHandler EnemyHandlerPrefab { get; private set; }
 
                 [field: SerializeField]
-                public EnemyBuffer BufferPrefab { get; private set; }
+                public Transform Container { get; private set; }
             }
         }
     }

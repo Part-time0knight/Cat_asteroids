@@ -36,19 +36,6 @@ public class ScoresView : MonoBehaviour
 
     public class Pool : MonoMemoryPool<ScoreAnimation>
     {
-        protected RectTransform _buffer;
-
-        protected override void OnCreated(ScoreAnimation item)
-        {
-            item.transform.SetParent(_buffer);
-            base.OnCreated(item);
-        }
-
-        [Inject]
-        private void Construct(RectTransform container) 
-        {
-            _buffer = container;
-        }
     }
 
     [Serializable]

@@ -8,11 +8,8 @@ public class GameplayWindowInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container
-            .BindInstance(_settings.Container)
-            .AsSingle();
         Container.BindMemoryPool<ScoreAnimation, ScoresView.Pool>()
-                .FromComponentInNewPrefab(_settings.ScorePrefab);
+                .FromComponentInNewPrefab(_settings.ScorePrefab).UnderTransform(_settings.Container);
     }
 
     [Serializable]

@@ -56,12 +56,10 @@ namespace Game.Logic.Enemy
         }
 
         private void Initialize(Vector2 spawnPoint,
-            Vector2 direction,
-            Transform parent)
+            Vector2 direction)
         {
             _moveHandler.Direction = direction;
             transform.position = spawnPoint;
-            transform.parent = parent;
             _fsm.Enter<Initialize>();
         }
 
@@ -73,24 +71,11 @@ namespace Game.Logic.Enemy
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>
         {
-            protected Transform _buffer;
-
-            [Inject]
-            private void Construct(EnemyBuffer buffer)
-            {
-                _buffer = buffer.transform;
-            }
-
-            protected override void OnCreated(EnemyHandler item)
-            {
-                item.transform.SetParent(_buffer);
-                base.OnCreated(item);
-            }
 
             protected override void Reinitialize(Vector2 spawnPoint, Vector2 direction, EnemyHandler item)
             {
                 base.Reinitialize(spawnPoint, direction, item);
-                item.Initialize(spawnPoint, direction, _buffer);
+                item.Initialize(spawnPoint, direction);
             }
         }
 
