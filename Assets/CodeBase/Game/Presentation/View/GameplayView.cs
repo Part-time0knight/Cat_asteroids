@@ -20,12 +20,14 @@ namespace Game.Presentation.View
         {
             base.Construct(viewModel);
             _viewModel.OnUpdate += InvokeUpdate;
+            _viewModel.OnDamaged += InvokeTakeDamage;
             _viewModel.OnScoresShow += InvokeScoresShow;
         }
 
         private void OnDestroy()
         {
             _viewModel.OnUpdate -= InvokeUpdate;
+            _viewModel.OnDamaged += InvokeTakeDamage;
             _viewModel.OnScoresShow -= InvokeScoresShow;
         }
 
@@ -35,6 +37,11 @@ namespace Game.Presentation.View
             _settings.HitsViewer.SetHits(dto.Hits);
             _settings.HitsViewer.SetPanelActive(dto.ShowHits);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
+        }
+
+        private void InvokeTakeDamage()
+        {
+            _settings.ShakeAnimation.Play();
         }
 
         private void InvokeScoresShow(List<GameplayViewModel.ScoreData> scores)
@@ -49,6 +56,7 @@ namespace Game.Presentation.View
             [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
             [field: SerializeField] public ScoreViewer ScoreViewer { get; private set; }
             [field: SerializeField] public HitsViewer HitsViewer { get; private set; }
+            [field: SerializeField] public ShakeAnimation ShakeAnimation { get; private set; }
         }
     }
 }

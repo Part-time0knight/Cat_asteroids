@@ -12,7 +12,9 @@ namespace Game.Logic.Player
     {
         public event Action OnScoreUpdate;
         public event Action<int, Vector2> OnScoreAdd;
+        public event Action<bool> OnDamaged;
         public event Action OnHitsUpdate;
+
 
         private Vector2 _position;
         private int _score;
@@ -43,6 +45,8 @@ namespace Game.Logic.Player
                 OnHitsUpdate?.Invoke();
             }
         }
+
+        public bool IsTakeDamage { set => OnDamaged.Invoke(value); }
 
         public void AddScore(int score, Vector2 targetPosition)
         {

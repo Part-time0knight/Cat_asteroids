@@ -17,5 +17,6 @@ namespace Game.Logic.Player
     public interface IPlayerHitsWriter
     {
         int Hits { set; get; }
+        bool IsTakeDamage { set; }
     }
 }

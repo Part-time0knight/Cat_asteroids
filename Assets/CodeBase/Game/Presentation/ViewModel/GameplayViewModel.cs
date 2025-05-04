@@ -11,12 +11,13 @@ namespace Game.Presentation.ViewModel
 {
     public class GameplayViewModel : AbstractViewModel
     {
+        public event Action OnDamaged;
         public event Action<GameplayDto> OnUpdate;
         public event Action<List<ScoreData>> OnScoresShow;
 
-        private readonly IPlayerScoreReader _scoreReader;
-        private readonly IPlayerHitsReader _hitsReader;
         private readonly GameplayDto _dto = new();
+        private readonly IPlayerHitsReader _hitsReader;
+        private readonly IPlayerScoreReader _scoreReader;
         private readonly List<ScoreData> _scoresToView = new(); 
 
         protected override Type Window => typeof(GameplayView);
@@ -44,9 +45,11 @@ namespace Game.Presentation.ViewModel
             base.HandleOpenedWindow(uiWindow);
             if (Window != uiWindow)
                 return;
-            InvokeUpdate();
-            _scoreReader.OnScoreUpdate += InvokeUpdate;
-            _hitsReader.OnHitsUpdate += InvokeUpdate;
+            InvokeCountsUpdate();
+
+            _scoreReader.OnScoreUpdate += InvokeCountsUpdate;
+            _hitsReader.OnHitsUpdate += InvokeCountsUpdate;
+            _hitsReader.OnDamaged += InvokeDamaged;
             _scoreReader.OnScoreAdd += InvokeShowScores;
         }
 
@@ -55,16 +58,17 @@ namespace Game.Presentation.ViewModel
             base.HandleClosedWindow(uiWindow);
             if (Window != uiWindow)
                 return;
-            _scoreReader.OnScoreUpdate -= InvokeUpdate;
-            _hitsReader.OnHitsUpdate -= InvokeUpdate;
+            _scoreReader.OnScoreUpdate -= InvokeCountsUpdate;
+            _hitsReader.OnHitsUpdate -= InvokeCountsUpdate;
+            _hitsReader.OnDamaged -= InvokeDamaged;
             _scoreReader.OnScoreAdd -= InvokeShowScores;
         }
 
-        private void InvokeUpdate()
+        private void InvokeCountsUpdate()
         {
             _dto.Score = _scoreReader.Score.ToString();
             _dto.Hits = _hitsReader.Hits;
-            _dto.ShowHits = _hitsReader.Hits == 0 ? false : true;
+            _dto.ShowHits = _hitsReader.Hits <= 1 ? false : true;
             OnUpdate?.Invoke(_dto);
         }
 
@@ -77,6 +81,13 @@ namespace Game.Presentation.ViewModel
             });
             OnScoresShow?.Invoke(_scoresToView);
             _scoresToView.Clear();
+        }
+
+        private void InvokeDamaged(bool isDamaged)
+        {
+            if (!isDamaged)
+                return;
+            OnDamaged?.Invoke();
         }
 
         public struct ScoreData

@@ -21,10 +21,6 @@ namespace Game.Presentation.Elements
             _pool.Despawn(item);
         }
 
-        private void Awake()
-        {
-            
-        }
 
         public void SetPanelActive(bool active)
         {

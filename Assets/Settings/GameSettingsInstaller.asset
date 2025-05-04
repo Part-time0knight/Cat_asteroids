@@ -24,7 +24,7 @@ MonoBehaviour:
       <MaxSpeed>k__BackingField: 16
       <RotateSpeed>k__BackingField: 200
     Hits:
-      <HitPoints>k__BackingField: 3
+      <HitPoints>k__BackingField: 6
     Haste:
       <EmissionMin>k__BackingField: 0
       <EmissionRate>k__BackingField: 160

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Logic.Player
 {
-    public class PlayerShootHandler : ShootHandler
+    public class PlayerShootHandler : ShootHandler, IDisposable
     {
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
@@ -53,6 +53,11 @@ namespace Game.Logic.Player
             if (unitHandler == null)
                 return;
             _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
+        }
+
+        public void Dispose()
+        {
+            StopAutomatic();
         }
 
         [Serializable]

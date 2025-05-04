@@ -20,6 +20,7 @@ namespace Game.Logic.Player
             if (Pause)
                 return;
             base.TakeDamage(damage);
+            _playerHitsWriter.IsTakeDamage = true;
             _playerHitsWriter.Hits = _hits;
         }
 
