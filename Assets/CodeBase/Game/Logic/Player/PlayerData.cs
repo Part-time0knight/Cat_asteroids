@@ -46,7 +46,7 @@ namespace Game.Logic.Player
             }
         }
 
-        public bool IsTakeDamage { set => OnDamaged.Invoke(value); }
+        public bool IsTakeDamage { set => OnDamaged?.Invoke(value); }
 
         public void AddScore(int score, Vector2 targetPosition)
         {

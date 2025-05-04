@@ -5,12 +5,11 @@ using Game.Logic.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Game.Logic.Enemy
 {
-    public class EnemySpawner : IInitializable, IDisposable
+    public class EnemySpawner : IDisposable
     {
 
         private readonly IPlayerPositionReader _playerDataReader;
@@ -35,16 +34,6 @@ namespace Game.Logic.Enemy
             _playerDataReader = playerDataReader;
         }
 
-        public void Initialize()
-        {
-            BeginSpawn();
-        }
-
-        public void Dispose()
-        {
-            StopSpawn();
-        }
-
         public void BeginSpawn()
         {
             _breakTimer = false;
@@ -54,6 +43,13 @@ namespace Game.Logic.Enemy
         public void StopSpawn()
         {
             _breakTimer = true;
+            while (_enemies.Count > 0)
+                OnDeath(_enemies[0]);
+        }
+
+        public void Dispose()
+        {
+            StopSpawn();
         }
 
         private async UniTask Repeater()
@@ -64,12 +60,17 @@ namespace Game.Logic.Enemy
                 if (_breakTimer)
                     return;
                 _timer.Initialize(_settings.Delay).Play();
-                CalculatePosition();
-                var enemy = _pool.Spawn(_position, _direction);
-                enemy.OnDeath += OnDeath;
-                enemy.OnDeactivate += OnDeactivate;
-                _enemies.Add(enemy);
+                Spawn();
             } while (!_breakTimer);
+        }
+
+        private void Spawn()
+        {
+            CalculatePosition();
+            var enemy = _pool.Spawn(_position, _direction);
+            enemy.OnDeath += OnDeath;
+            enemy.OnDeactivate += OnDeactivate;
+            _enemies.Add(enemy);
         }
 
         private void OnDeath(EnemyHandler enemyHandler)

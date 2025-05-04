@@ -37,6 +37,10 @@ namespace Installers
         private void InstallPools()
         {
             Container
+                .BindMemoryPool<PlayerHandler, PlayerHandler.Pool>()
+                .FromComponentInNewPrefab(_settings.PlayerPrefab);
+
+            Container
                 .BindMemoryPool<Bullet, Bullet.Pool>()
                 .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab)
                 .UnderTransform(_settings.Projectiles.Container);
@@ -62,11 +66,6 @@ namespace Installers
 
         private void InstallViewModel()
         {
-            //Container
-            //    .BindInterfacesAndSelfTo<TestingToolsViewModel>()
-            //    .AsSingle()
-            //    .NonLazy();
-
             Container
                 .BindInterfacesAndSelfTo<GameplayViewModel>()
                 .AsSingle()
@@ -99,6 +98,9 @@ namespace Installers
         [Serializable]
         public class Settings
         {
+            [field: SerializeField]
+            public PlayerHandler PlayerPrefab { get; set; }
+
             [field: SerializeField]
             public ProjectileSettings Projectiles { get; private set; }
 

@@ -12,7 +12,12 @@ namespace Game.Logic.Player
         public PlayerDamageHandler(IPlayerHitsWriter playerHitsWriter, PlayerSettings stats) : base(stats)
         {
             _playerHitsWriter = playerHitsWriter;
-            _playerHitsWriter.Hits = stats.HitPoints;
+            
+        }
+
+        public void Reset()
+        {
+            _playerHitsWriter.Hits = _stats.HitPoints;
         }
 
         public override void TakeDamage(int damage)

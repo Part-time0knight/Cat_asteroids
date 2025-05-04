@@ -68,7 +68,7 @@ namespace Game.Presentation.ViewModel
         {
             _dto.Score = _scoreReader.Score.ToString();
             _dto.Hits = _hitsReader.Hits;
-            _dto.ShowHits = _hitsReader.Hits <= 1 ? false : true;
+            _dto.ShowHits = _hitsReader.Hits > 0 ? true : false;
             OnUpdate?.Invoke(_dto);
         }
 

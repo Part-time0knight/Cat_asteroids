@@ -24,7 +24,7 @@ MonoBehaviour:
       <MaxSpeed>k__BackingField: 16
       <RotateSpeed>k__BackingField: 200
     Hits:
-      <HitPoints>k__BackingField: 6
+      <HitPoints>k__BackingField: 4
     Haste:
       <EmissionMin>k__BackingField: 0
       <EmissionRate>k__BackingField: 160
@@ -49,7 +49,7 @@ MonoBehaviour:
   <Enemies>k__BackingField:
     Asteroid:
       MainSettings:
-        <Score>k__BackingField: 1
+        <Score>k__BackingField: 2
       Move:
         <Speed>k__BackingField: 8
         <MinimalSpeed>k__BackingField: 0.4
