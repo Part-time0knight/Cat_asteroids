@@ -37,19 +37,20 @@ namespace Game.Logic.Player.Animation
             int cycles = Mathf.Max(
                 Mathf.FloorToInt(_settings.Length / (_settings.TicLength * 2)),
                 1);
+
             _sequence = DOTween.Sequence();
 
-            for (int i = 0; i < cycles; i++)
-            {
-                _sequence
-                    .Append(_sprite.DOColor(_settings.DamageColor, _settings.TicLength)
-                    .SetEase(Ease.OutQuad));
-                _sequence
-                    .Append(_sprite.DOColor(_baseColor, _settings.TicLength)
-                    .SetEase(Ease.OutQuad));
-            }
+            _sequence
+                .Append(_sprite
+                    .DOColor(_settings.DamageColor, _settings.TicLength)
+                    .SetEase(Ease.OutQuad))
+                .Append(_sprite
+                    .DOColor(_baseColor, _settings.TicLength)
+                    .SetEase(Ease.OutQuad))
+                .SetLoops(cycles)
+                .OnComplete(Reset)
+                .Play();
 
-            _sequence.OnComplete(Reset).Play();
             _particleSystem.Play();
         }
 

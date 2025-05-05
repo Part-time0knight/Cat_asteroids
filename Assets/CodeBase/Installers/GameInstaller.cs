@@ -67,6 +67,10 @@ namespace Installers
         private void InstallViewModel()
         {
             Container
+                .BindInterfacesAndSelfTo<StartViewModel>()
+                .AsSingle()
+                .NonLazy();
+            Container
                 .BindInterfacesAndSelfTo<GameplayViewModel>()
                 .AsSingle()
                 .NonLazy();
