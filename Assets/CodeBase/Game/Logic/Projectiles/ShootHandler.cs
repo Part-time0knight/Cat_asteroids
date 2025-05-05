@@ -54,6 +54,7 @@ namespace Game.Logic.Weapon
             Action onEnd = () =>
             {
                 _settings.CanShoot = true;
+                OnEndReload();
                 onReloadEnd?.Invoke();
             };
 
@@ -80,7 +81,11 @@ namespace Game.Logic.Weapon
             OnHit(_unitHandler);
         }
 
-        protected abstract void OnHit(UnitHandler unitHandler);
+        protected virtual void OnEndReload()
+        { }
+
+        protected virtual void OnHit(UnitHandler unitHandler)
+        { }
 
         [Serializable]
         public class Settings

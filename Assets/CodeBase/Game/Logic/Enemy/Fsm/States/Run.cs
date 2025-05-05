@@ -63,7 +63,6 @@ namespace Game.Logic.Enemy.Fsm.States
         {
             if (gameObject.tag != "Border")
                 return;
-
         }
     }
 }

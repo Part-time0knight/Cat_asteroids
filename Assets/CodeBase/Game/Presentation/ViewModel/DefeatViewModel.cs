@@ -32,7 +32,7 @@ namespace Game.Presentation.ViewModel
 
         public void InvokeRestart()
         {
-            _gameFSM.Enter<GameplayState>();
+            _gameFSM.Enter<Start>();
         }
 
     }

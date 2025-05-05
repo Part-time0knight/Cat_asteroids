@@ -5,6 +5,8 @@ namespace Game.Logic.Player
     public interface IPlayerPositionWriter
     {
         Vector2 Position { set; }
+
+        bool MakeMove { set; }
     }
 
     public interface IPlayerScoreWriter

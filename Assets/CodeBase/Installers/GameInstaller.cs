@@ -59,7 +59,7 @@ namespace Installers
         private void InstallDataObjects()
         {
             Container
-                .BindInterfacesAndSelfTo<PlayerData>()
+                .BindInterfacesAndSelfTo<PlayerDynamicData>()
                 .AsSingle()
                 .NonLazy();
         }
@@ -76,6 +76,10 @@ namespace Installers
                 .NonLazy();
             Container
                 .BindInterfacesAndSelfTo<DefeatViewModel>()
+                .AsSingle()
+                .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<PauseViewModel>()
                 .AsSingle()
                 .NonLazy();
         }

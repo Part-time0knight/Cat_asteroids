@@ -18,7 +18,7 @@ namespace Game.Logic.Player
         public event Action<Vector2> InvokeMove;
 
         //public event Action InvokeAttackButton;
-        public event Action InvokeSpellButton;
+        //public event Action InvokeSpellButton;
 
         private bool _isHorizontal;
         private bool _isVertical;

@@ -3,13 +3,15 @@ using UnityEngine;
 
 namespace Game.Logic.Player
 {
-    public class PlayerData : IPlayerPositionReader, 
+    public class PlayerDynamicData : IPlayerPositionReader, 
         IPlayerHitsReader,
         IPlayerScoreReader,
         IPlayerPositionWriter,
         IPlayerHitsWriter,
         IPlayerScoreWriter
     {
+        public event Action<bool> OnMove;
+
         public event Action OnScoreUpdate;
         public event Action<int, Vector2> OnScoreAdd;
         public event Action<bool> OnDamaged;
@@ -47,6 +49,7 @@ namespace Game.Logic.Player
         }
 
         public bool IsTakeDamage { set => OnDamaged?.Invoke(value); }
+        public bool MakeMove { set => OnMove?.Invoke(value); }
 
         public void AddScore(int score, Vector2 targetPosition)
         {

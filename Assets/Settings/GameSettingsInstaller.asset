@@ -45,7 +45,7 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -16, y: 16}
       <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 0.8
+      <Delay>k__BackingField: 2
   <Enemies>k__BackingField:
     Asteroid:
       MainSettings:

@@ -1,4 +1,3 @@
-using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
 using Game.Logic.Enemy;

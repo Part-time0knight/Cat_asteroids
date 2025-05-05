@@ -1,5 +1,6 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Player.Animation;
+using UnityEngine.InputSystem;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -7,7 +8,6 @@ namespace Game.Logic.Player.Fsm.States
     {
         private readonly PlayerInput _playerInput;
         private readonly PlayerShootHandler _playerShoot;
-
 
         public Idle(IGameStateMachine stateMachine,
             PlayerHandler playerHandler,
@@ -34,7 +34,8 @@ namespace Game.Logic.Player.Fsm.States
         {
             base.OnEnter();
             _playerInput.InvokeMoveButtonsDown += OnMoveBegin;
-            _playerShoot.StartAutomatic();
+            _playerHandler.OnActiveShootChange += InvokeShooting;
+            InvokeShooting(_playerHandler.ActiveShooting);
         }
 
         public override void OnExit()
@@ -42,11 +43,20 @@ namespace Game.Logic.Player.Fsm.States
             base.OnExit();
             _playerShoot.StopAutomatic();
             _playerInput.InvokeMoveButtonsDown -= OnMoveBegin;
+            _playerHandler.OnActiveShootChange -= InvokeShooting;
         }
 
         private void OnMoveBegin()
         {
             _stateMachine.Enter<Run>();
+        }
+
+        private void InvokeShooting(bool active)
+        {
+            if (active)
+                _playerShoot.StartAutomatic();
+            else
+                _playerShoot.StopAutomatic();
         }
     }
 }

@@ -10,8 +10,21 @@ namespace Game.Logic.Player
     public class PlayerHandler : UnitHandler
     {
         public event Action<int> OnTakeDamage;
+        public event Action<bool> OnActiveShootChange;
 
         private IGameStateMachine _playerFSM;
+
+        private bool _activeShooting = false;
+
+        public bool ActiveShooting 
+        { 
+            get => _activeShooting; 
+            set
+            {
+                _activeShooting = value;
+                OnActiveShootChange?.Invoke(value);
+            } 
+        }
 
         public override void MakeCollizion(int damage)
             => TakeDamage(damage);
@@ -19,6 +32,13 @@ namespace Game.Logic.Player
         public void TakeDamage(int damage)
         {
             OnTakeDamage?.Invoke(damage);
+        }
+
+        public void ResetPlayer()
+        {
+            _playerFSM.Enter<Initialize>();
+            transform.position = Vector2.zero;
+            transform.eulerAngles = Vector3.zero;
         }
 
         [Inject]
@@ -31,12 +51,7 @@ namespace Game.Logic.Player
         private void SetPlayerSettings(PlayerSettings settings)
             => SetSettings(settings);
 
-        private void ResetPlayer()
-        {
-            _playerFSM.Enter<Initialize>();
-            transform.position = Vector2.zero;
-            transform.eulerAngles = Vector3.zero;
-        }
+
 
         [Serializable]
         public class PlayerSettings : Settings
@@ -48,7 +63,6 @@ namespace Game.Logic.Player
             protected override void Reinitialize(PlayerHandler item)
             {
                 base.Reinitialize(item);
-                item.ResetPlayer();
             }
         }
     }

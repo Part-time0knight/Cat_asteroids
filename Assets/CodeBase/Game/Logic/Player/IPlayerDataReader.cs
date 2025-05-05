@@ -5,6 +5,7 @@ namespace Game.Logic.Player
 {
     public interface IPlayerPositionReader
     {
+        event Action<bool> OnMove;
         Vector2 Position { get; }
     }
 

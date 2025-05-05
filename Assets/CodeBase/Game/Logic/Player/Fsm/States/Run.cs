@@ -37,7 +37,9 @@ namespace Game.Logic.Player.Fsm.States
             base.OnEnter();
             _playerInput.InvokeMoveVertical += Move;
             _playerInput.InvokeMoveHorizontal += Rotate;
-            _playerShoot.StartAutomatic();
+
+            InvokeShooting(_playerHandler.ActiveShooting);
+            _playerHandler.OnActiveShootChange += InvokeShooting;
         }
 
         private void Move(float speed)
@@ -58,9 +60,16 @@ namespace Game.Logic.Player.Fsm.States
             base.OnExit();
             _playerInput.InvokeMoveVertical -= Move;
             _playerInput.InvokeMoveHorizontal -= Rotate;
+            _playerHandler.OnActiveShootChange -= InvokeShooting;
             _playerShoot.StopAutomatic();
         }
-
+        private void InvokeShooting(bool active)
+        {
+            if (active)
+                _playerShoot.StartAutomatic();
+            else
+                _playerShoot.StopAutomatic();
+        }
 
     }
 }

@@ -1327,7 +1327,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6552745660541987145}
   m_Enabled: 1
-  m_Alpha: 0.8
+  m_Alpha: 0.7
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1425,7 +1425,8 @@ MonoBehaviour:
       m_Calls: []
   _settings:
     <CanvasGroup>k__BackingField: {fileID: 3075112173896963591}
-    <FadeDuration>k__BackingField: 2
+    <FadeDuration>k__BackingField: 1
+    <MinimalAlpha>k__BackingField: 0.1
 --- !u!1 &7793883470665349460
 GameObject:
   m_ObjectHideFlags: 0

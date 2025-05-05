@@ -27,21 +27,24 @@ namespace Game.Presentation.View
 
         private void InvokeOpen()
         {
-            _settings.CanvasGroup.alpha = 0;
+            _settings.CanvasGroup.alpha = _settings.MinimalAlpha;
             _sequence = DOTween.Sequence();
             _sequence
                 .Append(_settings.CanvasGroup
-                    .DOFade(0, _settings.FadeDuration)
-                    .SetEase(Ease.OutQuad))
-                .Append(_settings.CanvasGroup
                     .DOFade(_baseAlpha, _settings.FadeDuration)
-                    .SetEase(Ease.OutQuad))
-                .SetLoops(-1).Play();
+                    .SetEase(Ease.Linear))
+                .Append(_settings.CanvasGroup
+                    .DOFade(_settings.MinimalAlpha, _settings.FadeDuration)
+                    .SetEase(Ease.Linear))
+                .SetLoops(-1, LoopType.Restart).Play();
         }
 
         private void InvokeClose()
         {
-            _sequence.Kill();
+            if (_sequence != null)
+            {
+                _sequence.Kill();
+            }
         }
 
         private void OnDestroy()
@@ -55,6 +58,7 @@ namespace Game.Presentation.View
         {
             [field: SerializeField] public CanvasGroup CanvasGroup { get; private set; }
             [field: SerializeField] public float FadeDuration { get; private set; }
+            [field: SerializeField] public float MinimalAlpha { get; private set; }
         }
     }
 }

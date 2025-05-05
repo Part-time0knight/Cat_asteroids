@@ -26,8 +26,8 @@ namespace Game.Logic.Enemy.Asteroid
 
         public void Play()
         {
-            if (_rotationTween != null && _rotationTween.IsPlaying())
-                return;
+            if (_rotationTween != null)
+                _rotationTween.Kill();
 
             int direction = Random.Range(0, 2) == 0 ? -1 : 1;
             float speed = Random.Range(_settings.RotationSpeed.x, _settings.RotationSpeed.y);
@@ -42,7 +42,7 @@ namespace Game.Logic.Enemy.Asteroid
 
         public void Stop()
         {
-            if (_rotationTween != null && _rotationTween.IsPlaying())
+            if (_rotationTween != null)
                 _rotationTween.Kill();
         }
 

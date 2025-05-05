@@ -3,6 +3,7 @@ using Game.Logic.Handlers;
 using Game.Logic.StaticData;
 using Game.Logic.Weapon;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace Game.Logic.Player
@@ -12,7 +13,8 @@ namespace Game.Logic.Player
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
 
-        private bool _breakAutomatic = false;
+        private UniTask _repeater;
+        private CancellationTokenSource _cts = null;
 
         public PlayerShootHandler(Bullet.Pool bulletPool, 
             PlayerSettings settings,
@@ -26,29 +28,35 @@ namespace Game.Logic.Player
 
         public void StartAutomatic()
         {
-            _breakAutomatic = false;
-            Repeater();
+            if (_cts != null)
+                return;
+            _cts = new CancellationTokenSource();
+            _repeater = Repeater();
         }
 
         public void StopAutomatic()
         { 
-            _breakAutomatic = true;
+            if (_cts == null)
+                return;
+            _cts.Cancel();
+            _cts = null;
         }
 
         private async UniTask Repeater()
         {
             do
             {
-                await UniTask.WaitWhile(() => _timer.Active);
+                await UniTask.WaitWhile(() => _timer.Active, cancellationToken: _cts.Token);
                 Vector2 target = _weapon.TransformPoint(
                     new(_weapon.localPosition.x, _weapon.localPosition.y + 1f));
-                if (!_breakAutomatic)
+                if (!_cts.IsCancellationRequested)
                     Shoot(_weapon.position, target);
-            } while (!_breakAutomatic);
+            } while (!_cts.IsCancellationRequested);
         }
 
         protected override void OnHit(UnitHandler unitHandler)
         {
+            base.OnHit(unitHandler);
             if (unitHandler == null)
                 return;
             _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);

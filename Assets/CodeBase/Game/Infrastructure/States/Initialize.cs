@@ -22,7 +22,7 @@ namespace Game.Infrastructure.States
         public void OnEnter()
         {
             WindowResolve();
-            _stateMachine.Enter<GameplayState>();
+            _stateMachine.Enter<Start>();
             UnityEngine.Debug.Log("Enter state Initialize");
         }
 
@@ -33,7 +33,9 @@ namespace Game.Infrastructure.States
         private void WindowResolve()
         {
             _windowResolve.CleanUp();
+            _windowResolve.Set<StartView>();
             _windowResolve.Set<GameplayView>();
+            _windowResolve.Set<PauseView>();
             _windowResolve.Set<DefeatView>();
         }
     }

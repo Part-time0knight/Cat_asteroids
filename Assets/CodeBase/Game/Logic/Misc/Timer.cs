@@ -59,7 +59,7 @@ namespace Game.Logic.Misc
                 return;
             _active = true;
             _cts = new();
-            ExecuteAsync();
+            ExecuteAsync().Forget();
         }
 
         public void Pause()

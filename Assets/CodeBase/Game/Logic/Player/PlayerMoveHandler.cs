@@ -20,13 +20,13 @@ namespace Game.Logic.Player
 
         public void Move()
         {
-            base.Move(_body.transform.up * Time.fixedDeltaTime);
+            Move(_body.transform.up * Time.fixedDeltaTime);
             OnHaste?.Invoke(_body.linearVelocity.magnitude);
         }
 
         public void ReverseMove()
         {
-            base.Move(_body.transform.up
+            Move(_body.transform.up
                 * -1f 
                 * _playerSettings.ReverseSpeedMultiplier
                 * Time.fixedDeltaTime);
@@ -38,13 +38,14 @@ namespace Game.Logic.Player
             if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed) 
                 _body.linearVelocity = _body.linearVelocity.normalized * _playerSettings.MaxSpeed;
             _playerDataWriter.Position = _body.transform.position;
+            _playerDataWriter.MakeMove = true;
         }
 
         public void Rotate(float horizontal)
         {
             _body.angularVelocity = 0;
             _body.MoveRotation(_body.rotation + horizontal * _playerSettings.RotateSpeed * Time.fixedDeltaTime * -1f);
-            
+            _playerDataWriter.MakeMove = true;
         }
 
         [Serializable]

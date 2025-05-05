@@ -31,6 +31,8 @@ namespace Game.Logic.Player.Fsm.States
         public void OnEnter()
         {
             _body.GetAttachedColliders(_colliders);
+            _body.linearVelocity = Vector2.zero;
+            _body.angularVelocity = 0;
             _colliders.ForEach((collider) => collider.enabled = false);
             _explosionSpawner.Spawn(_body.position);
             _spriteRenderer.enabled = false;
