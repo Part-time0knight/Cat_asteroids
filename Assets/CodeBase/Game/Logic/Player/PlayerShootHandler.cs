@@ -49,7 +49,6 @@ namespace Game.Logic.Player
 
         protected override void OnHit(UnitHandler unitHandler)
         {
-            base.OnHit(unitHandler);
             if (unitHandler == null)
                 return;
             _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);

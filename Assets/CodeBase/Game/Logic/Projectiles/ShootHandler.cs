@@ -80,10 +80,7 @@ namespace Game.Logic.Weapon
             OnHit(_unitHandler);
         }
 
-        protected virtual void OnHit(UnitHandler unitHandler)
-        {
-
-        }
+        protected abstract void OnHit(UnitHandler unitHandler);
 
         [Serializable]
         public class Settings
