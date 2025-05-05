@@ -1,5 +1,6 @@
 using Core.Domain.Factories;
 using Core.Infrastructure.GameFsm;
+using Game.Infrastructure.States;
 using Zenject;
 
 namespace Game.Infrastructure
@@ -13,11 +14,12 @@ namespace Game.Infrastructure
         public void Initialize()
         {
             StateResolve();
-            Enter<GameplayState>();
+            Enter<Initialize>();
         }
 
         private void StateResolve()
         {
+            _states.Add(typeof(Initialize), _factory.Create<Initialize>());
             _states.Add(typeof(GameplayState), _factory.Create<GameplayState>());
             _states.Add(typeof(Defeat), _factory.Create<Defeat>());
         }

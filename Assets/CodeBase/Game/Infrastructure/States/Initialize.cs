@@ -1,0 +1,40 @@
+using Core.Infrastructure.GameFsm;
+using Core.Infrastructure.GameFsm.States;
+using Core.MVVM.Windows;
+using Game.Presentation.View;
+
+
+namespace Game.Infrastructure.States
+{
+    public class Initialize : IState
+    {
+        private readonly IWindowResolve _windowResolve;
+        private readonly IGameStateMachine _stateMachine;
+
+        public Initialize(IWindowResolve windowResolve,
+            IGameStateMachine stateMachine) 
+        {
+            _windowResolve = windowResolve;
+            _stateMachine = stateMachine;
+        }
+
+
+        public void OnEnter()
+        {
+            WindowResolve();
+            _stateMachine.Enter<GameplayState>();
+            UnityEngine.Debug.Log("Enter state Initialize");
+        }
+
+        public void OnExit()
+        {
+        }
+
+        private void WindowResolve()
+        {
+            _windowResolve.CleanUp();
+            _windowResolve.Set<GameplayView>();
+            _windowResolve.Set<DefeatView>();
+        }
+    }
+}

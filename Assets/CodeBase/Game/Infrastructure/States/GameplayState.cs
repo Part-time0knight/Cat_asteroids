@@ -5,12 +5,10 @@ using Game.Logic.Enemy;
 using Game.Logic.Player;
 using Game.Presentation.View;
 
-namespace Game.Infrastructure
+namespace Game.Infrastructure.States
 {
     public class GameplayState : IState
     {
-        private readonly IGameStateMachine _stateMachine;
-        private readonly IWindowResolve _windowResolve;
         private readonly IWindowFsm _windowFsm;
         private readonly IPlayerScoreWriter _playerScoreWriter;
         private readonly PlayerHandler.Pool _playerSpawner;
@@ -18,15 +16,11 @@ namespace Game.Infrastructure
 
         private PlayerHandler _player;
 
-        public GameplayState(IGameStateMachine stateMachine,
-            PlayerHandler.Pool playerSpawner,
+        public GameplayState(PlayerHandler.Pool playerSpawner,
             EnemySpawner enemySpawner,
             IWindowFsm windowFsm,
-            IWindowResolve windowResolve,
             IPlayerScoreWriter playerScoreWriter)
         {
-            _stateMachine = stateMachine;
-            _windowResolve = windowResolve;
             _windowFsm = windowFsm;
             _playerScoreWriter = playerScoreWriter;
             _playerSpawner = playerSpawner;
@@ -38,8 +32,8 @@ namespace Game.Infrastructure
             _playerScoreWriter.Score = 0;
             _player = _playerSpawner.Spawn();
             _enemySpawner.BeginSpawn();
-            WindowResolve();
             _windowFsm.OpenWindow(typeof(GameplayView), true);
+            UnityEngine.Debug.Log("Enter state GameplayState");
         }
 
         public void OnExit()
@@ -47,13 +41,6 @@ namespace Game.Infrastructure
             _playerSpawner.Despawn(_player);
             _enemySpawner.StopSpawn();
             _windowFsm.CloseWindow();
-        }
-
-        private void WindowResolve()
-        {
-            _windowResolve.CleanUp();
-            _windowResolve.Set<GameplayView>();
-            //_windowResolve.Set<TestingToolsView>();
         }
     }
 }

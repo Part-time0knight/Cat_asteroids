@@ -17,7 +17,8 @@ namespace Game.Logic.Player
 
         public void Reset()
         {
-            _playerHitsWriter.Hits = _stats.HitPoints;
+            _hits = _stats.HitPoints;
+            _playerHitsWriter.Hits = _hits;
         }
 
         public override void TakeDamage(int damage)

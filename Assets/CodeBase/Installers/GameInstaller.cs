@@ -70,6 +70,10 @@ namespace Installers
                 .BindInterfacesAndSelfTo<GameplayViewModel>()
                 .AsSingle()
                 .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<DefeatViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallService()

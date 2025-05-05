@@ -2,6 +2,7 @@ using Core.Infrastructure.GameFsm;
 using Game.Logic.Handlers;
 using Game.Logic.Player.Fsm.States;
 using System;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Logic.Player
@@ -33,6 +34,8 @@ namespace Game.Logic.Player
         private void ResetPlayer()
         {
             _playerFSM.Enter<Initialize>();
+            transform.position = Vector2.zero;
+            transform.eulerAngles = Vector3.zero;
         }
 
         [Serializable]
