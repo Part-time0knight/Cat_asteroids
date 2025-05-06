@@ -21,9 +21,9 @@ namespace Game.Infrastructure.States
 
         public void OnEnter()
         {
+            UnityEngine.Debug.Log("Enter state Initialize");
             WindowResolve();
             _stateMachine.Enter<Start>();
-            UnityEngine.Debug.Log("Enter state Initialize");
         }
 
         public void OnExit()

@@ -11,10 +11,12 @@ namespace Game.Logic.Player
     {
         public event Action<int> OnTakeDamage;
         public event Action<bool> OnActiveShootChange;
+        public event Action<bool> OnPause;
 
         private IGameStateMachine _playerFSM;
 
         private bool _activeShooting = false;
+        private bool _pause = false;
 
         public bool ActiveShooting 
         { 
@@ -24,6 +26,16 @@ namespace Game.Logic.Player
                 _activeShooting = value;
                 OnActiveShootChange?.Invoke(value);
             } 
+        }
+
+        public override bool Pause
+        {
+            get => _pause;
+            set
+            {
+                _pause = value;
+                OnPause?.Invoke(value);
+            }
         }
 
         public override void MakeCollizion(int damage)

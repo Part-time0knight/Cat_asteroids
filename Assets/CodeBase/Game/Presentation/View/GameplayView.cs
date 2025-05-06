@@ -22,6 +22,7 @@ namespace Game.Presentation.View
             _viewModel.OnUpdate += InvokeUpdate;
             _viewModel.OnDamaged += InvokeTakeDamage;
             _viewModel.OnScoresShow += InvokeScoresShow;
+            _settings.GoToPause.onClick.AddListener(_viewModel.InvokePause);
         }
 
         private void OnDestroy()
@@ -29,6 +30,7 @@ namespace Game.Presentation.View
             _viewModel.OnUpdate -= InvokeUpdate;
             _viewModel.OnDamaged += InvokeTakeDamage;
             _viewModel.OnScoresShow -= InvokeScoresShow;
+            _settings.GoToPause.onClick.RemoveListener(_viewModel.InvokePause);
         }
 
         private void InvokeUpdate(GameplayDto dto)
@@ -54,6 +56,7 @@ namespace Game.Presentation.View
         {
             [field: SerializeField] public TMP_Text ScoreTitleText { get; private set; }
             [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
+            [field: SerializeField] public Button GoToPause { get; private set; }
             [field: SerializeField] public ScoreViewer ScoreViewer { get; private set; }
             [field: SerializeField] public HitsViewer HitsViewer { get; private set; }
             [field: SerializeField] public ShakeAnimation ShakeAnimation { get; private set; }

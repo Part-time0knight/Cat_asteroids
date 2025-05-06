@@ -13,7 +13,6 @@ namespace Game.Logic.Player
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
 
-        private UniTask _repeater;
         private CancellationTokenSource _cts = null;
 
         public PlayerShootHandler(Bullet.Pool bulletPool, 
@@ -31,7 +30,7 @@ namespace Game.Logic.Player
             if (_cts != null)
                 return;
             _cts = new CancellationTokenSource();
-            _repeater = Repeater();
+            Repeater().Forget();
         }
 
         public void StopAutomatic()

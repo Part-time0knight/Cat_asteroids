@@ -13,6 +13,16 @@ namespace Game.Logic.Weapon
         protected Vector2 _sampleDirection = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
 
+        public void Pause()
+        {
+            _bulletMove.Pause();
+        }
+
+        public void Continue()
+        {
+            _bulletMove.Continue();
+        }
+
         protected virtual void Awake()
         {
             _bulletMove.OnTrigger += OnHit;

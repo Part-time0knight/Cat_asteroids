@@ -9903,9 +9903,9 @@ GameObject:
   - component: {fileID: 7766512923665431578}
   - component: {fileID: 5554741271621885132}
   - component: {fileID: 7973738547693138740}
-  - component: {fileID: 3101597203207834015}
   - component: {fileID: 2974699715286352958}
   - component: {fileID: 2992995325668881788}
+  - component: {fileID: 5230604648842499472}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -9963,24 +9963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e00aab09f0e08d4bab4a21f732c3e83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3101597203207834015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9027092269198735959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 7973738547693138740}
-  _identifier: 
-  _useSceneContext: 1
-  _context: {fileID: 0}
-  _bindType: 2
 --- !u!60 &2974699715286352958
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -10058,3 +10040,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &5230604648842499472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027092269198735959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 7973738547693138740}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 5554741271621885132}
+  _bindType: 0

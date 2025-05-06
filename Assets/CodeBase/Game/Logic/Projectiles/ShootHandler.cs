@@ -36,6 +36,34 @@ namespace Game.Logic.Weapon
                 .Play();
         }
 
+        public virtual void Pause()
+        {
+            PauseReload();
+            foreach (var bullet in _bullets)
+                bullet.Pause();
+        }
+
+        public virtual void Continue()
+        {
+            ContinueReload();
+            foreach (var bullet in _bullets)
+                bullet.Continue();
+        }
+
+        protected virtual void PauseReload()
+        {
+            if (!_timer.Active)
+                return;
+            _timer.Pause();
+        }
+
+        protected virtual void ContinueReload()
+        {
+            if (!_timer.Active)
+                return;
+            _timer.Play();
+        }
+
         /// <summary>
         /// 
         /// </summary>

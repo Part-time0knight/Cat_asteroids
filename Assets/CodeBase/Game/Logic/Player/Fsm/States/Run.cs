@@ -37,9 +37,10 @@ namespace Game.Logic.Player.Fsm.States
             base.OnEnter();
             _playerInput.InvokeMoveVertical += Move;
             _playerInput.InvokeMoveHorizontal += Rotate;
-
+            
             InvokeShooting(_playerHandler.ActiveShooting);
             _playerHandler.OnActiveShootChange += InvokeShooting;
+            _playerHandler.OnPause += InvokePause;
         }
 
         private void Move(float speed)
@@ -61,6 +62,7 @@ namespace Game.Logic.Player.Fsm.States
             _playerInput.InvokeMoveVertical -= Move;
             _playerInput.InvokeMoveHorizontal -= Rotate;
             _playerHandler.OnActiveShootChange -= InvokeShooting;
+            _playerHandler.OnPause -= InvokePause;
             _playerShoot.StopAutomatic();
         }
         private void InvokeShooting(bool active)
@@ -71,5 +73,12 @@ namespace Game.Logic.Player.Fsm.States
                 _playerShoot.StopAutomatic();
         }
 
+        protected virtual void InvokePause(bool isPause)
+        {
+            if (!isPause)
+                return;
+
+            _stateMachine.Enter<Pause>();
+        }
     }
 }

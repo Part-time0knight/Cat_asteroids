@@ -8,6 +8,8 @@ namespace Game.Logic.Handlers
 
         public int Score => _settings.Score;
 
+        public virtual bool Pause { get; set; }
+
         public abstract void MakeCollizion(int damage);
 
         protected virtual void SetSettings(Settings settings)

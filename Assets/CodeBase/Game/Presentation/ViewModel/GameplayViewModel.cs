@@ -1,6 +1,8 @@
+using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
 using Game.Domain.Dto;
+using Game.Infrastructure.States;
 using Game.Logic.Player;
 using Game.Presentation.View;
 using System;
@@ -18,16 +20,19 @@ namespace Game.Presentation.ViewModel
         private readonly GameplayDto _dto = new();
         private readonly IPlayerHitsReader _hitsReader;
         private readonly IPlayerScoreReader _scoreReader;
+        private readonly IGameStateMachine _gameFsm;
         private readonly List<ScoreData> _scoresToView = new(); 
 
         protected override Type Window => typeof(GameplayView);
 
-        public GameplayViewModel(IWindowFsm windowFsm,
+        public GameplayViewModel(IGameStateMachine gameFsm,
+            IWindowFsm windowFsm,
             IPlayerScoreReader scoreReader,
             IPlayerHitsReader hitsReader) : base(windowFsm)
         {
             _scoreReader = scoreReader;
             _hitsReader = hitsReader;
+            _gameFsm = gameFsm;
         }
 
         public override void InvokeClose()
@@ -38,6 +43,11 @@ namespace Game.Presentation.ViewModel
         public override void InvokeOpen()
         {
             _windowFsm.OpenWindow(Window, inHistory: true);
+        }
+
+        public void InvokePause()
+        {
+            _gameFsm.Enter<Pause>();
         }
 
         protected override void HandleOpenedWindow(Type uiWindow)
@@ -89,6 +99,8 @@ namespace Game.Presentation.ViewModel
                 return;
             OnDamaged?.Invoke();
         }
+
+
 
         public struct ScoreData
         {

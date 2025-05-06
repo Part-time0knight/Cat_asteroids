@@ -48,6 +48,8 @@ namespace Game.Logic.Player
             _playerDataWriter.MakeMove = true;
         }
 
+
+
         [Serializable]
         public class PlayerSettings : Settings
         {

@@ -446,6 +446,7 @@ MonoBehaviour:
   _settings:
     <ScoreTitleText>k__BackingField: {fileID: 5546558686979436960}
     <ScoreCountText>k__BackingField: {fileID: 8675289591108345877}
+    <GoToPause>k__BackingField: {fileID: 8624954464232044175}
     <ScoreViewer>k__BackingField: {fileID: 64705492808249481}
     <HitsViewer>k__BackingField: {fileID: 9101589606528058159}
     <ShakeAnimation>k__BackingField: {fileID: 4082335241094230012}

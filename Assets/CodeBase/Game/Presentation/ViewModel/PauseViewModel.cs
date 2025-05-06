@@ -1,5 +1,7 @@
+using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
+using Game.Infrastructure.States;
 using Game.Presentation.View;
 using System;
 
@@ -9,8 +11,12 @@ namespace Game.Presentation.ViewModel
     {
         protected override Type Window => typeof(PauseView);
 
-        public PauseViewModel(IWindowFsm windowFsm) : base(windowFsm)
+        private readonly IGameStateMachine _gameFsm;
+
+        public PauseViewModel(IGameStateMachine gameFsm,
+            IWindowFsm windowFsm) : base(windowFsm)
         {
+            _gameFsm = gameFsm;
         }
 
         public override void InvokeClose()
@@ -27,7 +33,9 @@ namespace Game.Presentation.ViewModel
         { }
 
         public void InvokeReturn()
-        { }
+        {
+            _gameFsm.Enter<GameplayState>();
+        }
 
         public void InvokeGoToControl()
         {

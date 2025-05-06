@@ -70,6 +70,7 @@ namespace Game.Logic.Misc
             _currentTime = 0;
             _invokeTick?.Invoke(_currentTime);
             _cts.Cancel();
+            _active = false;
         }
 
         private async UniTask ExecuteAsync()

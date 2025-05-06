@@ -30,6 +30,7 @@ namespace Game.Infrastructure.States
 
         public void OnEnter()
         {
+            UnityEngine.Debug.Log("Enter state Start");
             _player = _playerPool.Spawn();
             _player.ActiveShooting = false;
             _player.ResetPlayer();
@@ -37,7 +38,7 @@ namespace Game.Infrastructure.States
             
             _windowFsm.OpenWindow(typeof(StartView), true);
             _positionReader.OnMove += InvokeMove;
-            UnityEngine.Debug.Log("Enter state Start");
+            
         }
 
         public void OnExit()

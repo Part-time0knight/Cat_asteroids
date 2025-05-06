@@ -35,6 +35,7 @@ namespace Game.Logic.Player.Fsm.States
             base.OnEnter();
             _playerInput.InvokeMoveButtonsDown += OnMoveBegin;
             _playerHandler.OnActiveShootChange += InvokeShooting;
+            _playerHandler.OnPause += InvokePause;
             InvokeShooting(_playerHandler.ActiveShooting);
         }
 
@@ -44,6 +45,7 @@ namespace Game.Logic.Player.Fsm.States
             _playerShoot.StopAutomatic();
             _playerInput.InvokeMoveButtonsDown -= OnMoveBegin;
             _playerHandler.OnActiveShootChange -= InvokeShooting;
+            _playerHandler.OnPause -= InvokePause;
         }
 
         private void OnMoveBegin()
@@ -57,6 +59,14 @@ namespace Game.Logic.Player.Fsm.States
                 _playerShoot.StartAutomatic();
             else
                 _playerShoot.StopAutomatic();
+        }
+
+        protected virtual void InvokePause(bool isPause)
+        {
+            if (!isPause)
+                return;
+
+            _stateMachine.Enter<Pause>();
         }
     }
 }
