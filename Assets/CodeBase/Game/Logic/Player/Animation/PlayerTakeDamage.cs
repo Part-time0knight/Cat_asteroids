@@ -31,7 +31,7 @@ namespace Game.Logic.Player.Animation
 
         public void Play()
         {
-            if (_sequence != null && _sequence.IsPlaying())
+            if (_sequence != null)
                 Reset();
 
             int cycles = Mathf.Max(
@@ -52,6 +52,20 @@ namespace Game.Logic.Player.Animation
                 .Play();
 
             _particleSystem.Play();
+        }
+
+        public void Pause()
+        {
+            if (_sequence == null || !_sequence.IsActive())
+                return;
+            _sequence.Pause();
+        }
+
+        public void Continue()
+        {
+            if (_sequence == null || !_sequence.IsActive())
+                return;
+            _sequence.Play();
         }
 
         private void Reset()

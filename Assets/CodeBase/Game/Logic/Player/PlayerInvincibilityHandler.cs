@@ -25,6 +25,20 @@ namespace Game.Logic.Player
             _timer.Initialize(_settings.Duration, Stop).Play();
         }
 
+        public void Pause()
+        {
+            if (!_timer.Active)
+                return;
+            _timer.Pause();
+        }
+
+        public void Continue()
+        {
+            if (!_timer.Active)
+                return;
+            _timer.Play();
+        }
+
         public void Stop()
         {
             if (_timer.Active)

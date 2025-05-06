@@ -1,5 +1,6 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
+using Game.Logic.Player.Animation;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -9,22 +10,30 @@ namespace Game.Logic.Player.Fsm.States
         private readonly PlayerHandler _playerHandler;
         private readonly IGameStateMachine _playerFsm;
         private readonly PlayerShootHandler _playerShootHandler;
+        private readonly PlayerTakeDamage _playerTakeDamage;
+        private readonly PlayerInvincibilityHandler _playerInvincibilityHandler;
 
         public Pause(IGameStateMachine playerFsm,
             PlayerMoveHandler playerMove,
             PlayerHandler playerHandler,
-            PlayerShootHandler playerShootHandler)
+            PlayerShootHandler playerShootHandler,
+            PlayerTakeDamage playerTakeDamage,
+            PlayerInvincibilityHandler playerInvincibilityHandler)
         {
             _playerMove = playerMove;
             _playerHandler = playerHandler;
             _playerShootHandler = playerShootHandler;
+            _playerInvincibilityHandler = playerInvincibilityHandler;
+            _playerTakeDamage = playerTakeDamage;
             _playerFsm = playerFsm;
         }
 
         public void OnEnter()
         {
             _playerMove.Pause();
+            _playerTakeDamage.Pause();
             _playerShootHandler.Pause();
+            _playerInvincibilityHandler.Pause();
             _playerHandler.OnPause += InvokePause;
         }
 
@@ -32,6 +41,8 @@ namespace Game.Logic.Player.Fsm.States
         {
             _playerMove.Continue();
             _playerShootHandler.Continue();
+            _playerInvincibilityHandler.Continue();
+            _playerTakeDamage.Continue();
             _playerHandler.OnPause -= InvokePause;
         }
 
