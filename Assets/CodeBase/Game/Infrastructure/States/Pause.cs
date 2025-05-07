@@ -1,6 +1,8 @@
+using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
 using Game.Logic.Enemy;
+using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Presentation.View;
 using UnityEngine;
@@ -12,16 +14,22 @@ namespace Game.Infrastructure.States
         private readonly IWindowFsm _windowFsm;
         private readonly PlayerHandler.Pool _playerPool;
         private readonly EnemySpawner _enemySpawner;
+        private readonly PauseInputHandler _pauseInputHandler;
+        private readonly IGameStateMachine _gameFsm;
 
         private PlayerHandler _player;
 
-        public Pause(IWindowFsm windowFsm,
+        public Pause(IGameStateMachine gameFsm,
+            IWindowFsm windowFsm,
             PlayerHandler.Pool playerPool,
-            EnemySpawner enemySpawner)
+            EnemySpawner enemySpawner,
+            PauseInputHandler pauseInputHandler)
         {
+            _gameFsm = gameFsm;
             _windowFsm = windowFsm;
             _playerPool = playerPool;
             _enemySpawner = enemySpawner;
+            _pauseInputHandler = pauseInputHandler;
         }
 
         public void OnEnter()
@@ -31,7 +39,7 @@ namespace Game.Infrastructure.States
             _player.Pause = true;
             _enemySpawner.Pause();
             _windowFsm.OpenWindow(typeof(PauseView), true);
-            
+            _pauseInputHandler.OnPressPause += InvokePressPause;
         }
 
         public void OnExit()
@@ -40,6 +48,12 @@ namespace Game.Infrastructure.States
             _playerPool.Despawn(_player);
             _enemySpawner.Continue();
             _windowFsm.CloseWindow();
+            _pauseInputHandler.OnPressPause -= InvokePressPause;
+        }
+
+        private void InvokePressPause()
+        {
+            _gameFsm.Enter<GameplayState>();
         }
     }
 }

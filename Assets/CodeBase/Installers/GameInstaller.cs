@@ -3,6 +3,7 @@ using Game.Domain.Factories.GameFsm;
 using Game.Infrastructure;
 using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
+using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Weapon;
 using Game.Presentation.ViewModel;
@@ -86,6 +87,11 @@ namespace Installers
 
         private void InstallService()
         {
+            Container
+                .BindInterfacesAndSelfTo<PauseInputHandler>()
+                .AsSingle()
+                .NonLazy(); 
+
             Container
                 .BindInterfacesAndSelfTo<EnemySpawner>()
                 .AsSingle()
