@@ -9,8 +9,8 @@ namespace Game.Logic.Enemy
 {
     public class EnemyMoveHandler : MoveHandler
     {
-        
 
+        private float _randomSpeed = 0;
         private EnemySettings _settings;
 
         public EnemyMoveHandler(Rigidbody2D body,
@@ -19,9 +19,16 @@ namespace Game.Logic.Enemy
             _settings = stats;
         }
 
+        public void Initialize()
+        {
+            _randomSpeed = Random.Range(_settings.MinimalSpeed, _settings.Speed);
+        }
+
         public override void Move(Vector2 speedMultiplier)
         {
-            _body.AddForce(speedMultiplier * Random.Range(_settings.MinimalSpeed, _settings.Speed), ForceMode2D.Impulse);
+            if (_randomSpeed == 0)
+                _randomSpeed = (_settings.MinimalSpeed + _settings.Speed) * 0.5f;
+            _body.AddForce(speedMultiplier * _randomSpeed, ForceMode2D.Impulse);
         }
 
 
