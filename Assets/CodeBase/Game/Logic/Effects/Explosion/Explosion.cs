@@ -6,6 +6,8 @@ namespace Game.Logic.Effects.Explosion
 {
     public class Explosion : MonoBehaviour
     {
+        public event Action<Explosion> OnDespawn;
+
         private event Action<Explosion> OnAnimationEnd;
 
         private Animator _animator;
@@ -34,6 +36,11 @@ namespace Game.Logic.Effects.Explosion
             _particleSystem.Play();
         }
 
+        private void InvokeDespawn()
+        {
+            OnDespawn?.Invoke(this);
+        }
+
         public class Pool : MonoMemoryPool<Vector2, Explosion>
         {
             protected override void OnSpawned(Explosion item)
@@ -46,6 +53,7 @@ namespace Game.Logic.Effects.Explosion
             {
                 base.OnDespawned(item);
                 item.OnAnimationEnd -= Despawn;
+                item.InvokeDespawn();
             }
 
             protected override void Reinitialize(Vector2 spawnPoint, Explosion item)
