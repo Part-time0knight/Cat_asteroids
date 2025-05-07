@@ -21,6 +21,18 @@ namespace Game.Logic.Effects.Explosion
             item.OnDespawn += InvokeDespawn;
         }
 
+        public void Pause()
+        {
+            foreach (var item in _explosions)
+                item.Pause();
+        }
+
+        public void Continue()
+        {
+            foreach (var item in _explosions)
+                item.Continue();
+        }
+
         private void InvokeDespawn(Explosion explosion)
         {
             _explosions.Remove(explosion);

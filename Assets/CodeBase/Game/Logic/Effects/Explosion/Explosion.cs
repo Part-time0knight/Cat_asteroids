@@ -11,12 +11,26 @@ namespace Game.Logic.Effects.Explosion
         private event Action<Explosion> OnAnimationEnd;
 
         private Animator _animator;
+        private float _animatorPlaySpeed = 1f;
+
         private ParticleSystem _particleSystem;
 
         public void AnimationCallback()
         {
             OnAnimationEnd?.Invoke(this);
             _particleSystem.Stop();
+        }
+
+        public void Pause()
+        {
+            _animator.speed = 0;
+            _particleSystem.Pause();
+        }
+        
+        public void Continue()
+        {
+            _animator.speed = _animatorPlaySpeed;
+            _particleSystem.Play();
         }
 
         [Inject]
@@ -33,6 +47,7 @@ namespace Game.Logic.Effects.Explosion
             _animator.Update(0f);
 
             _animator.Play(_animator.runtimeAnimatorController.animationClips[0].name);
+            _animatorPlaySpeed = _animator.speed;
             _particleSystem.Play();
         }
 
