@@ -13,7 +13,7 @@ namespace Game.Infrastructure.States
     public class GameplayState : IState
     {
         private readonly IWindowFsm _windowFsm;
-        private readonly IPlayerScoreWriter _playerScoreWriter;
+        
         private readonly PlayerHandler.Pool _playerSpawner;
         private readonly EnemySpawner _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
@@ -25,12 +25,10 @@ namespace Game.Infrastructure.States
             PlayerHandler.Pool playerSpawner,
             EnemySpawner enemySpawner,
             PauseInputHandler pauseInputHandler,
-            IWindowFsm windowFsm,
-            IPlayerScoreWriter playerScoreWriter)
+            IWindowFsm windowFsm)
         {
             _gameFsm = gameFsm;
             _windowFsm = windowFsm;
-            _playerScoreWriter = playerScoreWriter;
             _pauseInputHandler = pauseInputHandler;
             _playerSpawner = playerSpawner;
             _enemySpawner = enemySpawner;
@@ -39,7 +37,7 @@ namespace Game.Infrastructure.States
         public void OnEnter()
         {
             Debug.Log("Enter state GameplayState");
-            _playerScoreWriter.Score = 0;
+            
             _player = _playerSpawner.Spawn();
             _enemySpawner.BeginSpawn();
             _windowFsm.OpenWindow(typeof(GameplayView), true);

@@ -11,6 +11,7 @@ namespace Game.Infrastructure.States
     {
         private readonly PlayerHandler.Pool _playerPool;
         private readonly IPlayerPositionReader _positionReader;
+        private readonly IPlayerScoreWriter _playerScoreWriter;
         private readonly IGameStateMachine _gameStateMachine;
         private readonly IWindowFsm _windowFsm;
         private readonly EnemySpawner _enemySpawner;
@@ -20,6 +21,7 @@ namespace Game.Infrastructure.States
         public Start(IGameStateMachine gameStateMachine,
             PlayerHandler.Pool playerPool,
             IPlayerPositionReader positionReader,
+            IPlayerScoreWriter playerScoreWriter,
             IWindowFsm windowFsm,
             EnemySpawner enemySpawner) 
         {
@@ -28,6 +30,7 @@ namespace Game.Infrastructure.States
             _playerPool = playerPool;
             _windowFsm = windowFsm;
             _enemySpawner = enemySpawner;
+            _playerScoreWriter = playerScoreWriter;
         }
 
 
@@ -39,7 +42,7 @@ namespace Game.Infrastructure.States
             _player.ActiveShooting = false;
             _player.ResetPlayer();
             _enemySpawner.ClearEnemies();
-
+            _playerScoreWriter.Score = 0;
             _windowFsm.OpenWindow(typeof(StartView), true);
             _positionReader.OnMove += InvokeMove;
             
