@@ -29,6 +29,7 @@ namespace Game.Infrastructure.States
             Debug.Log("Enter state Pause");
             _player = _playerPool.Spawn();
             _player.Pause = true;
+            _enemySpawner.Pause();
             _windowFsm.OpenWindow(typeof(PauseView), true);
             
         }
@@ -37,6 +38,7 @@ namespace Game.Infrastructure.States
         {
             _player.Pause = false;
             _playerPool.Despawn(_player);
+            _enemySpawner.Continue();
             _windowFsm.CloseWindow();
         }
     }

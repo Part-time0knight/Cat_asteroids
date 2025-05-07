@@ -29,7 +29,7 @@ namespace Game.Logic.Player
         {
             if (_cts != null)
                 return;
-            _cts = new CancellationTokenSource();
+            _cts = new();
             Repeater().Forget();
         }
 

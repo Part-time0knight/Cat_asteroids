@@ -1,11 +1,11 @@
 using Cysharp.Threading.Tasks;
-using Game.Logic.Handlers;
-using Game.Logic.Misc;
 using Game.Logic.Player;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Timer = Game.Logic.Misc.Timer;
 
 namespace Game.Logic.Enemy
 {
@@ -19,9 +19,10 @@ namespace Game.Logic.Enemy
 
         private readonly List<EnemyHandler> _enemies;
 
-        private bool _breakTimer;
         private Vector2 _position;
         private Vector2 _direction;
+
+        private CancellationTokenSource _cts = null;
 
         public EnemySpawner(EnemyHandler.Pool pool,
             Settings settings,
@@ -36,13 +37,22 @@ namespace Game.Logic.Enemy
 
         public void BeginSpawn()
         {
-            _breakTimer = false;
+            if (_cts != null)
+                return;
+            _cts = new();
             Repeater().Forget();
         }
 
         public void StopSpawn()
         {
-            _breakTimer = true;
+            if (_cts == null)
+                return;
+            _cts.Cancel();
+            _cts = null;
+        }
+
+        public void ClearEnemies()
+        {
             while (_enemies.Count > 0)
                 OnDeath(_enemies[0]);
         }
@@ -66,18 +76,18 @@ namespace Game.Logic.Enemy
         public void Dispose()
         {
             StopSpawn();
+            ClearEnemies();
         }
 
         private async UniTask Repeater()
         {
             do
             {
-                await UniTask.WaitWhile(() => _timer.Active);
-                if (_breakTimer)
-                    return;
+                await UniTask.WaitWhile(() => _timer.Active, 
+                    cancellationToken: _cts.Token);
                 _timer.Initialize(_settings.Delay).Play();
                 Spawn();
-            } while (!_breakTimer);
+            } while (!_cts.IsCancellationRequested);
         }
 
         private void Spawn()

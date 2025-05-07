@@ -37,8 +37,10 @@ namespace Game.Logic.Enemy.Fsm.States
             _damageHandler.OnDeath += InvokeDeath;
             _moveHandler.OnTrigger += InvokeDisable;
             _enemyHandler.OnDamaged += InvokeDamaged;
+            _enemyHandler.OnPause += InvokePause;
             _moveHandler.Move(_enemyHandler.Direction);
             _rotate.Play();
+            InvokePause(_enemyHandler.Pause);
         }
 
         public void OnExit()
@@ -47,6 +49,7 @@ namespace Game.Logic.Enemy.Fsm.States
             _moveHandler.OnTrigger -= InvokeDisable;
             _damageHandler.OnDeath -= InvokeDeath;
             _enemyHandler.OnDamaged -= InvokeDamaged;
+            _enemyHandler.OnPause -= InvokePause;
             _moveHandler.Stop();
             _rotate.Stop();
         }
@@ -73,6 +76,12 @@ namespace Game.Logic.Enemy.Fsm.States
             if (gameObject.tag != "Border")
                 return;
             _enemyHandler.InvokeDeactivate();
+        }
+
+        private void InvokePause(bool pause)
+        {
+            if (!pause) return;
+            _stateMachine.Enter<Pause>();
         }
     }
 }
