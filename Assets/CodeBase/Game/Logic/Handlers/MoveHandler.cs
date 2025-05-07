@@ -39,6 +39,8 @@ namespace Game.Logic.Handlers
 
         public void Stop()
         {
+            if (_body == null)
+                return;
             _body.linearVelocity = Vector2.zero;
             _body.angularVelocity = 0;
         }

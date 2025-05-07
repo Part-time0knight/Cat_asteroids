@@ -47,6 +47,22 @@ namespace Game.Logic.Enemy
                 OnDeath(_enemies[0]);
         }
 
+        public void Pause()
+        {
+            if (_timer.Active)
+                _timer.Pause();
+            foreach (var enemy in _enemies)
+                enemy.Pause = true;
+        }
+
+        public void Continue()
+        {
+            if (_timer.Active)
+                _timer.Play();
+            foreach (var enemy in _enemies)
+                enemy.Pause = false;
+        }
+
         public void Dispose()
         {
             StopSpawn();

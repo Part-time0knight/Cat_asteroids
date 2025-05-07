@@ -9,64 +9,61 @@ namespace Game.Logic.Enemy
 {
     public class EnemyHandler : UnitHandler
     {
+        public event Action<bool> OnPause;
+        public event Action<int> OnDamaged;
+
         public event Action<EnemyHandler> OnDeath;
         public event Action<EnemyHandler> OnDeactivate;
 
-        private EnemyDamageHandler _damageHandler;
-        private EnemyMoveHandler _moveHandler;
         private EnemyFsm _fsm;
+        private bool _pause = false;
+
+        public override bool Pause
+        { 
+            get => _pause;
+            set 
+            { 
+                _pause = value;
+                OnPause?.Invoke(value);
+            }
+        }
+
+        public Vector2 Direction { get; private set; }
 
         public override void MakeCollizion(int damage)
             => TakeDamage(damage);
 
         public void TakeDamage(int damage)
         {
-            _damageHandler.TakeDamage(damage);
+            OnDamaged?.Invoke(damage);
         }
 
         public Vector2 GetPosition()
             => transform.position;
 
-        [Inject]
-        private void Construct(EnemyDamageHandler damageHandler,
-            EnemyMoveHandler moveHandler,
-            EnemyFsm fsm)
-        {
-            _damageHandler = damageHandler;
-            _moveHandler = moveHandler;
-            _fsm = fsm;
-            _damageHandler.OnDeath += InvokeDeath;
-            _moveHandler.OnTrigger += InvokeDeactivate;
-        }
-
-        [Inject]
-        private void SetEnemySettings(EnemySettings settings)
-            => SetSettings(settings);
-
-        private void InvokeDeath()
+        public void InvokeDeath()
         {
             OnDeath?.Invoke(this);
         }
 
-        private void InvokeDeactivate(GameObject gameObject)
+        public void InvokeDeactivate()
         {
-            if (gameObject.tag != "Border")
-                return;
             OnDeactivate?.Invoke(this);
+        }
+
+        [Inject]
+        private void Construct(EnemyFsm fsm, EnemySettings settings)
+        {
+            _fsm = fsm;
+            SetSettings(settings);
         }
 
         private void Initialize(Vector2 spawnPoint,
             Vector2 direction)
         {
-            _moveHandler.Direction = direction;
+            Direction = direction;
             transform.position = spawnPoint;
             _fsm.Enter<Initialize>();
-        }
-
-        private void OnDestroy()
-        {
-            _damageHandler.OnDeath -= InvokeDeath;
-            _moveHandler.OnTrigger -= InvokeDeactivate;
         }
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>

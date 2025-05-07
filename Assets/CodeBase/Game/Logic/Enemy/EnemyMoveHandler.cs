@@ -13,16 +13,11 @@ namespace Game.Logic.Enemy
 
         private EnemySettings _settings;
 
-        public Vector2 Direction { get; set; }
-
         public EnemyMoveHandler(Rigidbody2D body,
             EnemySettings stats) : base(body, stats)
         {
             _settings = stats;
         }
-
-        public void Move()
-            => Move(Direction);
 
         public override void Move(Vector2 speedMultiplier)
         {

@@ -14,15 +14,17 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly EnemyWeaponHandler _weapon;
         private readonly EnemyDamageHandler _damageHandler;
         private readonly AsteroidRotate _rotate;
+        private readonly EnemyHandler _enemyHandler;
 
         public Run(IGameStateMachine stateMachine,
+            EnemyHandler enemyHandler,
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
             EnemyDamageHandler damageHandler,
             AsteroidRotate rotate)
         {
             _stateMachine = stateMachine;
-
+            _enemyHandler = enemyHandler;
             _moveHandler = moveHandler;
             _weapon = weapon;
             _damageHandler = damageHandler;
@@ -32,17 +34,19 @@ namespace Game.Logic.Enemy.Fsm.States
         public void OnEnter()
         {
             _moveHandler.OnCollision += Hit;
-            _damageHandler.OnDeath += OnDeath;
-            _moveHandler.OnTrigger += OnDisable;
-            _moveHandler.Move();
+            _damageHandler.OnDeath += InvokeDeath;
+            _moveHandler.OnTrigger += InvokeDisable;
+            _enemyHandler.OnDamaged += InvokeDamaged;
+            _moveHandler.Move(_enemyHandler.Direction);
             _rotate.Play();
         }
 
         public void OnExit()
         {
             _moveHandler.OnCollision -= Hit;
-            _moveHandler.OnTrigger -= OnDisable;
-            _damageHandler.OnDeath -= OnDeath;
+            _moveHandler.OnTrigger -= InvokeDisable;
+            _damageHandler.OnDeath -= InvokeDeath;
+            _enemyHandler.OnDamaged -= InvokeDamaged;
             _moveHandler.Stop();
             _rotate.Stop();
         }
@@ -54,15 +58,21 @@ namespace Game.Logic.Enemy.Fsm.States
             _weapon.TickableDamage(target);
         }
 
-        private void OnDeath()
+        private void InvokeDamaged(int damage)
+        {
+            _damageHandler.TakeDamage(damage);
+        }
+
+        private void InvokeDeath()
         {
             _stateMachine.Enter<Dead>();
         }
 
-        private void OnDisable(GameObject gameObject)
+        private void InvokeDisable(GameObject gameObject)
         {
             if (gameObject.tag != "Border")
                 return;
+            _enemyHandler.InvokeDeactivate();
         }
     }
 }
