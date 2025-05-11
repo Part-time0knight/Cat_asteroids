@@ -105,7 +105,7 @@ namespace Game.Logic.Weapon
             _bulletPool.Despawn(bullet);
             _bullets.Remove(bullet);
             if (_unitHandler)
-                _unitHandler.MakeCollizion(_settings.CurrentDamage);
+                _unitHandler.MakeCollision(_settings.CurrentDamage);
             OnHit(_unitHandler);
         }
 

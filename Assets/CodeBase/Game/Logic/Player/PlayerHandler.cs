@@ -38,7 +38,7 @@ namespace Game.Logic.Player
             }
         }
 
-        public override void MakeCollizion(int damage)
+        public override void MakeCollision(int damage)
             => TakeDamage(damage);
 
         public void TakeDamage(int damage)

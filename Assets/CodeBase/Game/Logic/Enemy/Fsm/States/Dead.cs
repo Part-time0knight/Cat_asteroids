@@ -1,6 +1,7 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Effects.Explosion;
+using Game.Logic.Handlers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +22,6 @@ namespace Game.Logic.Enemy.Fsm.States
             _spawner = spawner;
             _enemyHandler = enemyHandler;
         }
-
 
         public void OnEnter()
         {

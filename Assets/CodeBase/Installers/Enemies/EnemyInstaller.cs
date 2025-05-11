@@ -32,9 +32,6 @@ namespace Installers.Enemies
                 .BindInterfacesAndSelfTo<EnemyMoveHandler>()
                 .AsSingle();
             Container
-                .BindInterfacesAndSelfTo<EnemyTickHandler>()
-                .AsSingle();
-            Container
                 .BindInterfacesAndSelfTo<EnemyDamageHandler>()
                 .AsSingle();
         }

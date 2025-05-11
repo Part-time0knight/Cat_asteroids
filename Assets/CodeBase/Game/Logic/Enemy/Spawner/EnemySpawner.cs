@@ -7,15 +7,16 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Timer = Game.Logic.Misc.Timer;
 
-namespace Game.Logic.Enemy
+namespace Game.Logic.Enemy.Spawner
 {
-    public class EnemySpawner : IDisposable
+    public class EnemySpawner : ISpawner, IDisposable
     {
 
         private readonly IPlayerPositionReader _playerDataReader;
-        private readonly EnemyHandler.Pool _pool;
         private readonly Timer _timer;
-        private readonly Settings _settings;
+
+        private readonly EnemyHandler.Pool _pool;
+        private readonly ISpawner.Settings _settings;
 
         private readonly List<EnemyHandler> _enemies;
 
@@ -24,18 +25,20 @@ namespace Game.Logic.Enemy
 
         private CancellationTokenSource _cts = null;
 
+        public bool Active => _cts != null;
+
         public EnemySpawner(EnemyHandler.Pool pool,
-            Settings settings,
+            ISpawner.Settings settings,
             IPlayerPositionReader playerDataReader)
         {
-            _pool = pool;
             _timer = new();
-            _settings = settings;
             _enemies = new();
+            _pool = pool;
+            _settings = settings;
             _playerDataReader = playerDataReader;
         }
 
-        public void BeginSpawn()
+        public void Start()
         {
             if (_cts != null)
                 return;
@@ -43,7 +46,7 @@ namespace Game.Logic.Enemy
             Repeater().Forget();
         }
 
-        public void StopSpawn()
+        public void Stop()
         {
             if (_cts == null)
                 return;
@@ -51,7 +54,7 @@ namespace Game.Logic.Enemy
             _cts = null;
         }
 
-        public void ClearEnemies()
+        public void Clear()
         {
             while (_enemies.Count > 0)
                 OnDeath(_enemies[0]);
@@ -75,8 +78,8 @@ namespace Game.Logic.Enemy
 
         public void Dispose()
         {
-            StopSpawn();
-            ClearEnemies();
+            Stop();
+            Clear();
         }
 
         private async UniTask Repeater()
@@ -167,13 +170,5 @@ namespace Game.Logic.Enemy
             _direction = (target - position).normalized;
         }
 
-        [Serializable]
-        public class Settings
-        {
-            [field: SerializeField] public Vector2 HorizontalBorders { get; private set; }
-            [field: SerializeField] public Vector2 VerticalBorders { get; private set; }
-            [field: SerializeField] public float MinimalRangeToPlayer { get; private set; }
-            [field: SerializeField] public float Delay { get; private set; }
-        }
     }
 }

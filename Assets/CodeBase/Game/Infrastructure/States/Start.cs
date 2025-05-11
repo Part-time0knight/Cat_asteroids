@@ -1,7 +1,7 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
-using Game.Logic.Enemy;
+using Game.Logic.Enemy.Spawner;
 using Game.Logic.Player;
 using Game.Presentation.View;
 
@@ -14,7 +14,7 @@ namespace Game.Infrastructure.States
         private readonly IPlayerScoreWriter _playerScoreWriter;
         private readonly IGameStateMachine _gameStateMachine;
         private readonly IWindowFsm _windowFsm;
-        private readonly EnemySpawner _enemySpawner;
+        private readonly EnemySpawnerService _enemySpawner;
 
         private PlayerHandler _player;
 
@@ -23,7 +23,7 @@ namespace Game.Infrastructure.States
             IPlayerPositionReader positionReader,
             IPlayerScoreWriter playerScoreWriter,
             IWindowFsm windowFsm,
-            EnemySpawner enemySpawner) 
+            EnemySpawnerService enemySpawner) 
         {
             _gameStateMachine = gameStateMachine;
             _positionReader = positionReader;
@@ -41,7 +41,7 @@ namespace Game.Infrastructure.States
             _player = _playerPool.Spawn();
             _player.ActiveShooting = false;
             _player.ResetPlayer();
-            _enemySpawner.ClearEnemies();
+            _enemySpawner.ClearAll();
             _playerScoreWriter.Score = 0;
             _windowFsm.OpenWindow(typeof(StartView), true);
             _positionReader.OnMove += InvokeMove;

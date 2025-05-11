@@ -41,27 +41,71 @@ MonoBehaviour:
     Move:
       <Speed>k__BackingField: 30
   <SpawnerSettings>k__BackingField:
-    Spawner:
+    AsteroidBSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
-      <VerticalBorders>k__BackingField: {x: -16, y: 16}
+      <VerticalBorders>k__BackingField: {x: -18, y: 18}
+      <MinimalRangeToPlayer>k__BackingField: 4
+      <Delay>k__BackingField: 1
+    AsteroidMSpawner:
+      <HorizontalBorders>k__BackingField: {x: -28, y: 28}
+      <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 2
+      <Delay>k__BackingField: 1
+    AsteroidSSpawner:
+      <HorizontalBorders>k__BackingField: {x: -28, y: 28}
+      <VerticalBorders>k__BackingField: {x: -18, y: 18}
+      <MinimalRangeToPlayer>k__BackingField: 3
+      <Delay>k__BackingField: 1
   <Enemies>k__BackingField:
-    Asteroid:
+    AsteroidBig:
       MainSettings:
-        <Score>k__BackingField: 2
+        <Score>k__BackingField: 1
       Move:
-        <Speed>k__BackingField: 8
-        <MinimalSpeed>k__BackingField: 0.4
+        <Speed>k__BackingField: 3
+        <MinimalSpeed>k__BackingField: 0.1
       Hits:
         <HitPoints>k__BackingField: 1
       Damage:
         <Damage>k__BackingField: 1
         <DamageDelay>k__BackingField: 1
       Rotate:
-        <RotationSpeed>k__BackingField: {x: 6, y: 60}
+        <RotationSpeed>k__BackingField: {x: 0, y: 60}
+      View:
+        <Sprites>k__BackingField:
+        - {fileID: 21300000, guid: 44c61fa87abcb254ebf765fe78d04149, type: 3}
+    AsteroidMedium:
+      MainSettings:
+        <Score>k__BackingField: 2
+      Move:
+        <Speed>k__BackingField: 6
+        <MinimalSpeed>k__BackingField: 0.5
+      Hits:
+        <HitPoints>k__BackingField: 1
+      Damage:
+        <Damage>k__BackingField: 1
+        <DamageDelay>k__BackingField: 1
+      Rotate:
+        <RotationSpeed>k__BackingField: {x: 10, y: 120}
       View:
         <Sprites>k__BackingField:
         - {fileID: 21300000, guid: 87878b8d16fd35f44b1d762edd890e44, type: 3}
         - {fileID: 21300000, guid: 0d3e690adb00db943ba6b4a6963077bc, type: 3}
         - {fileID: 21300000, guid: 246198ca2d1469348be1a6b3f0d236ca, type: 3}
+    AsteroidSmall:
+      MainSettings:
+        <Score>k__BackingField: 3
+      Move:
+        <Speed>k__BackingField: 8
+        <MinimalSpeed>k__BackingField: 2
+      Hits:
+        <HitPoints>k__BackingField: 1
+      Damage:
+        <Damage>k__BackingField: 1
+        <DamageDelay>k__BackingField: 1
+      Rotate:
+        <RotationSpeed>k__BackingField: {x: 30, y: 180}
+      View:
+        <Sprites>k__BackingField:
+        - {fileID: 21300000, guid: 513580c0aa0ef9042a8545c213b0d97d, type: 3}
+        - {fileID: 21300000, guid: a716ab212c9be5c4393d977272367264, type: 3}
+        - {fileID: 21300000, guid: ec90ea7cc05ab6c4abc9e1a93b0f44e3, type: 3}

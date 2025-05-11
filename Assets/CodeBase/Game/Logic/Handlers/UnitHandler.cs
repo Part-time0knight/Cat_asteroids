@@ -10,7 +10,7 @@ namespace Game.Logic.Handlers
 
         public virtual bool Pause { get; set; }
 
-        public abstract void MakeCollizion(int damage);
+        public abstract void MakeCollision(int damage);
 
         protected virtual void SetSettings(Settings settings)
         {

@@ -16,8 +16,7 @@ namespace Game.Logic.Enemy
         [Serializable]
         public class EnemySettings : Settings
         { 
-            public EnemySettings(Settings settings) : base(settings)
-            { }
+
         }
     }
 }

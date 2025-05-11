@@ -3,6 +3,11 @@ using Game.Domain.Factories.GameFsm;
 using Game.Infrastructure;
 using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
+using Game.Logic.Enemy.Asteroid;
+using Game.Logic.Enemy.Asteroid.AsteroidB;
+using Game.Logic.Enemy.Asteroid.AsteroidM;
+using Game.Logic.Enemy.Asteroid.AsteroidS;
+using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Weapon;
@@ -24,7 +29,6 @@ namespace Installers
             InstallService();
             InstallDataObjects();
             InstallViewModel();
-
         }
 
         private void InstallFactory()
@@ -32,6 +36,12 @@ namespace Installers
             Container
                 .BindInterfacesAndSelfTo<StatesFactory>()
                 .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindFactory<EnemyHandler.Pool, ISpawner.Settings, ISpawner, SpawnerFactory>()
+                .To<EnemySpawner>()
+                .FromNew()
                 .NonLazy();
         }
 
@@ -46,10 +56,22 @@ namespace Installers
                 .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab)
                 .UnderTransform(_settings.Projectiles.Container);
 
-            
             Container
                 .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
-                .FromComponentInNewPrefab(_settings.Enemies.EnemyHandlerPrefab)
+                .WithId("AsteroidB")
+                .FromComponentInNewPrefab(_settings.Enemies.AsteroidBigPrefab)
+                .UnderTransform(_settings.Enemies.Container);
+
+            Container
+                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .WithId("AsteroidM")
+                .FromComponentInNewPrefab(_settings.Enemies.AsteroidMediumPrefab)
+                .UnderTransform(_settings.Enemies.Container);
+
+            Container
+                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .WithId("AsteroidS")
+                .FromComponentInNewPrefab(_settings.Enemies.AsteroidSmallPrefab)
                 .UnderTransform(_settings.Enemies.Container);
 
             Container.BindMemoryPool<Explosion, Explosion.Pool>()
@@ -90,10 +112,10 @@ namespace Installers
             Container
                 .BindInterfacesAndSelfTo<PauseInputHandler>()
                 .AsSingle()
-                .NonLazy(); 
+                .NonLazy();
 
             Container
-                .BindInterfacesAndSelfTo<EnemySpawner>()
+                .BindInterfacesAndSelfTo<EnemySpawnerService>()
                 .AsSingle()
                 .NonLazy();
 
@@ -152,10 +174,16 @@ namespace Installers
             public class EnemySettings
             {
                 [field: SerializeField]
-                public EnemyHandler EnemyHandlerPrefab { get; private set; }
+                public Transform Container { get; private set; }
 
                 [field: SerializeField]
-                public Transform Container { get; private set; }
+                public AsteroidBigHandler AsteroidBigPrefab { get; private set; }
+
+                [field: SerializeField]
+                public AsteroidMediumHandler AsteroidMediumPrefab { get; private set; }
+
+                [field: SerializeField]
+                public AsteroidSmallHandler AsteroidSmallPrefab { get; private set; }
             }
         }
     }

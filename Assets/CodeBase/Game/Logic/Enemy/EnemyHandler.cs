@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Game.Logic.Enemy
 {
-    public class EnemyHandler : UnitHandler
+    public abstract class EnemyHandler : UnitHandler
     {
         public event Action<bool> OnPause;
         public event Action<int> OnDamaged;
@@ -30,7 +30,7 @@ namespace Game.Logic.Enemy
 
         public Vector2 Direction { get; private set; }
 
-        public override void MakeCollizion(int damage)
+        public override void MakeCollision(int damage)
             => TakeDamage(damage);
 
         public void TakeDamage(int damage)
@@ -52,13 +52,12 @@ namespace Game.Logic.Enemy
         }
 
         [Inject]
-        private void Construct(EnemyFsm fsm, EnemySettings settings)
+        protected virtual void Construct(EnemyFsm fsm)
         {
             _fsm = fsm;
-            SetSettings(settings);
         }
 
-        private void Initialize(Vector2 spawnPoint,
+        protected virtual void Initialize(Vector2 spawnPoint,
             Vector2 direction)
         {
             Direction = direction;
@@ -69,17 +68,13 @@ namespace Game.Logic.Enemy
         public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>
         {
 
-            protected override void Reinitialize(Vector2 spawnPoint, Vector2 direction, EnemyHandler item)
+            protected override void Reinitialize(Vector2 spawnPoint,
+                Vector2 direction,
+                EnemyHandler item)
             {
                 base.Reinitialize(spawnPoint, direction, item);
                 item.Initialize(spawnPoint, direction);
             }
-        }
-
-        [Serializable]
-        public class EnemySettings : Settings
-        {
-
         }
     }
 }

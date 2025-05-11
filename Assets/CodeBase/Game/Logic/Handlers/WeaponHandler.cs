@@ -35,7 +35,7 @@ namespace Game.Logic.Handlers
 
         protected virtual void MakeDamage()
         {
-            _target.MakeCollizion(_settings.CurrentDamage);
+            _target.MakeCollision(_settings.CurrentDamage);
             _reloadTimer.Initialize(_settings.DamageDelay).Play();
         }
 

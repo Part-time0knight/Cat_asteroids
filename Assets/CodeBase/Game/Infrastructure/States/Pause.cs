@@ -2,7 +2,7 @@ using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
 using Game.Logic.Effects.Explosion;
-using Game.Logic.Enemy;
+using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Presentation.View;
@@ -14,7 +14,7 @@ namespace Game.Infrastructure.States
     {
         private readonly IWindowFsm _windowFsm;
         private readonly PlayerHandler.Pool _playerPool;
-        private readonly EnemySpawner _enemySpawner;
+        private readonly EnemySpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
         private readonly ExplosionSpawner _explosionSpawner;
@@ -24,7 +24,7 @@ namespace Game.Infrastructure.States
         public Pause(IGameStateMachine gameFsm,
             IWindowFsm windowFsm,
             PlayerHandler.Pool playerPool,
-            EnemySpawner enemySpawner,
+            EnemySpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
             ExplosionSpawner explosionSpawner)
         {
@@ -41,7 +41,7 @@ namespace Game.Infrastructure.States
             Debug.Log("Enter state Pause");
             _player = _playerPool.Spawn();
             _player.Pause = true;
-            _enemySpawner.Pause();
+            _enemySpawner.PauseAll();
             _explosionSpawner.Pause();
             _windowFsm.OpenWindow(typeof(PauseView), true);
             _pauseInputHandler.OnPressPause += InvokePressPause;
@@ -51,7 +51,7 @@ namespace Game.Infrastructure.States
         {
             _player.Pause = false;
             _playerPool.Despawn(_player);
-            _enemySpawner.Continue();
+            _enemySpawner.ContinueAll();
             _explosionSpawner.Continue();
             _windowFsm.CloseWindow();
             _pauseInputHandler.OnPressPause -= InvokePressPause;

@@ -1,6 +1,9 @@
 using Game.Logic.Effects.Particles;
-using Game.Logic.Enemy;
 using Game.Logic.Enemy.Asteroid;
+using Game.Logic.Enemy.Asteroid.AsteroidB;
+using Game.Logic.Enemy.Asteroid.AsteroidM;
+using Game.Logic.Enemy.Asteroid.AsteroidS;
+using Game.Logic.Enemy.Spawner;
 using Game.Logic.Misc;
 using Game.Logic.Player;
 using Game.Logic.Player.Animation;
@@ -41,28 +44,64 @@ namespace Installers
         [Serializable]
         public class EnemiesSettings
         {
-            public AsteroidSettings Asteroid;
+            public AsteroidBigSettings AsteroidBig;
+            public AsteroidMediumSettings AsteroidMedium;
+            public AsteroidSmallSettings AsteroidSmall;
 
             [Serializable]
-            public class AsteroidSettings
+            public class AsteroidSmallSettings
             {
-                public EnemyHandler.EnemySettings MainSettings;
-                public EnemyMoveHandler.EnemySettings Move;
-                public EnemyDamageHandler.EnemySettings Hits;
-                public EnemyWeaponHandler.EnemySettings Damage;
-                public AsteroidRotate.Settings Rotate;
-                public AsteroidViewHandler.Settings View;
+                public AsteroidSmallHandler.AsteroidSettings MainSettings;
+                public AsteroidSMoveHandler.AsteroidSettings Move;
+                public AsteroidSDamageHandler.AsteroidSettings Hits;
+                public AsteroidSWeaponHandler.AsteroidSettings Damage;
+                public AsteroidSRotate.AsteroidSSettings Rotate;
+                public AsteroidSViewHandler.AsteroidSSettings View;
             }
 
+            [Serializable]
+            public class AsteroidMediumSettings
+            {
+                public AsteroidMediumHandler.AsteroidSettings MainSettings;
+                public AsteroidMMoveHandler.AsteroidSettings Move;
+                public AsteroidMDamageHandler.AsteroidSettings Hits;
+                public AsteroidMWeaponHandler.AsteroidSettings Damage;
+                public AsteroidMRotate.AsteroidMSettings Rotate;
+                public AsteroidMViewHandler.AsteroidMSettings View;
+            }
+
+            [Serializable]
+            public class AsteroidBigSettings
+            {
+                public AsteroidBigHandler.AsteroidSettings MainSettings;
+                public AsteroidBMoveHandler.AsteroidSettings Move;
+                public AsteroidBDamageHandler.AsteroidSettings Hits;
+                public AsteroidBWeaponHandler.AsteroidSettings Damage;
+                public AsteroidBRotate.AsteroidBSettings Rotate;
+                public AsteroidBViewHandler.AsteroidBSettings View;
+            }
         }
 
         [Serializable]
         public class EnemySpawnerSettings
         {
-            public EnemySpawner.Settings Spawner;
+            public ISpawner.Settings AsteroidBSpawner;
+            public ISpawner.Settings AsteroidMSpawner;
+            public ISpawner.Settings AsteroidSSpawner;
         }
 
         public override void InstallBindings()
+        {
+            InstallPlayer();
+
+            Container.BindInstance(Projectile.Move).AsSingle();
+
+            InstallAsteroidB();
+            InstallAsteroidM();
+            InstallAsteroidS();
+        }
+
+        private void InstallPlayer()
         {
             Container.BindInstance(Player.MainSettings).AsSingle();
             Container.BindInstance(Player.Weapon).AsSingle();
@@ -72,17 +111,85 @@ namespace Installers
             Container.BindInstance(Player.Damage).AsSingle();
             Container.BindInstance(Player.TakeDamageAnimation).AsSingle();
             Container.BindInstance(Player.Invincibility).AsSingle();
+        }
 
-            Container.BindInstance(Projectile.Move).AsSingle();
+        private void InstallAsteroidB()
+        {
+            Container
+                .BindInstance(SpawnerSettings.AsteroidBSpawner)
+                .WithId("AsteroidB");
 
-            Container.BindInstance(SpawnerSettings.Spawner).AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.MainSettings)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.Move)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.Hits)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.Damage)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.Rotate)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidBig.View)
+                .AsSingle();
+        }
 
-            Container.BindInstance(Enemies.Asteroid.MainSettings).AsSingle();
-            Container.BindInstance(Enemies.Asteroid.Move).AsSingle();
-            Container.BindInstance(Enemies.Asteroid.Hits).AsSingle();
-            Container.BindInstance(Enemies.Asteroid.Damage).AsSingle();
-            Container.BindInstance(Enemies.Asteroid.Rotate).AsSingle();
-            Container.BindInstance(Enemies.Asteroid.View).AsSingle();
+        private void InstallAsteroidM()
+        {
+            Container
+                .BindInstance(SpawnerSettings.AsteroidMSpawner)
+                .WithId("AsteroidM");
+
+            Container
+                .BindInstance(Enemies.AsteroidMedium.MainSettings)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidMedium.Move)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidMedium.Hits)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidMedium.Damage)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidMedium.Rotate)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidMedium.View)
+                .AsSingle();
+        }
+
+        private void InstallAsteroidS()
+        {
+
+            Container
+                .BindInstance(SpawnerSettings.AsteroidSSpawner)
+                .WithId("AsteroidS");
+
+            Container
+                .BindInstance(Enemies.AsteroidSmall.MainSettings)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidSmall.Move)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidSmall.Hits)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidSmall.Damage)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidSmall.Rotate)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.AsteroidSmall.View)
+                .AsSingle();
         }
     }
 }
