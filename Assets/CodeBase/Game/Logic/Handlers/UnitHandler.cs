@@ -7,6 +7,7 @@ namespace Game.Logic.Handlers
         protected Settings _settings;
 
         public int Score => _settings.Score;
+        public float Size => _settings.SizeMultiplier;
 
         public virtual bool Pause { get; set; }
 
@@ -20,6 +21,7 @@ namespace Game.Logic.Handlers
         public class Settings
         {
             [field: SerializeField] public int Score {  get; private set; }
+            [field: SerializeField] public float SizeMultiplier { get; private set; }
         }
     }
 }

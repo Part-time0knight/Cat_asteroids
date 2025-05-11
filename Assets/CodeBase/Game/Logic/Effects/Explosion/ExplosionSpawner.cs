@@ -14,9 +14,9 @@ namespace Game.Logic.Effects.Explosion
             _explosions = new();
         }
 
-        public void Spawn(Vector2 spawnPoint)
+        public void Spawn(Vector2 spawnPoint, float size)
         {
-            var item = _pool.Spawn(spawnPoint);
+            var item = _pool.Spawn(spawnPoint, size);
             _explosions.Add(item);
             item.OnDespawn += InvokeDespawn;
         }

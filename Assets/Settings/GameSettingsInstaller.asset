@@ -15,6 +15,7 @@ MonoBehaviour:
   <Player>k__BackingField:
     MainSettings:
       <Score>k__BackingField: 0
+      <SizeMultiplier>k__BackingField: 1.5
     Weapon:
       <AttackDelay>k__BackingField: 0.6
       <Damage>k__BackingField: 1
@@ -50,18 +51,19 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 1
+      <Delay>k__BackingField: 1.25
     AsteroidSSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 1
+      <Delay>k__BackingField: 1.5
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:
         <Score>k__BackingField: 1
+        <SizeMultiplier>k__BackingField: 2
       Move:
-        <Speed>k__BackingField: 3
+        <Speed>k__BackingField: 4
         <MinimalSpeed>k__BackingField: 0.1
       Hits:
         <HitPoints>k__BackingField: 1
@@ -76,6 +78,7 @@ MonoBehaviour:
     AsteroidMedium:
       MainSettings:
         <Score>k__BackingField: 2
+        <SizeMultiplier>k__BackingField: 1.5
       Move:
         <Speed>k__BackingField: 6
         <MinimalSpeed>k__BackingField: 0.5
@@ -94,6 +97,7 @@ MonoBehaviour:
     AsteroidSmall:
       MainSettings:
         <Score>k__BackingField: 3
+        <SizeMultiplier>k__BackingField: 1
       Move:
         <Speed>k__BackingField: 8
         <MinimalSpeed>k__BackingField: 2

@@ -11,6 +11,7 @@ namespace Game.Logic.Player.Fsm.States
     public class Dead : IState
     {
         private readonly ExplosionSpawner _explosionSpawner;
+        private readonly PlayerHandler _playerHandler;
         private readonly Rigidbody2D _body;
         private readonly SpriteRenderer _spriteRenderer;
         private readonly IGameStateMachine _gameFsm;
@@ -18,11 +19,13 @@ namespace Game.Logic.Player.Fsm.States
         private List<Collider2D> _colliders = new();
 
         public Dead(ExplosionSpawner explosionSpawner,
+            PlayerHandler playerHandler,
             Rigidbody2D body,
             SpriteRenderer spriteRenderer,
             GameFsm gameFsm)
         {
             _explosionSpawner = explosionSpawner;
+            _playerHandler = playerHandler;
             _body = body;
             _spriteRenderer = spriteRenderer;
             _gameFsm = gameFsm;
@@ -34,7 +37,7 @@ namespace Game.Logic.Player.Fsm.States
             _body.linearVelocity = Vector2.zero;
             _body.angularVelocity = 0;
             _colliders.ForEach((collider) => collider.enabled = false);
-            _explosionSpawner.Spawn(_body.position);
+            _explosionSpawner.Spawn(_body.position, _playerHandler.Size);
             _spriteRenderer.enabled = false;
             _gameFsm.Enter<Defeat>();
         }

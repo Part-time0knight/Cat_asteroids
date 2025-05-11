@@ -27,7 +27,7 @@ namespace Game.Logic.Enemy.Fsm.States
         {
             _body.GetAttachedColliders(_colliders);
             _colliders.ForEach((collider) => collider.enabled = false);
-            _spawner.Spawn(_body.position);
+            _spawner.Spawn(_body.position, _enemyHandler.Size);
             _enemyHandler.InvokeDeath();
         }
 

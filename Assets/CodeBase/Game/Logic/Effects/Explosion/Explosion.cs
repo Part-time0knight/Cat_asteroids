@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Zenject;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Game.Logic.Effects.Explosion
 {
@@ -40,9 +41,10 @@ namespace Game.Logic.Effects.Explosion
             _particleSystem = particleSystem;
         }
 
-        private void Initialize(Vector2 spawnPoint)
+        private void Initialize(Vector2 spawnPoint, float sizeMultiplier)
         {
             transform.position = spawnPoint;
+            transform.localScale = Vector3.one * sizeMultiplier;
             _animator.Rebind();
             _animator.Update(0f);
 
@@ -56,7 +58,7 @@ namespace Game.Logic.Effects.Explosion
             OnDespawn?.Invoke(this);
         }
 
-        public class Pool : MonoMemoryPool<Vector2, Explosion>
+        public class Pool : MonoMemoryPool<Vector2, float, Explosion>
         {
             protected override void OnSpawned(Explosion item)
             {
@@ -71,10 +73,10 @@ namespace Game.Logic.Effects.Explosion
                 item.InvokeDespawn();
             }
 
-            protected override void Reinitialize(Vector2 spawnPoint, Explosion item)
+            protected override void Reinitialize(Vector2 spawnPoint, float sizeMultiplier, Explosion item)
             {
-                base.Reinitialize(spawnPoint, item);
-                item.Initialize(spawnPoint);
+                base.Reinitialize(spawnPoint, sizeMultiplier, item);
+                item.Initialize(spawnPoint, sizeMultiplier);
             }
         }
     }
