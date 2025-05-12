@@ -23,10 +23,6 @@ namespace Game.Logic.Weapon
         {
             _bulletPool = bulletPool;
             _settings = settings;
-
-            _settings.CurrentAttackDelay = _settings.AttackDelay;
-            _settings.CurrentDamage = _settings.Damage;
-            _settings.CanShoot = true;
         }
 
         public virtual void Initialize()
@@ -75,13 +71,10 @@ namespace Game.Logic.Weapon
             _currentBullet = _bulletPool
                 .Spawn(weponPos, target);
             _bullets.Add(_currentBullet);
-            _settings.InvokeShot?.Invoke();
-            _settings.CanShoot = false;
             _currentBullet.InvokeHit += Hit;
             
             Action onEnd = () =>
             {
-                _settings.CanShoot = true;
                 OnEndReload();
                 onReloadEnd?.Invoke();
             };
@@ -93,7 +86,7 @@ namespace Game.Logic.Weapon
             }
 
             _timer.Initialize(
-                _settings.CurrentAttackDelay, step: 0.05f, onEnd).Play();
+                _settings.AttackDelay, step: 0.05f, onEnd).Play();
         }
 
         protected virtual void Hit(Bullet bullet, GameObject target)
@@ -105,7 +98,7 @@ namespace Game.Logic.Weapon
             _bulletPool.Despawn(bullet);
             _bullets.Remove(bullet);
             if (_unitHandler)
-                _unitHandler.MakeCollision(_settings.CurrentDamage);
+                _unitHandler.MakeCollision(_settings.Damage);
             OnHit(_unitHandler);
         }
 
@@ -118,19 +111,8 @@ namespace Game.Logic.Weapon
         [Serializable]
         public class Settings
         {
-            /// <summary>
-            /// Called when handler make a shot. 
-            /// </summary>
-            public Action InvokeShot;
-
             [field: SerializeField] public float AttackDelay { get; private set; }
             [field: SerializeField] public int Damage { get; private set; }
-
-            public float CurrentAttackDelay { get; set; }
-            
-            public int CurrentDamage { get; set; }
-
-            public bool CanShoot { get; set; }
 
             /// <summary>
             /// Tag of the GameObject that belongs to the owner of the ShootHandler.

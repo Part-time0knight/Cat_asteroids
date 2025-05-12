@@ -16,7 +16,7 @@ namespace Game.Infrastructure.States
         private readonly IWindowFsm _windowFsm;
         
         private readonly PlayerHandler.Pool _playerSpawner;
-        private readonly EnemySpawnerService _enemySpawner;
+        private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
 
@@ -24,7 +24,7 @@ namespace Game.Infrastructure.States
 
         public GameplayState(IGameStateMachine gameFsm,
             PlayerHandler.Pool playerSpawner,
-            EnemySpawnerService enemySpawner,
+            ISpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
             IWindowFsm windowFsm)
         {
@@ -43,6 +43,7 @@ namespace Game.Infrastructure.States
             _enemySpawner.Start("AsteroidB");
             _enemySpawner.Start("AsteroidM");
             _enemySpawner.Start("AsteroidS");
+            _enemySpawner.Start("IceM");
             _windowFsm.OpenWindow(typeof(GameplayView), true);
             _pauseInputHandler.OnPressPause += InvokePressPause;
         }
@@ -53,6 +54,7 @@ namespace Game.Infrastructure.States
             _enemySpawner.Stop("AsteroidB");
             _enemySpawner.Stop("AsteroidM");
             _enemySpawner.Stop("AsteroidS");
+            _enemySpawner.Stop("IceM");
             _windowFsm.CloseWindow();
             _pauseInputHandler.OnPressPause -= InvokePressPause;
         }

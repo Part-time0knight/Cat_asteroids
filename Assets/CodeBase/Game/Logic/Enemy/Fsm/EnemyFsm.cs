@@ -17,7 +17,7 @@ namespace Game.Logic.Enemy.Fsm
             Enter<Initialize>();
         }
 
-        protected void StateResolve()
+        protected virtual void StateResolve()
         {
             _states.Add(typeof(Initialize), _factory.Create<Initialize>());
             _states.Add(typeof(Run), _factory.Create<Run>());

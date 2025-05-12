@@ -41,6 +41,19 @@ namespace Game.Logic.Player
             _cts = null;
         }
 
+        public void Dispose()
+        {
+            StopAutomatic();
+        }
+
+        protected override void OnHit(UnitHandler unitHandler)
+        {
+            base.OnHit(unitHandler);
+            if (unitHandler == null)
+                return;
+            _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
+        }
+
         private async UniTask Repeater()
         {
             do
@@ -53,18 +66,6 @@ namespace Game.Logic.Player
             } while (!_cts.IsCancellationRequested);
         }
 
-        protected override void OnHit(UnitHandler unitHandler)
-        {
-            base.OnHit(unitHandler);
-            if (unitHandler == null)
-                return;
-            _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
-        }
-
-        public void Dispose()
-        {
-            StopAutomatic();
-        }
 
         [Serializable]
         public class PlayerSettings : Settings

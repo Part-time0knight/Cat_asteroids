@@ -1,6 +1,5 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
-using Game.Logic.Handlers;
 
 namespace Game.Logic.Enemy.Fsm.States
 {
@@ -16,12 +15,12 @@ namespace Game.Logic.Enemy.Fsm.States
             _stateMachine = stateMachine;
         }
 
-        public void OnEnter()
+        public virtual void OnEnter()
         {
             _enemy.OnPause += InvokePause;
         }
 
-        public void OnExit()
+        public virtual void OnExit()
         {
             _enemy.OnPause -= InvokePause;
         }

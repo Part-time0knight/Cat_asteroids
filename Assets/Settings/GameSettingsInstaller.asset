@@ -40,23 +40,28 @@ MonoBehaviour:
       <Duration>k__BackingField: 1
   <Projectile>k__BackingField:
     Move:
-      <Speed>k__BackingField: 30
+      <Speed>k__BackingField: 40
   <SpawnerSettings>k__BackingField:
     AsteroidBSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
-      <MinimalRangeToPlayer>k__BackingField: 4
-      <Delay>k__BackingField: 1
+      <MinimalRangeToPlayer>k__BackingField: 5
+      <Delay>k__BackingField: 3
     AsteroidMSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
-      <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 1.25
+      <MinimalRangeToPlayer>k__BackingField: 5
+      <Delay>k__BackingField: 1.5
     AsteroidSSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
-      <MinimalRangeToPlayer>k__BackingField: 3
-      <Delay>k__BackingField: 1.5
+      <MinimalRangeToPlayer>k__BackingField: 5
+      <Delay>k__BackingField: 2.5
+    IceMSpawner:
+      <HorizontalBorders>k__BackingField: {x: -28, y: 28}
+      <VerticalBorders>k__BackingField: {x: -18, y: 18}
+      <MinimalRangeToPlayer>k__BackingField: 10
+      <Delay>k__BackingField: 10
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:
@@ -75,6 +80,8 @@ MonoBehaviour:
       View:
         <Sprites>k__BackingField:
         - {fileID: 21300000, guid: 44c61fa87abcb254ebf765fe78d04149, type: 3}
+        - {fileID: 21300000, guid: 0613e8c837eb0b94a9d53555f049f548, type: 3}
+        - {fileID: 21300000, guid: 2d84da216be80b048a90a15059d2245b, type: 3}
     AsteroidMedium:
       MainSettings:
         <Score>k__BackingField: 2
@@ -113,3 +120,19 @@ MonoBehaviour:
         - {fileID: 21300000, guid: 513580c0aa0ef9042a8545c213b0d97d, type: 3}
         - {fileID: 21300000, guid: a716ab212c9be5c4393d977272367264, type: 3}
         - {fileID: 21300000, guid: ec90ea7cc05ab6c4abc9e1a93b0f44e3, type: 3}
+    IceMedium:
+      MainSettings:
+        <Score>k__BackingField: 4
+        <SizeMultiplier>k__BackingField: 1.5
+      Move:
+        <Speed>k__BackingField: 4
+        <MinimalSpeed>k__BackingField: 4
+      Hits:
+        <HitPoints>k__BackingField: 1
+      Damage:
+        <Damage>k__BackingField: 1
+        <DamageDelay>k__BackingField: 1
+      Shooter:
+        <AttackDelay>k__BackingField: 4
+        <Damage>k__BackingField: 1
+        <SafeZoneDistance>k__BackingField: 10

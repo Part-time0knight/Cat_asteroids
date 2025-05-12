@@ -43,6 +43,7 @@ namespace Game.Logic.Enemy.Spawner
             if (_cts != null)
                 return;
             _cts = new();
+            _timer.Initialize(_settings.Delay).Play();
             Repeater().Forget();
         }
 
@@ -170,5 +171,12 @@ namespace Game.Logic.Enemy.Spawner
             _direction = (target - position).normalized;
         }
 
+        public List<Vector2> GetPositions()
+        {
+            List<Vector2> positions = new();
+            foreach (var enemy in _enemies)
+                positions.Add(enemy.transform.position);
+            return positions;
+        }
     }
 }

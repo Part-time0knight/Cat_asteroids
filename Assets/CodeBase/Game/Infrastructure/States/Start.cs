@@ -14,7 +14,7 @@ namespace Game.Infrastructure.States
         private readonly IPlayerScoreWriter _playerScoreWriter;
         private readonly IGameStateMachine _gameStateMachine;
         private readonly IWindowFsm _windowFsm;
-        private readonly EnemySpawnerService _enemySpawner;
+        private readonly ISpawnerService _enemySpawner;
 
         private PlayerHandler _player;
 
@@ -23,7 +23,7 @@ namespace Game.Infrastructure.States
             IPlayerPositionReader positionReader,
             IPlayerScoreWriter playerScoreWriter,
             IWindowFsm windowFsm,
-            EnemySpawnerService enemySpawner) 
+            ISpawnerService enemySpawner) 
         {
             _gameStateMachine = gameStateMachine;
             _positionReader = positionReader;

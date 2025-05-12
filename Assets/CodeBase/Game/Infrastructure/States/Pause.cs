@@ -14,7 +14,7 @@ namespace Game.Infrastructure.States
     {
         private readonly IWindowFsm _windowFsm;
         private readonly PlayerHandler.Pool _playerPool;
-        private readonly EnemySpawnerService _enemySpawner;
+        private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
         private readonly ExplosionSpawner _explosionSpawner;
@@ -24,7 +24,7 @@ namespace Game.Infrastructure.States
         public Pause(IGameStateMachine gameFsm,
             IWindowFsm windowFsm,
             PlayerHandler.Pool playerPool,
-            EnemySpawnerService enemySpawner,
+            ISpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
             ExplosionSpawner explosionSpawner)
         {

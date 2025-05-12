@@ -7,6 +7,7 @@ using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
+using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
@@ -72,6 +73,12 @@ namespace Installers
                 .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
                 .WithId("AsteroidS")
                 .FromComponentInNewPrefab(_settings.Enemies.AsteroidSmallPrefab)
+                .UnderTransform(_settings.Enemies.Container);
+
+            Container
+                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .WithId("IceM")
+                .FromComponentInNewPrefab(_settings.Enemies.IceMediumPrefab)
                 .UnderTransform(_settings.Enemies.Container);
 
             Container.BindMemoryPool<Explosion, Explosion.Pool>()
@@ -184,6 +191,9 @@ namespace Installers
 
                 [field: SerializeField]
                 public AsteroidSmallHandler AsteroidSmallPrefab { get; private set; }
+
+                [field: SerializeField]
+                public IceMediumHandler IceMediumPrefab { get; private set; }
             }
         }
     }

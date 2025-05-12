@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Game.Logic.Enemy.Spawner
 {
-    public class EnemySpawnerService
+    public class EnemySpawnerService : ISpawnerService, IEnemyPositionReader
     {
         private readonly Dictionary<string, ISpawner> _spawners;
         private readonly SpawnerFactory _factory;
@@ -82,6 +82,27 @@ namespace Game.Logic.Enemy.Spawner
 
             var spawner = _factory.Create(pool, settings);
             _spawners.Add(id, spawner);
+        }
+
+        public Vector2 GetNearest(Vector2 point)
+        {
+            Vector2 res = point;
+            float distance = float.MaxValue;
+            foreach (var spawner in _spawners.Values)
+            {
+                var positions = spawner.GetPositions();
+                foreach (var position in positions)
+                {
+                    if (point == position)
+                        continue;
+                    if (Vector2.Distance(position, point) < distance)
+                    {
+                        distance = Vector2.Distance(position, point);
+                        res = position;
+                    }
+                }
+            }
+            return res;
         }
     }
 }

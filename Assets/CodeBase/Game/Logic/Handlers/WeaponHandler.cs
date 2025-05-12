@@ -15,7 +15,6 @@ namespace Game.Logic.Handlers
         public WeaponHandler(Settings settings)
         {
             _settings = settings;
-            _settings.CurrentDamage = _settings.Damage;
         }
 
         public virtual void TickableDamage(UnitHandler target)
@@ -35,7 +34,7 @@ namespace Game.Logic.Handlers
 
         protected virtual void MakeDamage()
         {
-            _target.MakeCollision(_settings.CurrentDamage);
+            _target.MakeCollision(_settings.Damage);
             _reloadTimer.Initialize(_settings.DamageDelay).Play();
         }
 
@@ -44,7 +43,6 @@ namespace Game.Logic.Handlers
         {
             [field: SerializeField] public int Damage { get; private set; }
             [field: SerializeField] public float DamageDelay { get; private set; }
-            public int CurrentDamage { get; set; }
 
         }
     }

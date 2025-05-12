@@ -621,6 +621,7 @@ MonoBehaviour:
       <AsteroidBigPrefab>k__BackingField: {fileID: 1428568571213834824, guid: c48fe25a1c7d5bd44830344708f477c7, type: 3}
       <AsteroidMediumPrefab>k__BackingField: {fileID: 2749499036740362435, guid: fba5363100b9165419d80acd114fd76b, type: 3}
       <AsteroidSmallPrefab>k__BackingField: {fileID: 1463956124759312747, guid: 7c77485a5f2ae914194a90106ddbc72d, type: 3}
+      <IceMediumPrefab>k__BackingField: {fileID: 3947394320243707400, guid: 2d6bdfe8f4ec1df41a16d9d6b7a4f8cc, type: 3}
     <Explosion>k__BackingField:
       <Container>k__BackingField: {fileID: 167747486}
       <ExplosionPrefab>k__BackingField: {fileID: 2199385792234966007, guid: f4fd5e172fc6599448ceae7b594e6c61, type: 3}

@@ -38,10 +38,6 @@ namespace Installers.Enemies
 
         protected virtual void InstallFsm()
         {
-            Container
-                .BindInterfacesTo<EnemyWindowFsm>()
-                .AsSingle()
-                .NonLazy();
 
             Container
                 .BindInterfacesAndSelfTo<EnemyFsm>()

@@ -3,6 +3,7 @@ using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
+using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Misc;
 using Game.Logic.Player;
@@ -47,6 +48,7 @@ namespace Installers
             public AsteroidBigSettings AsteroidBig;
             public AsteroidMediumSettings AsteroidMedium;
             public AsteroidSmallSettings AsteroidSmall;
+            public IceMSettings IceMedium;
 
             [Serializable]
             public class AsteroidSmallSettings
@@ -80,6 +82,16 @@ namespace Installers
                 public AsteroidBRotate.AsteroidBSettings Rotate;
                 public AsteroidBViewHandler.AsteroidBSettings View;
             }
+
+            [Serializable]
+            public class IceMSettings
+            {
+                public IceMediumHandler.IceSettings MainSettings;
+                public IceMMoveHandler.IceSettings Move;
+                public IceMDamageHandler.IceSettings Hits;
+                public IceMWeaponHandler.IceSettings Damage;
+                public IceMShootHandler.IceMSettings Shooter;
+            }
         }
 
         [Serializable]
@@ -88,6 +100,7 @@ namespace Installers
             public ISpawner.Settings AsteroidBSpawner;
             public ISpawner.Settings AsteroidMSpawner;
             public ISpawner.Settings AsteroidSSpawner;
+            public ISpawner.Settings IceMSpawner;
         }
 
         public override void InstallBindings()
@@ -99,6 +112,8 @@ namespace Installers
             InstallAsteroidB();
             InstallAsteroidM();
             InstallAsteroidS();
+
+            InstallIceM();
         }
 
         private void InstallPlayer()
@@ -189,6 +204,29 @@ namespace Installers
                 .AsSingle();
             Container
                 .BindInstance(Enemies.AsteroidSmall.View)
+                .AsSingle();
+        }
+
+        private void InstallIceM()
+        {
+            Container
+                .BindInstance(SpawnerSettings.IceMSpawner)
+                .WithId("IceM");
+
+            Container
+                .BindInstance(Enemies.IceMedium.MainSettings)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.IceMedium.Move)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.IceMedium.Hits)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.IceMedium.Damage)
+                .AsSingle();
+            Container
+                .BindInstance(Enemies.IceMedium.Shooter)
                 .AsSingle();
         }
     }

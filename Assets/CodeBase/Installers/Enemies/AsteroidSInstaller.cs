@@ -3,12 +3,27 @@ using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy;
 using System;
 using UnityEngine;
+using Game.Logic.Enemy.Asteroid.Fsm;
+using Game.Logic.Enemy.Fsm;
+using Zenject;
+using Core.Infrastructure.GameFsm;
 
 namespace Installers.Enemies
 {
     public class AsteroidSInstaller : EnemyInstaller
     {
         [SerializeField] private AsteroidSettings _asteroidSettings;
+
+        protected override void InstallFsm()
+        {
+            Container
+                .Bind<EnemyFsm>()
+                .To<AsteroidFsm>()
+                .AsSingle()
+                .NonLazy();
+            Container.Bind<IInitializable>().FromResolveGetter<EnemyFsm>(fsm => fsm);
+            Container.Bind<IGameStateMachine>().FromResolveGetter<EnemyFsm>(fsm => fsm);
+        }
 
         protected override void InstallEnemyComponents()
         {

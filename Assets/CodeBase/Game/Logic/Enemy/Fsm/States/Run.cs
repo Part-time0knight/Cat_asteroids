@@ -13,25 +13,23 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly EnemyMoveHandler _moveHandler;
         private readonly EnemyWeaponHandler _weapon;
         private readonly EnemyDamageHandler _damageHandler;
-        private readonly AsteroidRotate _rotate;
         private readonly EnemyHandler _enemyHandler;
 
         public Run(IGameStateMachine stateMachine,
             EnemyHandler enemyHandler,
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
-            EnemyDamageHandler damageHandler,
-            AsteroidRotate rotate)
+            EnemyDamageHandler damageHandler)
         {
             _stateMachine = stateMachine;
             _enemyHandler = enemyHandler;
             _moveHandler = moveHandler;
             _weapon = weapon;
             _damageHandler = damageHandler;
-            _rotate = rotate;
+            
         }
 
-        public void OnEnter()
+        public virtual void OnEnter()
         {
             _moveHandler.OnCollision += Hit;
             _damageHandler.OnDeath += InvokeDeath;
@@ -39,11 +37,10 @@ namespace Game.Logic.Enemy.Fsm.States
             _enemyHandler.OnDamaged += InvokeDamaged;
             _enemyHandler.OnPause += InvokePause;
             _moveHandler.Move(_enemyHandler.Direction);
-            _rotate.Play();
             InvokePause(_enemyHandler.Pause);
         }
 
-        public void OnExit()
+        public virtual void OnExit()
         {
             _moveHandler.OnCollision -= Hit;
             _moveHandler.OnTrigger -= InvokeDisable;
@@ -51,7 +48,6 @@ namespace Game.Logic.Enemy.Fsm.States
             _enemyHandler.OnDamaged -= InvokeDamaged;
             _enemyHandler.OnPause -= InvokePause;
             _moveHandler.Stop();
-            _rotate.Stop();
         }
 
         private void Hit(GameObject gameObject)

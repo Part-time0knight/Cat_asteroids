@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Logic.Enemy.Spawner
@@ -12,6 +13,8 @@ namespace Game.Logic.Enemy.Spawner
         void Continue();
         void Stop();
         void Clear();
+
+        List<Vector2> GetPositions();
 
         [Serializable]
         public class Settings
