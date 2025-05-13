@@ -47,10 +47,11 @@ namespace Game.Presentation.View
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             _viewModel.OnOpen -= InvokeOpen;
             _viewModel.OnClose -= InvokeClose;
+            base.OnDestroy();
         }
 
         [Serializable]

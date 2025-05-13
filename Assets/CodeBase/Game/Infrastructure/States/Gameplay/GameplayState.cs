@@ -1,20 +1,18 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
-using Game.Logic.Enemy;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Presentation.View;
 using UnityEngine;
-using Zenject;
 
-namespace Game.Infrastructure.States
+namespace Game.Infrastructure.States.Gameplay
 {
     public class GameplayState : IState
     {
         private readonly IWindowFsm _windowFsm;
-        
+
         private readonly PlayerHandler.Pool _playerSpawner;
         private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
@@ -38,7 +36,7 @@ namespace Game.Infrastructure.States
         public void OnEnter()
         {
             Debug.Log("Enter state GameplayState");
-            
+
             _player = _playerSpawner.Spawn();
             _enemySpawner.Start("AsteroidB");
             _enemySpawner.Start("AsteroidM");

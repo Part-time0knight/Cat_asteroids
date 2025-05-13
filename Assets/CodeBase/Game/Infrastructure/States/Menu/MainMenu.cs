@@ -1,28 +1,27 @@
 using Core.Infrastructure.GameFsm.States;
 using Core.MVVM.Windows;
 using Game.Presentation.View;
-using System.Diagnostics;
 
-namespace Game.Infrastructure.States
+namespace Infrastructure.States.Menu
 {
-    public class Defeat : IState
+    public class MainMenu : IState
     {
         private readonly IWindowFsm _windowFsm;
 
-        public Defeat(IWindowFsm windowFsm) 
+        public MainMenu(IWindowFsm windowFsm)
         {
             _windowFsm = windowFsm;
         }
 
         public void OnEnter()
         {
-            _windowFsm.OpenWindow(typeof(DefeatView), true);
-            UnityEngine.Debug.Log("Enter state Defeat");
+            _windowFsm.OpenWindow(typeof(MainMenuView), inHistory: true);
         }
 
         public void OnExit()
         {
             _windowFsm.CloseWindow();
         }
+
     }
 }

@@ -5,7 +5,7 @@ using Game.Logic.Enemy.Spawner;
 using Game.Logic.Player;
 using Game.Presentation.View;
 
-namespace Game.Infrastructure.States
+namespace Game.Infrastructure.States.Gameplay
 {
     public class Start : IState
     {
@@ -23,7 +23,7 @@ namespace Game.Infrastructure.States
             IPlayerPositionReader positionReader,
             IPlayerScoreWriter playerScoreWriter,
             IWindowFsm windowFsm,
-            ISpawnerService enemySpawner) 
+            ISpawnerService enemySpawner)
         {
             _gameStateMachine = gameStateMachine;
             _positionReader = positionReader;
@@ -45,7 +45,7 @@ namespace Game.Infrastructure.States
             _playerScoreWriter.Score = 0;
             _windowFsm.OpenWindow(typeof(StartView), true);
             _positionReader.OnMove += InvokeMove;
-            
+
         }
 
         public void OnExit()

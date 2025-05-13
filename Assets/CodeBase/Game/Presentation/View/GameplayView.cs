@@ -25,8 +25,9 @@ namespace Game.Presentation.View
             _settings.GoToPause.onClick.AddListener(_viewModel.InvokePause);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             _viewModel.OnUpdate -= InvokeUpdate;
             _viewModel.OnDamaged += InvokeTakeDamage;
             _viewModel.OnScoresShow -= InvokeScoresShow;

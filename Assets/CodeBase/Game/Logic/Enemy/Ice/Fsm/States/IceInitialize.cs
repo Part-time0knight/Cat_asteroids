@@ -1,6 +1,5 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Enemy.Fsm.States;
-using Game.Logic.Enemy.Ice.IceM;
 
 namespace Game.Logic.Enemy.Ice.Fsm.States
 {

@@ -2,7 +2,7 @@ using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
 using Game.Domain.Dto;
-using Game.Infrastructure.States;
+using Game.Infrastructure.States.Gameplay;
 using Game.Logic.Player;
 using Game.Presentation.View;
 using System;

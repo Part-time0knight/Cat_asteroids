@@ -20,8 +20,9 @@ namespace Game.Presentation.View
             _settings.GoToControl.onClick.AddListener(_viewModel.InvokeGoToControl);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             _settings.Return.onClick.RemoveListener(_viewModel.InvokeReturn);
             _settings.GoToMenu.onClick.RemoveListener(_viewModel.InvokeGoToMainMenu);
             _settings.GoToControl.onClick.RemoveListener(_viewModel.InvokeGoToControl);

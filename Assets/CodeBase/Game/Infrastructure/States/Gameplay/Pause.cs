@@ -8,7 +8,7 @@ using Game.Logic.Player;
 using Game.Presentation.View;
 using UnityEngine;
 
-namespace Game.Infrastructure.States
+namespace Game.Infrastructure.States.Gameplay
 {
     public class Pause : IState
     {

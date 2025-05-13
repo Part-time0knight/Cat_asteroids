@@ -1,7 +1,7 @@
 using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
-using Game.Infrastructure.States;
+using Game.Infrastructure.States.Gameplay;
 using Game.Presentation.View;
 using System;
 

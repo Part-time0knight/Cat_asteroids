@@ -4,7 +4,7 @@ using Core.MVVM.Windows;
 using Game.Presentation.View;
 
 
-namespace Game.Infrastructure.States
+namespace Game.Infrastructure.States.Gameplay
 {
     public class Initialize : IState
     {
@@ -12,7 +12,7 @@ namespace Game.Infrastructure.States
         private readonly IGameStateMachine _stateMachine;
 
         public Initialize(IWindowResolve windowResolve,
-            IGameStateMachine stateMachine) 
+            IGameStateMachine stateMachine)
         {
             _windowResolve = windowResolve;
             _stateMachine = stateMachine;

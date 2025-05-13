@@ -18,8 +18,9 @@ namespace Game.Presentation.View
             _settings.Restart.onClick.AddListener(_viewModel.InvokeRestart);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             _settings.Restart.onClick.RemoveListener(_viewModel.InvokeRestart);
         }
 

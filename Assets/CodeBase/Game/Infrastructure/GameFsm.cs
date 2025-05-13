@@ -1,6 +1,6 @@
 using Core.Domain.Factories;
 using Core.Infrastructure.GameFsm;
-using Game.Infrastructure.States;
+using Game.Infrastructure.States.Gameplay;
 using Zenject;
 
 namespace Game.Infrastructure
