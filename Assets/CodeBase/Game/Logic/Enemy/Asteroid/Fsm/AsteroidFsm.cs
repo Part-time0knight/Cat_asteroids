@@ -17,6 +17,7 @@ namespace Game.Logic.Enemy.Asteroid.Fsm
             _states.Add(typeof(Run), _factory.Create<AsteroidRun>());
             _states.Add(typeof(Pause), _factory.Create<Pause>());
             _states.Add(typeof(Dead), _factory.Create<Dead>());
+            _states.Add(typeof(Disable), _factory.Create<Disable>());
         }
     }
 }

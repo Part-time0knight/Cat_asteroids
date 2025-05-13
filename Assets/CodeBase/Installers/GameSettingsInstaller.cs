@@ -1,5 +1,4 @@
 using Game.Logic.Effects.Particles;
-using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
@@ -87,7 +86,7 @@ namespace Installers
             public class IceMSettings
             {
                 public IceMediumHandler.IceSettings MainSettings;
-                public IceMMoveHandler.IceSettings Move;
+                public IceMMoveHandler.IceMSettings Move;
                 public IceMDamageHandler.IceSettings Hits;
                 public IceMWeaponHandler.IceSettings Damage;
                 public IceMShootHandler.IceMSettings Shooter;

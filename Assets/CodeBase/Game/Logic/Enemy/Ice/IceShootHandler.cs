@@ -46,6 +46,7 @@ namespace Game.Logic.Enemy.Ice
                 return;
             _cts.Cancel();
             _cts = null;
+            Clear();
         }
 
         public void Dispose()
@@ -76,9 +77,12 @@ namespace Game.Logic.Enemy.Ice
             Vector2 enemyPos = _enemyPositionReader.GetNearest(_transform.position);
             float toEnemy = Vector2.Distance(_transform.position, enemyPos);
             float toPlayer = Vector2.Distance(_transform.position, _playerPositionReader.Position);
-            if (toEnemy > _iceSettings.SafeZoneDistance)
+            bool isPlayer = toEnemy < 0.01f || toEnemy > _iceSettings.SafeZoneDistance || toEnemy > toPlayer;
+
+            if (isPlayer)
                 return _playerPositionReader.Position;
-            return toEnemy > toPlayer ? _playerPositionReader.Position : enemyPos;
+
+            return isPlayer ? _playerPositionReader.Position : enemyPos;
         }
 
 

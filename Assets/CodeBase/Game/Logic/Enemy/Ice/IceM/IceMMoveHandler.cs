@@ -1,15 +1,19 @@
 using Game.Logic.Enemy;
 using System;
 using UnityEngine;
+using Zenject;
 
-public class IceMMoveHandler : EnemyMoveHandler
+namespace Game.Logic.Enemy.Ice.IceM
 {
-    public IceMMoveHandler(Rigidbody2D body, IceSettings stats) : base(body, stats)
+    public class IceMMoveHandler : IceMoveHandler
     {
-    }
 
-    [Serializable]
-    public class IceSettings : EnemySettings
-    {
+        public IceMMoveHandler(Rigidbody2D body, IceMSettings stats) : base(body, stats)
+        {
+        }
+
+
+        [Serializable]
+        public class IceMSettings : IceSettings { }
     }
 }

@@ -1,8 +1,6 @@
 using Game.Logic.Handlers;
 using System;
 using UnityEngine;
-using UniRx;
-using UniRx.Triggers;
 using Random = UnityEngine.Random;
 
 namespace Game.Logic.Enemy
@@ -19,7 +17,7 @@ namespace Game.Logic.Enemy
             _settings = stats;
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             _randomSpeed = Random.Range(_settings.MinimalSpeed, _settings.Speed);
         }

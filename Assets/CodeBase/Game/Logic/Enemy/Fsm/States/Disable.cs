@@ -5,19 +5,16 @@ using UnityEngine;
 
 namespace Game.Logic.Enemy.Fsm.States
 {
-    public class Dead : IState
+    public class Disable : IState
     {
         private readonly Rigidbody2D _body;
-        private readonly ExplosionSpawner _spawner;
         private readonly EnemyHandler _enemyHandler;
         private List<Collider2D> _colliders = new();
 
-        public Dead(Rigidbody2D body,
-            ExplosionSpawner spawner,
-            EnemyHandler enemyHandler) 
-        { 
+        public Disable(Rigidbody2D body,
+            EnemyHandler enemyHandler)
+        {
             _body = body;
-            _spawner = spawner;
             _enemyHandler = enemyHandler;
         }
 
@@ -25,8 +22,6 @@ namespace Game.Logic.Enemy.Fsm.States
         {
             _body.GetAttachedColliders(_colliders);
             _colliders.ForEach((collider) => collider.enabled = false);
-            _spawner.Spawn(_body.position, _enemyHandler.Size);
-            _enemyHandler.InvokeDeath();
         }
 
         public void OnExit()

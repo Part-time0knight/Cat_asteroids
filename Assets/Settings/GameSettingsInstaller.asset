@@ -40,7 +40,7 @@ MonoBehaviour:
       <Duration>k__BackingField: 1
   <Projectile>k__BackingField:
     Move:
-      <Speed>k__BackingField: 40
+      <Speed>k__BackingField: 30
   <SpawnerSettings>k__BackingField:
     AsteroidBSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
@@ -61,7 +61,7 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 10
-      <Delay>k__BackingField: 10
+      <Delay>k__BackingField: 7
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:
@@ -127,12 +127,13 @@ MonoBehaviour:
       Move:
         <Speed>k__BackingField: 4
         <MinimalSpeed>k__BackingField: 4
+        <CorrectionSpeed>k__BackingField: 4
       Hits:
         <HitPoints>k__BackingField: 1
       Damage:
         <Damage>k__BackingField: 1
         <DamageDelay>k__BackingField: 1
       Shooter:
-        <AttackDelay>k__BackingField: 4
+        <AttackDelay>k__BackingField: 3
         <Damage>k__BackingField: 1
         <SafeZoneDistance>k__BackingField: 10

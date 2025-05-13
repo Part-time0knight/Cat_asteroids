@@ -1,5 +1,6 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Enemy.Fsm.States;
+using Game.Logic.Handlers;
 using UnityEngine;
 
 namespace Game.Logic.Enemy.Ice.Fsm.States
@@ -26,7 +27,12 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
         public override void OnEnter()
         {
             _iceShootHandler.StartAutomatic();
-            base.OnEnter();
+            _moveHandler.OnCollision += Hit;
+            _damageHandler.OnDeath += InvokeDeath;
+            _moveHandler.OnTrigger += InvokeDisable;
+            _enemyHandler.OnDamaged += InvokeDamaged;
+            _enemyHandler.OnPause += InvokePause;
+            InvokePause(_enemyHandler.Pause);
         }
 
         public override void OnExit()

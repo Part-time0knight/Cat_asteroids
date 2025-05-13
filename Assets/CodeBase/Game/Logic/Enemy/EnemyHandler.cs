@@ -28,7 +28,7 @@ namespace Game.Logic.Enemy
             }
         }
 
-        public Vector2 Direction { get; private set; }
+        public virtual Vector2 Direction { get; private set; }
 
         public override void MakeCollision(int damage)
             => TakeDamage(damage);
@@ -65,8 +65,18 @@ namespace Game.Logic.Enemy
             _fsm.Enter<Initialize>();
         }
 
+        protected virtual void Deactivate()
+        {
+            _fsm.Enter<Disable>();
+        }
+
         public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>
         {
+            protected override void OnDespawned(EnemyHandler item)
+            {
+                base.OnDespawned(item);
+                item.Deactivate();
+            }
 
             protected override void Reinitialize(Vector2 spawnPoint,
                 Vector2 direction,

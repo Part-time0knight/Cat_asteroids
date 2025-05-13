@@ -1,10 +1,11 @@
 using Game.Logic.Handlers;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerMoveHandler : MoveHandler
+    public class PlayerMoveHandler : MoveHandler, IFixedTickable
     {
         public event Action<float> OnHaste;
 
@@ -37,7 +38,6 @@ namespace Game.Logic.Player
             base.Move(speedMultiplier);
             if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed) 
                 _body.linearVelocity = _body.linearVelocity.normalized * _playerSettings.MaxSpeed;
-            _playerDataWriter.Position = _body.transform.position;
             _playerDataWriter.MakeMove = true;
         }
 
@@ -48,7 +48,10 @@ namespace Game.Logic.Player
             _playerDataWriter.MakeMove = true;
         }
 
-
+        public void FixedTick()
+        {
+            _playerDataWriter.Position = _body.transform.position;
+        }
 
         [Serializable]
         public class PlayerSettings : Settings

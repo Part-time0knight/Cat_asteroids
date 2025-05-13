@@ -13,10 +13,11 @@ namespace Game.Logic.Enemy.Ice.Fsm
 
         protected override void StateResolve()
         {
-            _states.Add(typeof(Initialize), _factory.Create<Initialize>());
+            _states.Add(typeof(Initialize), _factory.Create<IceInitialize>());
             _states.Add(typeof(Run), _factory.Create<IceRun>());
             _states.Add(typeof(Pause), _factory.Create<IcePause>());
             _states.Add(typeof(Dead), _factory.Create<Dead>());
+            _states.Add(typeof(Disable), _factory.Create<Disable>());
         }
     }
 }

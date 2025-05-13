@@ -17,8 +17,12 @@ namespace Installers.Enemies
                 .To<IceFsm>()
                 .AsSingle()
                 .NonLazy();
-            Container.Bind<IInitializable>().FromResolveGetter<EnemyFsm>(fsm => fsm);
-            Container.Bind<IGameStateMachine>().FromResolveGetter<EnemyFsm>(fsm => fsm);
+            Container
+                .Bind<IInitializable>()
+                .FromResolveGetter<EnemyFsm>(fsm => fsm);
+            Container
+                .Bind<IGameStateMachine>()
+                .FromResolveGetter<EnemyFsm>(fsm => fsm);
         }
 
         protected override void InstallEnemyComponents()
@@ -35,7 +39,7 @@ namespace Installers.Enemies
                 .To<IceMWeaponHandler>()
                 .AsSingle();
             Container
-                .Bind<EnemyMoveHandler>()
+                .Bind<IceMoveHandler>()
                 .To<IceMMoveHandler>()
                 .AsSingle();
             Container
@@ -47,6 +51,14 @@ namespace Installers.Enemies
                 .Bind<IceShootHandler>()
                 .To<IceMShootHandler>()
                 .AsSingle();
+
+            Container
+                .Bind<EnemyMoveHandler>()
+                .FromResolveGetter<IceMoveHandler>(fsm => fsm);
+            Container
+                .Bind<IFixedTickable>()
+                .FromResolveGetter<IceMoveHandler>(fsm => fsm);
+
         }
 
     }
