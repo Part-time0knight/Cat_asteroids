@@ -3,14 +3,14 @@ using Core.MVVM.Windows;
 using Game.Logic.Handlers;
 using Game.Presentation.View;
 
-namespace Game.Infrastructure.States.Menu
+namespace Game.Infrastructure.States.Gameplay
 {
-    public class LoadGameplay : IState
+    public class LoadMenu : IState
     {
         private readonly IWindowFsm _windowFsm;
         private readonly SceneLoadHandler _loadHandler;
 
-        public LoadGameplay(IWindowFsm windowFsm,
+        public LoadMenu(IWindowFsm windowFsm,
             SceneLoadHandler loadHandler)
         {
             _windowFsm = windowFsm;
@@ -19,7 +19,8 @@ namespace Game.Infrastructure.States.Menu
 
         public void OnEnter()
         {
-            _loadHandler.LoadGameplay();
+            UnityEngine.Debug.Log("Enter state Load Menu");
+            _loadHandler.LoadMenu();
             _windowFsm.OpenWindow(typeof(LoadView), true);
         }
 

@@ -39,7 +39,7 @@ namespace Installers
         private void InstallService()
         {
             Container
-                .BindInterfacesAndSelfTo<LoadHandler>()
+                .BindInterfacesAndSelfTo<SceneLoadHandler>()
                 .AsSingle()
                 .NonLazy();
 

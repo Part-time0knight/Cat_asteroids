@@ -11,12 +11,12 @@ namespace Game.Presentation.ViewModel
     {
         public event Action<float> OnLoad;
 
-        private readonly LoadHandler _loadHandler;
+        private readonly SceneLoadHandler _loadHandler;
 
         protected override Type Window => typeof(LoadView);
 
         public LoadViewModel(IWindowFsm windowFsm,
-            LoadHandler loadHandler) : base(windowFsm)
+            SceneLoadHandler loadHandler) : base(windowFsm)
         {
             _loadHandler = loadHandler;
         }

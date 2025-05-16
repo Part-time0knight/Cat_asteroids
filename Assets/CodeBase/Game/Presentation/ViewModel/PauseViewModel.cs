@@ -30,7 +30,9 @@ namespace Game.Presentation.ViewModel
         }
 
         public void InvokeGoToMainMenu()
-        { }
+        {
+            _gameFsm.Enter<LoadMenu>();
+        }
 
         public void InvokeReturn()
         {

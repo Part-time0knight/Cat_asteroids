@@ -37,6 +37,7 @@ namespace Game.Infrastructure.States.Gameplay
             _windowResolve.Set<GameplayView>();
             _windowResolve.Set<PauseView>();
             _windowResolve.Set<DefeatView>();
+            _windowResolve.Set<LoadView>();
         }
     }
 }

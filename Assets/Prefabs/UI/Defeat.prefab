@@ -323,6 +323,7 @@ MonoBehaviour:
       m_Calls: []
   _settings:
     <Restart>k__BackingField: {fileID: 1883688434700963493}
+    <MainMenu>k__BackingField: {fileID: 5146614945878400372}
 --- !u!1 &1597484013571581929
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,18 +16,21 @@ namespace Game.Presentation.View
         {
             base.Construct(viewModel);
             _settings.Restart.onClick.AddListener(_viewModel.InvokeRestart);
+            _settings.MainMenu.onClick.AddListener(_viewModel.InvokeMainMenu);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
             _settings.Restart.onClick.RemoveListener(_viewModel.InvokeRestart);
+            _settings.MainMenu.onClick.RemoveListener(_viewModel.InvokeMainMenu);
         }
 
         [Serializable]
         public class Settings
         {
             [field: SerializeField] public Button Restart { get; private set; }
+            [field: SerializeField] public Button MainMenu { get; private set; }
         }
     }
 }

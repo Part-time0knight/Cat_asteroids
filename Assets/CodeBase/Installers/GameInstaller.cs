@@ -27,7 +27,7 @@ namespace Installers
         {
             InstallFactory();
             InstallPools();
-            InstallService();
+            InstallServices();
             InstallDataObjects();
             InstallViewModel();
         }
@@ -112,10 +112,20 @@ namespace Installers
                 .BindInterfacesAndSelfTo<PauseViewModel>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<LoadViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
-        private void InstallService()
+        private void InstallServices()
         {
+            Container
+                .BindInterfacesAndSelfTo<SceneLoadHandler>()
+                .AsSingle()
+                .NonLazy();
+
             Container
                 .BindInterfacesAndSelfTo<PauseInputHandler>()
                 .AsSingle()

@@ -35,5 +35,10 @@ namespace Game.Presentation.ViewModel
             _gameFSM.Enter<Start>();
         }
 
+        public void InvokeMainMenu()
+        {
+            _gameFSM.Enter<LoadMenu>();
+        }
+
     }
 }
