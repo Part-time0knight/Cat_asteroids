@@ -9,6 +9,7 @@ namespace Game.Logic.Enemy.Ice
         private readonly IceSettings _iceSettings;
         private Vector2 _initialVelocity = Vector2.zero;
         private Vector2 _currentVelocity = Vector2.zero;
+        private float _speedMultiplier = 1f;
 
         public IceMoveHandler(Rigidbody2D body, IceSettings stats) : base(body, stats)
         {
@@ -28,7 +29,31 @@ namespace Game.Logic.Enemy.Ice
 
             _currentVelocity.Normalize();
 
-            _body.linearVelocity = _currentVelocity * _iceSettings.Speed;
+            _body.linearVelocity = _currentVelocity * _iceSettings.Speed * _speedMultiplier;
+        }
+
+        public override void Pause()
+        {
+            _speedMultiplier = 0;
+            base.Pause();
+        }
+
+        public override void Stop()
+        {
+            _speedMultiplier = 0;
+            base.Stop();
+        }
+
+        public override void Continue()
+        {
+            _speedMultiplier = 1f;
+            base.Continue();
+        }
+
+        public override void Move(Vector2 speedMultiplier)
+        {
+            _speedMultiplier = 1f;
+            base.Move(speedMultiplier);
         }
 
         public override void Initialize()

@@ -37,7 +37,7 @@ namespace Game.Logic.Handlers
         }
 
 
-        public void Stop()
+        public virtual void Stop()
         {
             if (_body == null)
                 return;
@@ -45,7 +45,7 @@ namespace Game.Logic.Handlers
             _body.angularVelocity = 0;
         }
 
-        public void Pause()
+        public virtual void Pause()
         {
             _pausedLinearVelocity = _body.linearVelocity;
             _pausedAngularVelocity = _body.angularVelocity;
@@ -53,7 +53,7 @@ namespace Game.Logic.Handlers
             _body.angularVelocity = 0;
         }
 
-        public void Continue()
+        public virtual void Continue()
         {
             _body.linearVelocity = _pausedLinearVelocity;
             _body.angularVelocity = _pausedAngularVelocity;

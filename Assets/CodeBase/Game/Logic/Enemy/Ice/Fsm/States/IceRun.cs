@@ -32,6 +32,7 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
             _moveHandler.OnTrigger += InvokeDisable;
             _enemyHandler.OnDamaged += InvokeDamaged;
             _enemyHandler.OnPause += InvokePause;
+            _moveHandler.Move(_enemyHandler.Direction);
             InvokePause(_enemyHandler.Pause);
         }
 
