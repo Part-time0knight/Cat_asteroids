@@ -28,6 +28,8 @@ namespace Game.Presentation.View
         protected override void OnDestroy()
         {
             base.OnDestroy();
+
+            _settings.FillLoad?.DOKill();
             _viewModel.OnLoad -= UpdateLoad;
         }
 
