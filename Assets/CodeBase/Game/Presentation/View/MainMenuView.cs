@@ -16,11 +16,13 @@ namespace Game.Presentation.View
         {
             base.Construct(viewModel);
             _settings.StartButton.onClick.AddListener(_viewModel.StartGame);
+            _settings.ControlButton.onClick.AddListener(_viewModel.OpenControlWindow);
         }
 
         protected override void OnDestroy()
         {
             _settings.StartButton.onClick.RemoveListener(_viewModel.StartGame);
+            _settings.ControlButton.onClick.RemoveListener(_viewModel.OpenControlWindow);
             base.OnDestroy();
         }
 
@@ -28,6 +30,7 @@ namespace Game.Presentation.View
         public class Settings
         {
             [field: SerializeField] public Button StartButton { get; private set; }
+            [field: SerializeField] public Button ControlButton { get; private set;}
         }
     }
 }

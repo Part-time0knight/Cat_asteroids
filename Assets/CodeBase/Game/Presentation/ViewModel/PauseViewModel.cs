@@ -41,7 +41,7 @@ namespace Game.Presentation.ViewModel
 
         public void InvokeGoToControl()
         {
-
+            _windowFsm.OpenWindow(typeof(ControlWindowView), true);
         }
     }
 }

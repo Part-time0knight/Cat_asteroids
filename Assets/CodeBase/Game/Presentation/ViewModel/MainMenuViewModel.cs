@@ -35,7 +35,7 @@ namespace Game.Presentation.ViewModel
 
         public void OpenControlWindow()
         {
-
+            _windowFsm.OpenWindow(typeof(ControlWindowView), inHistory: true);
         }
 
         public void OpenSettingsWindow()

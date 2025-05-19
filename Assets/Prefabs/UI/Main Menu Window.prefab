@@ -656,6 +656,7 @@ MonoBehaviour:
       m_Calls: []
   _settings:
     <StartButton>k__BackingField: {fileID: 1044148317719525741}
+    <ControlButton>k__BackingField: {fileID: 8362419100896011313}
 --- !u!1 &3622378989743983690
 GameObject:
   m_ObjectHideFlags: 0

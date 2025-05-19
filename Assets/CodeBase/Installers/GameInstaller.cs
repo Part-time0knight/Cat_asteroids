@@ -117,6 +117,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<LoadViewModel>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<ControlWindowViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallServices()
