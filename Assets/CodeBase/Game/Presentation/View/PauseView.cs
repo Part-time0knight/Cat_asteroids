@@ -18,6 +18,7 @@ namespace Game.Presentation.View
             _settings.Return.onClick.AddListener(_viewModel.InvokeReturn);
             _settings.GoToMenu.onClick.AddListener(_viewModel.InvokeGoToMainMenu);
             _settings.GoToControl.onClick.AddListener(_viewModel.InvokeGoToControl);
+            _settings.GoToSettings.onClick.AddListener(_viewModel.InvokeGoToSettings);
         }
 
         protected override void OnDestroy()
@@ -26,12 +27,14 @@ namespace Game.Presentation.View
             _settings.Return.onClick.RemoveListener(_viewModel.InvokeReturn);
             _settings.GoToMenu.onClick.RemoveListener(_viewModel.InvokeGoToMainMenu);
             _settings.GoToControl.onClick.RemoveListener(_viewModel.InvokeGoToControl);
+            _settings.GoToSettings.onClick.RemoveListener(_viewModel.InvokeGoToSettings);
         }
 
         [Serializable]
         public class Settings
         {
             [field: SerializeField] public Button Return { get; private set; }
+            [field: SerializeField] public Button GoToSettings { get; private set; }
             [field: SerializeField] public Button GoToMenu { get; private set; }
             [field: SerializeField] public Button GoToControl { get; private set; }
         }

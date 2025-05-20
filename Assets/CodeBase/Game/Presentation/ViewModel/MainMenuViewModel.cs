@@ -40,7 +40,7 @@ namespace Game.Presentation.ViewModel
 
         public void OpenSettingsWindow()
         {
-
+            _windowFsm.OpenWindow(typeof(SettingsWindowView), inHistory: true);
         }
         
         public void OpenLeaderBoardWindow() 

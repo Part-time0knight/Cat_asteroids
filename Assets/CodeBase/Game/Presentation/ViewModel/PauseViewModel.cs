@@ -43,5 +43,10 @@ namespace Game.Presentation.ViewModel
         {
             _windowFsm.OpenWindow(typeof(ControlWindowView), true);
         }
+
+        public void InvokeGoToSettings()
+        {
+            _windowFsm.OpenWindow(typeof(SettingsWindowView), true);
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace Game.Infrastructure.States.Menu
             _windowResolve.Set<MainMenuView>();
             _windowResolve.Set<LoadView>();
             _windowResolve.Set<ControlWindowView>();
+            _windowResolve.Set<SettingsWindowView>();
         }
     }
 }

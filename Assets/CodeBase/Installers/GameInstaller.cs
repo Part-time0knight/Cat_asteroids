@@ -122,6 +122,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<ControlWindowViewModel>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<SettingsWindowViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallServices()
