@@ -136,4 +136,4 @@ MonoBehaviour:
       Shooter:
         <AttackDelay>k__BackingField: 3
         <Damage>k__BackingField: 1
-        <SafeZoneDistance>k__BackingField: 10
+        <SafeZoneDistance>k__BackingField: 8
