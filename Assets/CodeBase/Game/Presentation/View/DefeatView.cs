@@ -31,15 +31,17 @@ namespace Game.Presentation.View
             _settings.LeaderBoard.onClick.RemoveListener(_viewModel.InvokeLeaderBoard);
         }
 
-        private void UpdateScore(string score)
+        private void UpdateScore(string score, string maxScore)
         {
             _settings.ScoreCountText.text = score;
+            _settings.ScoreMaxCountText.text = maxScore;
         }
 
         [Serializable]
         public class Settings
         {
             [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
+            [field: SerializeField] public TMP_Text ScoreMaxCountText { get; private set; }
             [field: SerializeField] public Button Restart { get; private set; }
             [field: SerializeField] public Button LeaderBoard { get; private set; }
             [field: SerializeField] public Button MainMenu { get; private set; }

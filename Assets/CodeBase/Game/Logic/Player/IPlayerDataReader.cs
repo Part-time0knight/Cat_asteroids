@@ -15,6 +15,8 @@ namespace Game.Logic.Player
         event Action<int, Vector2> OnScoreAdd;
 
         int Score { get; }
+
+        int MaxScore { get; }
     }
 
     public interface IPlayerHitsReader

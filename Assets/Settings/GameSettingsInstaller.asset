@@ -40,7 +40,7 @@ MonoBehaviour:
       <Duration>k__BackingField: 1.5
   <Projectile>k__BackingField:
     BaseMove:
-      <Speed>k__BackingField: 30
+      <Speed>k__BackingField: 35
     IceMove:
       <Speed>k__BackingField: 15
   <SpawnerSettings>k__BackingField:

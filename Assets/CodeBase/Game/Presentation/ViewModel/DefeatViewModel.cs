@@ -10,7 +10,7 @@ namespace Game.Presentation.ViewModel
 {
     public class DefeatViewModel : AbstractViewModel
     {
-        public event Action<string> OnOpen;
+        public event Action<string, string> OnOpen;
 
         private readonly IGameStateMachine _gameFSM;
         private readonly IPlayerScoreReader _playerScoreReader;
@@ -41,7 +41,8 @@ namespace Game.Presentation.ViewModel
         {
             base.HandleOpenedWindow(uiWindow);
             if (uiWindow != Window) return;
-            OnOpen?.Invoke(_playerScoreReader.Score.ToString());
+            OnOpen?.Invoke(_playerScoreReader.Score.ToString(),
+                _playerScoreReader.MaxScore.ToString());
         }
 
         public void InvokeRestart()
