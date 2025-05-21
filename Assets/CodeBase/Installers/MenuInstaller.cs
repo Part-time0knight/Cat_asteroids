@@ -43,6 +43,11 @@ namespace Installers
                 .AsSingle()
                 .NonLazy();
             Container
+                .BindInterfacesAndSelfTo<LeaderBoardViewModel>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
                 .BindInterfacesAndSelfTo<AuthorWindowViewModel>()
                 .AsSingle()
                 .NonLazy();

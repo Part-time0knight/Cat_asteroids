@@ -45,7 +45,7 @@ namespace Game.Presentation.ViewModel
         
         public void OpenLeaderBoardWindow() 
         {
-
+            _windowFsm.OpenWindow(typeof(LeaderBoardView), inHistory: true);
         }
 
         public void OpenAuthorWindow()
