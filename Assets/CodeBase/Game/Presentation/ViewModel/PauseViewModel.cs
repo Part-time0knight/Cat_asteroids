@@ -48,5 +48,10 @@ namespace Game.Presentation.ViewModel
         {
             _windowFsm.OpenWindow(typeof(SettingsWindowView), true);
         }
+
+        public void InvokeRestart()
+        {
+            _gameFsm.Enter<Start>();
+        }
     }
 }

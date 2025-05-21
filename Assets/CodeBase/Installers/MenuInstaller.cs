@@ -42,6 +42,10 @@ namespace Installers
                 .BindInterfacesAndSelfTo<SettingsWindowViewModel>()
                 .AsSingle()
                 .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<AuthorWindowViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallService()

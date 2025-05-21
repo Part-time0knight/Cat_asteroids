@@ -48,9 +48,9 @@ namespace Game.Presentation.ViewModel
 
         }
 
-        public void OpenAuthorsWindow()
+        public void OpenAuthorWindow()
         {
-
+            _windowFsm.OpenWindow(typeof(AuthorWindowView), inHistory: true);
         }
 
         protected override void HandleOpenedWindow(Type uiWindow)
