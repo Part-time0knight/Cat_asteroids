@@ -10,7 +10,6 @@ namespace Game.Logic.Weapon
         public Action<Bullet, GameObject> InvokeHit;
 
         protected Vector2 _direction = Vector2.zero;
-        protected Vector2 _sampleDirection = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
 
         public void Pause()
@@ -32,7 +31,8 @@ namespace Game.Logic.Weapon
         {
             transform.position = startPos;
             _direction = (targetPos - startPos).normalized;
-            _sampleDirection = _direction;
+            float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle - 90);
             _bulletMove.Move(_direction);
         }
 

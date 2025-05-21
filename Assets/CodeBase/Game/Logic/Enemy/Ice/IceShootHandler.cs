@@ -19,7 +19,7 @@ namespace Game.Logic.Enemy.Ice
         public IceShootHandler(IPlayerPositionReader playerPositionReader,
             IEnemyPositionReader enemyPositionReader,
             Transform transform,
-            Bullet.Pool bulletPool,
+            IceBullet.IcePool bulletPool,
             IceSettings settings) 
             : base(bulletPool,
                   settings)

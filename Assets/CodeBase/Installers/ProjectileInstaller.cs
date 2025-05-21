@@ -10,6 +10,11 @@ public class ProjectileInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInstance(_settings.Body).AsSingle();
+        InstallMoveHandler();
+    }
+
+    protected virtual void InstallMoveHandler()
+    {
         Container.BindInterfacesAndSelfTo<BulletMoveHandler>().AsSingle();
     }
 

@@ -39,8 +39,10 @@ MonoBehaviour:
     Invincibility:
       <Duration>k__BackingField: 1.5
   <Projectile>k__BackingField:
-    Move:
+    BaseMove:
       <Speed>k__BackingField: 30
+    IceMove:
+      <Speed>k__BackingField: 15
   <SpawnerSettings>k__BackingField:
     AsteroidBSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}

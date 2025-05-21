@@ -10,7 +10,7 @@ namespace Game.Logic.Enemy.Ice.IceM
         public IceMShootHandler(IPlayerPositionReader playerPositionReader,
             IEnemyPositionReader enemyPositionReader,
             Transform transform,
-            Bullet.Pool bulletPool,
+            IceBullet.IcePool bulletPool,
             IceMSettings settings) 
             : base(playerPositionReader,
                   enemyPositionReader,

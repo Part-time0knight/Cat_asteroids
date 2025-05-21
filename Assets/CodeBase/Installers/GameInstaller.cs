@@ -7,6 +7,7 @@ using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
+using Game.Logic.Enemy.Ice;
 using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
@@ -55,6 +56,11 @@ namespace Installers
             Container
                 .BindMemoryPool<Bullet, Bullet.Pool>()
                 .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab)
+                .UnderTransform(_settings.Projectiles.Container);
+
+            Container
+                .BindMemoryPool<IceBullet, IceBullet.IcePool>()
+                .FromComponentInNewPrefab(_settings.Projectiles.IceBulletPrefab)
                 .UnderTransform(_settings.Projectiles.Container);
 
             Container
@@ -189,6 +195,9 @@ namespace Installers
 
                 [field: SerializeField]
                 public Bullet BulletPrefab { get; private set; }
+
+                [field: SerializeField]
+                public Bullet IceBulletPrefab { get; private set; }
             }
 
             [Serializable]

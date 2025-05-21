@@ -880,6 +880,7 @@ MonoBehaviour:
     <Projectiles>k__BackingField:
       <Container>k__BackingField: {fileID: 1343615797}
       <BulletPrefab>k__BackingField: {fileID: 934031776928171266, guid: 69f9db645d71f0141948e95f45bd3dca, type: 3}
+      <IceBulletPrefab>k__BackingField: {fileID: 2498041309817031609, guid: 65dc9dd2df8b67a4bbede5be74553085, type: 3}
     <Enemies>k__BackingField:
       <Container>k__BackingField: {fileID: 2022264621632344016}
       <AsteroidBigPrefab>k__BackingField: {fileID: 1428568571213834824, guid: c48fe25a1c7d5bd44830344708f477c7, type: 3}
