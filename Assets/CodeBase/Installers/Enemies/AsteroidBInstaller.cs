@@ -18,12 +18,13 @@ namespace Installers.Enemies
         protected override void InstallFsm()
         {
             Container
-                .Bind<EnemyFsm>()
-                .To<AsteroidFsm>()
+                .BindInterfacesAndSelfTo<AsteroidFsm>()
                 .AsSingle()
                 .NonLazy();
-            Container.Bind<IInitializable>().FromResolveGetter<EnemyFsm>(fsm => fsm);
-            Container.Bind<IGameStateMachine>().FromResolveGetter<EnemyFsm>(fsm => fsm);
+
+            Container
+                .Bind<EnemyFsm>()
+                .FromResolveGetter<AsteroidFsm>(fsm => fsm);
         }
 
         protected override void InstallEnemyComponents()
