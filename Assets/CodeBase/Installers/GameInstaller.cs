@@ -3,7 +3,6 @@ using Game.Domain.Factories.GameFsm;
 using Game.Infrastructure;
 using Game.Logic.Effects.Explosion;
 using Game.Logic.Enemy;
-using Game.Logic.Enemy.Asteroid;
 using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
@@ -169,6 +168,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<GameFsm>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<DifficultHandler>()
                 .AsSingle()
                 .NonLazy();
         }
