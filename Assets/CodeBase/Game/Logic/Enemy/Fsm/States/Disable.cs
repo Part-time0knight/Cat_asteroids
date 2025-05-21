@@ -20,6 +20,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public void OnEnter()
         {
+            Debug.Log("Enter in Disable state " + GetType());
             _body.GetAttachedColliders(_colliders);
             _colliders.ForEach((collider) => collider.enabled = false);
         }

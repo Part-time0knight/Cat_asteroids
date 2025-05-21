@@ -54,7 +54,7 @@ namespace Game.Presentation.ViewModel
         protected override void HandleOpenedWindow(Type uiWindow)
         {
             base.HandleOpenedWindow(uiWindow);
-
+            if (Window != uiWindow) return;
             UpdateSoundVolumes();
             UpdateMusicVolumes();
         }

@@ -57,6 +57,9 @@ namespace Game.Logic.Enemy.Spawner
 
         public void Clear()
         {
+            foreach (var enemy in _enemies)
+                enemy.Clear();
+
             while (_enemies.Count > 0)
                 OnDeath(_enemies[0]);
         }

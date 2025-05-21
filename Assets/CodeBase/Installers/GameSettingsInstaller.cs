@@ -89,7 +89,7 @@ namespace Installers
             [Serializable]
             public class IceMSettings
             {
-                public IceMediumHandler.IceSettings MainSettings;
+                public IceHandler.IceSettings MainSettings;
                 public IceMMoveHandler.IceMSettings Move;
                 public IceMDamageHandler.IceSettings Hits;
                 public IceMWeaponHandler.IceSettings Damage;

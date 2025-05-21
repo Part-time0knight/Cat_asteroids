@@ -322,6 +322,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _settings:
+    <ScoreCountText>k__BackingField: {fileID: 6125674490802117908}
     <Restart>k__BackingField: {fileID: 1883688434700963493}
     <LeaderBoard>k__BackingField: {fileID: 7608469497211997409}
     <MainMenu>k__BackingField: {fileID: 5146614945878400372}

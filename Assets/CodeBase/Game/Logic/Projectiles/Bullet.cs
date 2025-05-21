@@ -12,12 +12,12 @@ namespace Game.Logic.Weapon
         protected Vector2 _direction = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
 
-        public void Pause()
+        public virtual void Pause()
         {
             _bulletMove.Pause();
         }
 
-        public void Continue()
+        public virtual void Continue()
         {
             _bulletMove.Continue();
         }

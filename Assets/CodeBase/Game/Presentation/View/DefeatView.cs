@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using Zenject;
+using TMPro;
 
 namespace Game.Presentation.View
 {
@@ -15,6 +16,7 @@ namespace Game.Presentation.View
         protected override void Construct(DefeatViewModel viewModel)
         {
             base.Construct(viewModel);
+            _viewModel.OnOpen += UpdateScore;
             _settings.Restart.onClick.AddListener(_viewModel.InvokeRestart);
             _settings.MainMenu.onClick.AddListener(_viewModel.InvokeMainMenu);
             _settings.LeaderBoard.onClick.AddListener(_viewModel.InvokeLeaderBoard);
@@ -23,14 +25,21 @@ namespace Game.Presentation.View
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            _viewModel.OnOpen -= UpdateScore;
             _settings.Restart.onClick.RemoveListener(_viewModel.InvokeRestart);
             _settings.MainMenu.onClick.RemoveListener(_viewModel.InvokeMainMenu);
             _settings.LeaderBoard.onClick.RemoveListener(_viewModel.InvokeLeaderBoard);
         }
 
+        private void UpdateScore(string score)
+        {
+            _settings.ScoreCountText.text = score;
+        }
+
         [Serializable]
         public class Settings
         {
+            [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
             [field: SerializeField] public Button Restart { get; private set; }
             [field: SerializeField] public Button LeaderBoard { get; private set; }
             [field: SerializeField] public Button MainMenu { get; private set; }

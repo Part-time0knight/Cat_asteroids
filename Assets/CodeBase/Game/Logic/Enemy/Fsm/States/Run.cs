@@ -30,6 +30,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public virtual void OnEnter()
         {
+            Debug.Log("Enter in Run state " + GetType());
             _moveHandler.OnCollision += Hit;
             _damageHandler.OnDeath += InvokeDeath;
             _moveHandler.OnTrigger += InvokeDisable;

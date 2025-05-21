@@ -39,6 +39,16 @@ namespace Game.Logic.Weapon
                 bullet.Pause();
         }
 
+        public virtual void Clear()
+        {
+            while (_bullets.Count > 0)
+            {
+                _bullets[0].InvokeHit -= Hit;
+                _bulletPool.Despawn(_bullets[0]);
+                _bullets.Remove(_bullets[0]);
+            }
+        }
+
         public virtual void Continue()
         {
             ContinueReload();
@@ -60,15 +70,7 @@ namespace Game.Logic.Weapon
             _timer.Play();
         }
 
-        protected virtual void Clear()
-        {
-            while (_bullets.Count > 0)
-            {
-                _bullets[0].InvokeHit -= Hit;
-                _bulletPool.Despawn(_bullets[0]);
-                _bullets.Remove(_bullets[0]);
-            }
-        }
+
 
         /// <param name="weponPos">World space position</param>
         /// <param name="target">World space position</param>

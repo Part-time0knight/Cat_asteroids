@@ -15,7 +15,7 @@ namespace Game.Logic.Enemy
         public event Action<EnemyHandler> OnDeath;
         public event Action<EnemyHandler> OnDeactivate;
 
-        private EnemyFsm _fsm;
+        protected EnemyFsm _fsm;
         private bool _pause = false;
 
         public override bool Pause
@@ -29,6 +29,11 @@ namespace Game.Logic.Enemy
         }
 
         public virtual Vector2 Direction { get; private set; }
+
+        public virtual void Clear()
+        {
+
+        }
 
         public override void MakeCollision(int damage)
             => TakeDamage(damage);

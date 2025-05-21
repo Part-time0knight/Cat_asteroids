@@ -1,5 +1,6 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
+using UnityEngine;
 
 namespace Game.Logic.Enemy.Fsm.States
 {
@@ -17,6 +18,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public virtual void OnEnter()
         {
+            Debug.Log("Enter in Pause state " + GetType());
             _enemy.OnPause += InvokePause;
         }
 

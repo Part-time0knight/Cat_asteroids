@@ -18,6 +18,7 @@ namespace Game.Logic.Enemy.Ice.Fsm
             _states.Add(typeof(Pause), _factory.Create<IcePause>());
             _states.Add(typeof(Dead), _factory.Create<Dead>());
             _states.Add(typeof(Disable), _factory.Create<Disable>());
+            _states.Add(typeof(Clear), _factory.Create<Clear>());
         }
     }
 }

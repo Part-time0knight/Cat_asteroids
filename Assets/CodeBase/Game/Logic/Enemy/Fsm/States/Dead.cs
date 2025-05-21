@@ -23,6 +23,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public void OnEnter()
         {
+            Debug.Log("Enter in Dead state " + GetType());
             _body.GetAttachedColliders(_colliders);
             _colliders.ForEach((collider) => collider.enabled = false);
             _spawner.Spawn(_body.position, _enemyHandler.Size);

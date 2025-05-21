@@ -34,8 +34,7 @@ namespace Game.Presentation.ViewModel
         protected override void HandleOpenedWindow(Type uiWindow)
         {
             base.HandleOpenedWindow(uiWindow);
-            if (uiWindow != Window)
-                return;
+            if (uiWindow != Window) return;
             _loadHandler.OnLoad += UpdateLoad;
             OnLoad.Invoke(0f);
         }
@@ -43,8 +42,7 @@ namespace Game.Presentation.ViewModel
         protected override void HandleClosedWindow(Type uiWindow)
         {
             base.HandleClosedWindow(uiWindow);
-            if (uiWindow != Window)
-                return;
+            if (uiWindow != Window) return;
             _loadHandler.OnLoad -= UpdateLoad;
         }
 

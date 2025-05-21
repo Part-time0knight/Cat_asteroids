@@ -46,12 +46,12 @@ namespace Game.Logic.Enemy.Ice
                 return;
             _cts.Cancel();
             _cts = null;
-            Clear();
         }
 
         public void Dispose()
         {
             StopAutomatic();
+            Clear();
         }
 
         private async UniTask Repeater()

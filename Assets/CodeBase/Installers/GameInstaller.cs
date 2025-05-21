@@ -227,7 +227,7 @@ namespace Installers
                 public AsteroidSmallHandler AsteroidSmallPrefab { get; private set; }
 
                 [field: SerializeField]
-                public IceMediumHandler IceMediumPrefab { get; private set; }
+                public IceHandler IceMediumPrefab { get; private set; }
             }
         }
     }

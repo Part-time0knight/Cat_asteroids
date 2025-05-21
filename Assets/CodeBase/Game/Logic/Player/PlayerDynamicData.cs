@@ -5,10 +5,8 @@ namespace Game.Logic.Player
 {
     public class PlayerDynamicData : IPlayerPositionReader, 
         IPlayerHitsReader,
-        IPlayerScoreReader,
         IPlayerPositionWriter,
-        IPlayerHitsWriter,
-        IPlayerScoreWriter
+        IPlayerHitsWriter
     {
         public event Action<bool> OnMove;
 
