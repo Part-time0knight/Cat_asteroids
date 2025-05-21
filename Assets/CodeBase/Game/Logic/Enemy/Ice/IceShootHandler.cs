@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Logic.Enemy.Ice
 {
-    public class IceShootHandler : ShootHandler
+    public class IceShootHandler : ShootHandler, IDisposable
     {
         private readonly IPlayerPositionReader _playerPositionReader;
         private readonly IEnemyPositionReader _enemyPositionReader;

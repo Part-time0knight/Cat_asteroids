@@ -4,6 +4,7 @@ using Game.Logic.Enemy.Fsm;
 using Game.Logic.Enemy.Ice;
 using Game.Logic.Enemy.Ice.Fsm;
 using Game.Logic.Enemy.Ice.IceM;
+using System;
 using Zenject;
 
 namespace Installers.Enemies
@@ -42,6 +43,7 @@ namespace Installers.Enemies
                 .Bind<IceMoveHandler>()
                 .To<IceMMoveHandler>()
                 .AsSingle();
+
             Container
                 .Bind<EnemyDamageHandler>()
                 .To<IceMDamageHandler>()
@@ -58,6 +60,14 @@ namespace Installers.Enemies
             Container
                 .Bind<IFixedTickable>()
                 .FromResolveGetter<IceMoveHandler>(fsm => fsm);
+
+            Container
+                .Bind<IInitializable>()
+                .FromResolveGetter<IceShootHandler>(fsm => fsm);
+
+            Container
+                .Bind<IDisposable>()
+                .FromResolveGetter<IceShootHandler>(fsm => fsm);
 
         }
 

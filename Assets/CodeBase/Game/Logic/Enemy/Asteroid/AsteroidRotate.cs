@@ -22,8 +22,7 @@ namespace Game.Logic.Enemy.Asteroid
 
         public void Dispose()
         {
-            if (_rotationTween != null)
-                _rotationTween.Kill();
+            Stop();
         }
 
         public void Initialize()

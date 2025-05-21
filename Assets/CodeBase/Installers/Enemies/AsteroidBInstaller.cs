@@ -7,6 +7,7 @@ using Game.Logic.Enemy.Asteroid.Fsm;
 using Game.Logic.Enemy.Fsm;
 using Zenject;
 using Core.Infrastructure.GameFsm;
+using Game.Logic.Enemy.Ice;
 
 namespace Installers.Enemies
 {
@@ -57,6 +58,10 @@ namespace Installers.Enemies
                 .Bind<EnemyDamageHandler>()
                 .To<AsteroidBDamageHandler>()
                 .AsSingle();
+
+            Container
+                .Bind<IDisposable>()
+                .FromResolveGetter<AsteroidRotate>(fsm => fsm);
         }
 
         [Serializable]

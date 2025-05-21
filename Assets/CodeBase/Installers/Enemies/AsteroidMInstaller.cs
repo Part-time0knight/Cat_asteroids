@@ -57,6 +57,11 @@ namespace Installers.Enemies
                 .Bind<EnemyDamageHandler>()
                 .To<AsteroidMDamageHandler>()
                 .AsSingle();
+
+
+            Container
+                .Bind<IDisposable>()
+                .FromResolveGetter<AsteroidRotate>(fsm => fsm);
         }
 
         [Serializable]
