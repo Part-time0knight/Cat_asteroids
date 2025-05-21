@@ -40,5 +40,10 @@ namespace Game.Presentation.ViewModel
             _gameFSM.Enter<LoadMenu>();
         }
 
+        public void InvokeLeaderBoard() 
+        {
+            _windowFsm.OpenWindow(typeof(LeaderBoardView), true);
+        }
+
     }
 }

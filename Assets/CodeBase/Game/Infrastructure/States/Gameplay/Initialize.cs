@@ -40,6 +40,7 @@ namespace Game.Infrastructure.States.Gameplay
             _windowResolve.Set<LoadView>();
             _windowResolve.Set<ControlWindowView>();
             _windowResolve.Set<SettingsWindowView>();
+            _windowResolve.Set<LeaderBoardView>();
         }
     }
 }

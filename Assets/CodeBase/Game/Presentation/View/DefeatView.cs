@@ -17,6 +17,7 @@ namespace Game.Presentation.View
             base.Construct(viewModel);
             _settings.Restart.onClick.AddListener(_viewModel.InvokeRestart);
             _settings.MainMenu.onClick.AddListener(_viewModel.InvokeMainMenu);
+            _settings.LeaderBoard.onClick.AddListener(_viewModel.InvokeLeaderBoard);
         }
 
         protected override void OnDestroy()
@@ -24,12 +25,14 @@ namespace Game.Presentation.View
             base.OnDestroy();
             _settings.Restart.onClick.RemoveListener(_viewModel.InvokeRestart);
             _settings.MainMenu.onClick.RemoveListener(_viewModel.InvokeMainMenu);
+            _settings.LeaderBoard.onClick.RemoveListener(_viewModel.InvokeLeaderBoard);
         }
 
         [Serializable]
         public class Settings
         {
             [field: SerializeField] public Button Restart { get; private set; }
+            [field: SerializeField] public Button LeaderBoard { get; private set; }
             [field: SerializeField] public Button MainMenu { get; private set; }
         }
     }
