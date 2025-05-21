@@ -37,7 +37,7 @@ MonoBehaviour:
       <Length>k__BackingField: 2
       <TicLength>k__BackingField: 0.15
     Invincibility:
-      <Duration>k__BackingField: 1
+      <Duration>k__BackingField: 1.5
   <Projectile>k__BackingField:
     Move:
       <Speed>k__BackingField: 30
