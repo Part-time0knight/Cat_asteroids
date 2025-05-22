@@ -21,7 +21,7 @@ namespace Game.Infrastructure.States.Gameplay
 
         public void OnEnter()
         {
-            UnityEngine.Debug.Log("Enter state Initialize");
+            //UnityEngine.Debug.Log("Enter state Initialize");
             WindowResolve();
             _stateMachine.Enter<Start>();
         }
@@ -41,6 +41,7 @@ namespace Game.Infrastructure.States.Gameplay
             _windowResolve.Set<ControlWindowView>();
             _windowResolve.Set<SettingsWindowView>();
             _windowResolve.Set<LeaderBoardView>();
+            _windowResolve.Set<PowerUpView>();
         }
     }
 }

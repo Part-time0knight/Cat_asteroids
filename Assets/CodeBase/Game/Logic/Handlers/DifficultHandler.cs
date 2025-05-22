@@ -58,7 +58,7 @@ namespace Game.Logic.Handlers
         }
 
 
-
+        [Serializable]
         public class Settings
         {
             [field: SerializeField] public int StepScore;

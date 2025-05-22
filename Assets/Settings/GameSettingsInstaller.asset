@@ -38,6 +38,10 @@ MonoBehaviour:
       <TicLength>k__BackingField: 0.15
     Invincibility:
       <Duration>k__BackingField: 1.5
+  <GameplayParams>k__BackingField:
+    Difficult:
+      StepScore: 10
+      Multiplier: 1.5
   <Projectile>k__BackingField:
     BaseMove:
       <Speed>k__BackingField: 35

@@ -11,6 +11,8 @@ namespace Game.Logic.Enemy.Spawner
 
         void ClearAll();
 
+        void KillAll();
+
         void PauseAll();
 
         void ContinueAll();

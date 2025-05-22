@@ -5,6 +5,7 @@ using Game.Logic.Enemy.Asteroid.AsteroidS;
 using Game.Logic.Enemy.Ice;
 using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
+using Game.Logic.Handlers;
 using Game.Logic.Misc;
 using Game.Logic.Player;
 using Game.Logic.Player.Animation;
@@ -18,10 +19,16 @@ namespace Installers
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
         [field: SerializeField] public PlayerSettings Player { get; private set; }
+        [field: SerializeField] public Gameplay GameplayParams { get; private set; }
         [field: SerializeField] public ProjectilesSettings Projectile { get; private set; }
         [field: SerializeField] public EnemySpawnerSettings SpawnerSettings { get; private set; }
         [field: SerializeField] public EnemiesSettings Enemies { get; private set; }
 
+        [Serializable]
+        public class Gameplay
+        {
+            public DifficultHandler.Settings Difficult;
+        }
 
         [Serializable]
         public class PlayerSettings
@@ -113,11 +120,18 @@ namespace Installers
             Container.BindInstance(Projectile.BaseMove).AsSingle();
             Container.BindInstance(Projectile.IceMove).AsSingle();
 
+            InstallGameplayParams();
+
             InstallAsteroidB();
             InstallAsteroidM();
             InstallAsteroidS();
 
             InstallIceM();
+        }
+
+        private void InstallGameplayParams()
+        {
+            Container.BindInstance(GameplayParams.Difficult).AsSingle();
         }
 
         private void InstallPlayer()

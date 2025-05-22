@@ -86,6 +86,20 @@ namespace Game.Logic.Enemy.Spawner
             Clear();
         }
 
+        public List<Vector2> GetPositions()
+        {
+            List<Vector2> positions = new();
+            foreach (var enemy in _enemies)
+                positions.Add(enemy.transform.position);
+            return positions;
+        }
+
+        public void Kill()
+        {
+            while (_enemies.Count > 0)
+                _enemies[0].Kill();
+        }
+
         private async UniTask Repeater()
         {
             do
@@ -174,12 +188,6 @@ namespace Game.Logic.Enemy.Spawner
             _direction = (target - position).normalized;
         }
 
-        public List<Vector2> GetPositions()
-        {
-            List<Vector2> positions = new();
-            foreach (var enemy in _enemies)
-                positions.Add(enemy.transform.position);
-            return positions;
-        }
+
     }
 }

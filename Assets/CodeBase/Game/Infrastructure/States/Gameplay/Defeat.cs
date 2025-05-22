@@ -19,7 +19,7 @@ namespace Game.Infrastructure.States.Gameplay
         {
             _scoreSave.Save();
             _windowFsm.OpenWindow(typeof(DefeatView), true);
-            UnityEngine.Debug.Log("Enter state Defeat");
+            //UnityEngine.Debug.Log("Enter state Defeat");
         }
 
         public void OnExit()

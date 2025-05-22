@@ -24,6 +24,7 @@ namespace Game.Infrastructure
             _states.Add(typeof(Pause), _factory.Create<Pause>());
             _states.Add(typeof(GameplayState), _factory.Create<GameplayState>());
             _states.Add(typeof(Defeat), _factory.Create<Defeat>());
+            _states.Add(typeof(PowerUp), _factory.Create<PowerUp>());
             _states.Add(typeof(LoadMenu), _factory.Create<LoadMenu>());
         }
     }

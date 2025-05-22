@@ -13,6 +13,7 @@ namespace Game.Logic.Enemy.Spawner
         void Continue();
         void Stop();
         void Clear();
+        void Kill();
 
         List<Vector2> GetPositions();
 

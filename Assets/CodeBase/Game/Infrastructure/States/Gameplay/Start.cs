@@ -37,7 +37,7 @@ namespace Game.Infrastructure.States.Gameplay
 
         public void OnEnter()
         {
-            UnityEngine.Debug.Log("Enter state Start");
+            //UnityEngine.Debug.Log("Enter state Start");
             _player = _playerPool.Spawn();
             _player.ActiveShooting = false;
             _player.ResetPlayer();

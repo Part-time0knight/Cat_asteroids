@@ -17,6 +17,7 @@ namespace Game.Infrastructure.States.Gameplay
         private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
+        private readonly DifficultHandler _difficultHandler;
 
         private PlayerHandler _player;
 
@@ -24,6 +25,7 @@ namespace Game.Infrastructure.States.Gameplay
             PlayerHandler.Pool playerSpawner,
             ISpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
+            DifficultHandler difficultHandler,
             IWindowFsm windowFsm)
         {
             _gameFsm = gameFsm;
@@ -31,11 +33,12 @@ namespace Game.Infrastructure.States.Gameplay
             _pauseInputHandler = pauseInputHandler;
             _playerSpawner = playerSpawner;
             _enemySpawner = enemySpawner;
+            _difficultHandler = difficultHandler;
         }
 
         public void OnEnter()
         {
-            Debug.Log("Enter state GameplayState");
+            //Debug.Log("Enter state GameplayState");
 
             _player = _playerSpawner.Spawn();
             _enemySpawner.Start("AsteroidB");
@@ -44,6 +47,7 @@ namespace Game.Infrastructure.States.Gameplay
             _enemySpawner.Start("IceM");
             _windowFsm.OpenWindow(typeof(GameplayView), true);
             _pauseInputHandler.OnPressPause += InvokePressPause;
+            _difficultHandler.OnDifficultUpdate += PowerUp;
         }
 
         public void OnExit()
@@ -55,11 +59,17 @@ namespace Game.Infrastructure.States.Gameplay
             _enemySpawner.Stop("IceM");
             _windowFsm.CloseWindow();
             _pauseInputHandler.OnPressPause -= InvokePressPause;
+            _difficultHandler.OnDifficultUpdate -= PowerUp;
         }
 
         private void InvokePressPause()
         {
             _gameFsm.Enter<Pause>();
+        }
+
+        private void PowerUp(int difficult)
+        {
+            _gameFsm.Enter<PowerUp>();
         }
     }
 }

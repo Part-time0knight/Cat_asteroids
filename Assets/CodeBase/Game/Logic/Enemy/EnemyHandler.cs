@@ -46,7 +46,7 @@ namespace Game.Logic.Enemy
         public Vector2 GetPosition()
             => transform.position;
 
-        public void InvokeDeath()
+        public void CallDeathInvoke()
         {
             OnDeath?.Invoke(this);
         }
@@ -54,6 +54,11 @@ namespace Game.Logic.Enemy
         public void InvokeDeactivate()
         {
             OnDeactivate?.Invoke(this);
+        }
+
+        public void Kill()
+        {
+            _fsm.Enter<Dead>();
         }
 
         [Inject]

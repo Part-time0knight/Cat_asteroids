@@ -64,26 +64,6 @@ namespace Game.Logic.Enemy.Spawner
                 spawner.Continue();
         }
 
-        private void ResolveSpawner(string id)
-        {
-            var settings = _container.TryResolveId<ISpawner.Settings>(id);
-            if (settings == null)
-            {
-                Debug.LogError("Not found settings for spawner with id: " + id);
-                return;
-            }
-
-            var pool = _container.TryResolveId<EnemyHandler.Pool>(id);
-            if (pool == null)
-            {
-                Debug.LogError("Not found pool for spawner with id: " + id);
-                return;
-            }
-
-            var spawner = _factory.Create(pool, settings);
-            _spawners.Add(id, spawner);
-        }
-
         public Vector2 GetNearest(Vector2 point)
         {
             Vector2 res = point;
@@ -104,5 +84,33 @@ namespace Game.Logic.Enemy.Spawner
             }
             return res;
         }
+
+        public void KillAll()
+        {
+            foreach (var spawner in _spawners.Values)
+                spawner.Kill();
+        }
+
+        private void ResolveSpawner(string id)
+        {
+            var settings = _container.TryResolveId<ISpawner.Settings>(id);
+            if (settings == null)
+            {
+                Debug.LogError("Not found settings for spawner with id: " + id);
+                return;
+            }
+
+            var pool = _container.TryResolveId<EnemyHandler.Pool>(id);
+            if (pool == null)
+            {
+                Debug.LogError("Not found pool for spawner with id: " + id);
+                return;
+            }
+
+            var spawner = _factory.Create(pool, settings);
+            _spawners.Add(id, spawner);
+        }
+
+
     }
 }

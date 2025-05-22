@@ -21,7 +21,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         public virtual void OnEnter()
         {
-            Debug.Log("Enter in Initialize state " + GetType());
+            //Debug.Log("Enter in Initialize state " + GetType());
             _damageHandler.Reset();
             _enemyMoveHandler.Initialize();
             _stateMachine.Enter<Run>();
