@@ -146,6 +146,8 @@ namespace Installers
 
         private void InstallServices()
         {
+            Container.BindInstance(_settings.Explosion.BigExplosion).AsSingle();
+
             Container
                 .BindInterfacesAndSelfTo<SceneLoadHandler>()
                 .AsSingle()
@@ -193,6 +195,7 @@ namespace Installers
 
             [field: SerializeField]
             public EnemySettings Enemies { get; private set; }
+            
             [field: SerializeField]
             public ExplosionSettings Explosion { get; private set; }
 
@@ -218,6 +221,8 @@ namespace Installers
                 [field: SerializeField]
                 public Explosion ExplosionPrefab { get; private set; }
 
+                [field: SerializeField]
+                public ParticleSystem BigExplosion { get; private set; }
             }
 
             [Serializable]

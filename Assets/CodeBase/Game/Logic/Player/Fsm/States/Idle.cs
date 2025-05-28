@@ -7,13 +7,13 @@ namespace Game.Logic.Player.Fsm.States
     public class Idle : Hitable
     {
         private readonly PlayerInput _playerInput;
-        private readonly PlayerShootHandler _playerShoot;
+        private readonly IPlayerShootHandler _playerShoot;
 
         public Idle(IGameStateMachine stateMachine,
             PlayerHandler playerHandler,
             PlayerInput playerInput, 
             PlayerDamageHandler damageHandler,
-            PlayerShootHandler playerShoot,
+            IPlayerShootHandler playerShoot,
             PlayerMoveHandler moveHandler,
             PlayerWeaponHandler weaponHandler,
             PlayerTakeDamage takeDamageAnimation,
@@ -42,10 +42,10 @@ namespace Game.Logic.Player.Fsm.States
         public override void OnExit()
         {
             base.OnExit();
-            _playerShoot.StopAutomatic();
             _playerInput.InvokeMoveButtonsDown -= OnMoveBegin;
             _playerHandler.OnActiveShootChange -= InvokeShooting;
             _playerHandler.OnPause -= InvokePause;
+            InvokeShooting(false);
         }
 
         private void OnMoveBegin()
@@ -55,10 +55,7 @@ namespace Game.Logic.Player.Fsm.States
 
         private void InvokeShooting(bool active)
         {
-            if (active)
-                _playerShoot.StartAutomatic();
-            else
-                _playerShoot.StopAutomatic();
+            _playerShoot.Active = active;
         }
 
         protected virtual void InvokePause(bool isPause)

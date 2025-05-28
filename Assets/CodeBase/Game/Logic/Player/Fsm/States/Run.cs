@@ -6,7 +6,7 @@ namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
-        private readonly PlayerShootHandler _playerShoot;
+        private readonly IPlayerShootHandler _playerShoot;
         private readonly PlayerInput _playerInput;
         private readonly PlayerMoveHandler _playerMove;
 
@@ -15,7 +15,7 @@ namespace Game.Logic.Player.Fsm.States
             PlayerHandler playerHandler,
             PlayerMoveHandler playerMove, 
             PlayerDamageHandler damageHandler,
-            PlayerShootHandler playerShoot,
+            IPlayerShootHandler playerShoot,
             PlayerWeaponHandler weaponHandler,
             PlayerTakeDamage takeDamageAnimation,
             PlayerInvincibilityHandler playerInvincibility) 
@@ -63,14 +63,11 @@ namespace Game.Logic.Player.Fsm.States
             _playerInput.InvokeMoveHorizontal -= Rotate;
             _playerHandler.OnActiveShootChange -= InvokeShooting;
             _playerHandler.OnPause -= InvokePause;
-            _playerShoot.StopAutomatic();
+            InvokeShooting(false);
         }
         private void InvokeShooting(bool active)
         {
-            if (active)
-                _playerShoot.StartAutomatic();
-            else
-                _playerShoot.StopAutomatic();
+            _playerShoot.Active = active;
         }
 
         protected virtual void InvokePause(bool isPause)

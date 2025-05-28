@@ -32,7 +32,7 @@ namespace Game.Logic.Weapon
                 .Play();
         }
 
-        public virtual void Pause()
+        public virtual void SetPause()
         {
             PauseReload();
             foreach (var bullet in _bullets)

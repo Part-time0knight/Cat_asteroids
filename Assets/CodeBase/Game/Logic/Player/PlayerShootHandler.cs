@@ -8,12 +8,34 @@ using UnityEngine;
 
 namespace Game.Logic.Player
 {
-    public class PlayerShootHandler : ShootHandler, IDisposable
+    public class PlayerShootHandler : ShootHandler, IDisposable, IPlayerShootHandler
     {
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
 
         private CancellationTokenSource _cts = null;
+
+        public bool Active 
+        {
+            set 
+            {
+                if (value)
+                    StartAutomatic();
+                else
+                    StopAutomatic();
+            } 
+        }
+
+        public bool Pause 
+        {
+            set
+            {
+                if (value)
+                    SetPause();
+                else
+                    Continue();
+            }
+        }
 
         public PlayerShootHandler(Bullet.Pool bulletPool, 
             PlayerSettings settings,

@@ -41,7 +41,7 @@ MonoBehaviour:
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 10
-      Multiplier: 1.5
+      Multiplier: 2
   <Projectile>k__BackingField:
     BaseMove:
       <Speed>k__BackingField: 35

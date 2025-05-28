@@ -32,7 +32,7 @@ namespace Game.Logic.Player.Fsm.States
         {
             _playerMove.Pause();
             _playerTakeDamage.Pause();
-            _playerShootHandler.Pause();
+            _playerShootHandler.SetPause();
             _playerInvincibilityHandler.Pause();
             _playerHandler.OnPause += InvokePause;
         }

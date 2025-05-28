@@ -3,6 +3,7 @@ using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
 using Game.Domain.Dto;
 using Game.Infrastructure.States.Gameplay;
+using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Presentation.View;
 using System;
@@ -22,14 +23,17 @@ namespace Game.Presentation.ViewModel
         private readonly IPlayerScoreReader _scoreReader;
         private readonly IGameStateMachine _gameFsm;
         private readonly List<ScoreData> _scoresToView = new(); 
+        private readonly DifficultHandler _difficultHandler;
 
         protected override Type Window => typeof(GameplayView);
 
         public GameplayViewModel(IGameStateMachine gameFsm,
             IWindowFsm windowFsm,
             IPlayerScoreReader scoreReader,
-            IPlayerHitsReader hitsReader) : base(windowFsm)
+            IPlayerHitsReader hitsReader,
+            DifficultHandler difficultHandler) : base(windowFsm)
         {
+            _difficultHandler = difficultHandler;
             _scoreReader = scoreReader;
             _hitsReader = hitsReader;
             _gameFsm = gameFsm;
@@ -79,6 +83,7 @@ namespace Game.Presentation.ViewModel
             _dto.Score = _scoreReader.Score.ToString();
             _dto.Hits = _hitsReader.Hits;
             _dto.ShowHits = _hitsReader.Hits > 0 ? true : false;
+            _dto.ToNextStep = _difficultHandler.NextStep.ToString();
             OnUpdate?.Invoke(_dto);
         }
 

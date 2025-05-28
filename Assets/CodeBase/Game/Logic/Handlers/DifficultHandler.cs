@@ -15,6 +15,7 @@ namespace Game.Logic.Handlers
         private int _currentDifficult = 0;
 
         public int CurrentDifficult => _currentDifficult;
+        public int NextStep => GetNextDifficultStep();
 
         public DifficultHandler(IPlayerScoreReader playerScoreReader,
             Settings settings)
@@ -54,9 +55,19 @@ namespace Game.Logic.Handlers
                 return;
             _currentDifficult = difficult;
             OnDifficultUpdate?.Invoke(_currentDifficult);
-
         }
 
+        private int GetNextDifficultStep()
+        {
+            int score = _playerScoreReader.Score,
+                temp = _settings.StepScore;
+
+            while (temp <= score)
+            {
+                temp = Mathf.RoundToInt(temp * _settings.Multiplier);
+            }
+            return temp;
+        }
 
         [Serializable]
         public class Settings
