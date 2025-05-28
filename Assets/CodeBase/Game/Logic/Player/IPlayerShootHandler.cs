@@ -1,10 +1,12 @@
 
+using Game.Logic.Projectiles;
+
 namespace Game.Logic.Player
 {
-    public interface IPlayerShootHandler
+    public interface IPlayerShootHandler : IShootHandler
     {
         public bool Active { set; }
-        public bool Pause { set; }
+        public bool IsPause { set; }
 
         void Clear();
     }

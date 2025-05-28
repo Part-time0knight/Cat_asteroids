@@ -1,7 +1,7 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Handlers;
-using Game.Logic.Misc;
+using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Animation;
 using UnityEngine;
 
@@ -12,24 +12,24 @@ namespace Game.Logic.Player.Fsm.States
         protected readonly IGameStateMachine _stateMachine;
         protected readonly PlayerDamageHandler _damageHandler;
         protected readonly PlayerWeaponHandler _weaponHandler;
-        protected readonly PlayerMoveHandler _moveHandler;
         protected readonly PlayerTakeDamage _takeDamageAnimation;
         protected readonly PlayerHandler _playerHandler;
         protected readonly PlayerInvincibilityHandler _playerInvincibility;
+        protected readonly IHandlerGetter _handlerGetter;
 
 
         public Hitable(IGameStateMachine stateMachine,
             PlayerDamageHandler damageHandler,
-            PlayerMoveHandler moveHandler,
             PlayerWeaponHandler weaponHandler,
             PlayerTakeDamage playerTakeDamage,
             PlayerHandler playerHandler,
-            PlayerInvincibilityHandler playerInvincibility)
+            PlayerInvincibilityHandler playerInvincibility,
+            IHandlerGetter handlerGetter)
         {
             _stateMachine = stateMachine;
             _damageHandler = damageHandler;
             _weaponHandler = weaponHandler;
-            _moveHandler = moveHandler;
+            _handlerGetter = handlerGetter;
             _takeDamageAnimation = playerTakeDamage;
             _playerHandler = playerHandler;
             _playerInvincibility = playerInvincibility;
@@ -41,7 +41,7 @@ namespace Game.Logic.Player.Fsm.States
 
             _damageHandler.OnTakeDamage += InvokeHit;
             _damageHandler.OnDeath += InvokeDead;
-            _moveHandler.OnCollision += MakeDamage;
+            _handlerGetter.Get<IPlayerMoveHandler>().OnCollision += MakeDamage;
         }
 
         public virtual void OnExit()
@@ -51,7 +51,7 @@ namespace Game.Logic.Player.Fsm.States
 
             _damageHandler.OnTakeDamage -= InvokeHit;
             _damageHandler.OnDeath -= InvokeDead;
-            _moveHandler.OnCollision -= MakeDamage;
+            _handlerGetter.Get<IPlayerMoveHandler>().OnCollision -= MakeDamage;
         }
 
         protected virtual void InvokeDead()

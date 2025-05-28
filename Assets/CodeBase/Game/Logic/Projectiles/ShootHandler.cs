@@ -1,5 +1,6 @@
 using Game.Logic.Handlers;
 using Game.Logic.Misc;
+using Game.Logic.Projectiles;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace Game.Logic.Weapon
 {
-    public abstract class ShootHandler : IInitializable
+    public abstract class ShootHandler : IInitializable, IShootHandler
     {
 
         protected readonly Bullet.Pool _bulletPool;
@@ -32,7 +33,7 @@ namespace Game.Logic.Weapon
                 .Play();
         }
 
-        public virtual void SetPause()
+        public virtual void Pause()
         {
             PauseReload();
             foreach (var bullet in _bullets)
@@ -72,13 +73,13 @@ namespace Game.Logic.Weapon
 
 
 
-        /// <param name="weponPos">World space position</param>
+        /// <param name="weaponPos">World space position</param>
         /// <param name="target">World space position</param>
         /// <param name="onReloadEnd"></param>
-        public virtual void Shoot(Vector2 weponPos, Vector2 target, Action onReloadEnd = null)
+        public virtual void Shoot(Vector2 weaponPos, Vector2 target, Action onReloadEnd = null)
         {
             _currentBullet = _bulletPool
-                .Spawn(weponPos, target);
+                .Spawn(weaponPos, target);
             _bullets.Add(_currentBullet);
             _currentBullet.InvokeHit += Hit;
             

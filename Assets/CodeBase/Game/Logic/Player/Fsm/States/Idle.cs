@@ -1,4 +1,5 @@
 using Core.Infrastructure.GameFsm;
+using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Animation;
 using UnityEngine.InputSystem;
 
@@ -7,27 +8,24 @@ namespace Game.Logic.Player.Fsm.States
     public class Idle : Hitable
     {
         private readonly PlayerInput _playerInput;
-        private readonly IPlayerShootHandler _playerShoot;
 
         public Idle(IGameStateMachine stateMachine,
             PlayerHandler playerHandler,
             PlayerInput playerInput, 
             PlayerDamageHandler damageHandler,
-            IPlayerShootHandler playerShoot,
-            PlayerMoveHandler moveHandler,
             PlayerWeaponHandler weaponHandler,
             PlayerTakeDamage takeDamageAnimation,
-            PlayerInvincibilityHandler playerInvincibility) 
+            PlayerInvincibilityHandler playerInvincibility,
+            IHandlerGetter handlerGetter) 
             : base(stateMachine,
                   damageHandler,
-                  moveHandler,
                   weaponHandler,
                   takeDamageAnimation,
                   playerHandler,
-                  playerInvincibility)
+                  playerInvincibility,
+                  handlerGetter)
         {
             _playerInput = playerInput;
-            _playerShoot = playerShoot;
         }
 
         public override void OnEnter()
@@ -55,7 +53,7 @@ namespace Game.Logic.Player.Fsm.States
 
         private void InvokeShooting(bool active)
         {
-            _playerShoot.Active = active;
+            _handlerGetter.Get<IPlayerShootHandler>().Active = active;
         }
 
         protected virtual void InvokePause(bool isPause)

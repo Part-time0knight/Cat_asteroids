@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Game.Logic.Handlers
 {
-    public class MoveHandler
+    public class MoveHandler : IMoveHandler
     {
-        public Action<GameObject> OnTrigger;
-        public Action<GameObject> OnCollision;
+        public event Action<GameObject> OnTrigger;
+        public event Action<GameObject> OnCollision;
 
 
         protected readonly Rigidbody2D _body;

@@ -1,4 +1,6 @@
 using Core.Infrastructure.GameFsm;
+using Game.Logic.Effects.Particles;
+using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Animation;
 
 
@@ -6,30 +8,28 @@ namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
-        private readonly IPlayerShootHandler _playerShoot;
         private readonly PlayerInput _playerInput;
-        private readonly PlayerMoveHandler _playerMove;
+        private readonly PlayerHasteEffectHandler _hasteEffectHandler;
 
         public Run(IGameStateMachine stateMachine,
             PlayerInput playerInput,
             PlayerHandler playerHandler,
-            PlayerMoveHandler playerMove, 
             PlayerDamageHandler damageHandler,
-            IPlayerShootHandler playerShoot,
             PlayerWeaponHandler weaponHandler,
             PlayerTakeDamage takeDamageAnimation,
-            PlayerInvincibilityHandler playerInvincibility) 
+            PlayerInvincibilityHandler playerInvincibility,
+            PlayerHasteEffectHandler hasteEffectHandler,
+            IHandlerGetter handlerGetter) 
             : base(stateMachine,
                 damageHandler,
-                playerMove,
                 weaponHandler,
                 takeDamageAnimation,
                 playerHandler,
-                playerInvincibility)
+                playerInvincibility,
+                handlerGetter)
         {
             _playerInput = playerInput;
-            _playerMove = playerMove;
-            _playerShoot = playerShoot;
+            _hasteEffectHandler = hasteEffectHandler;
         }
 
         public override void OnEnter()
@@ -41,19 +41,21 @@ namespace Game.Logic.Player.Fsm.States
             InvokeShooting(_playerHandler.ActiveShooting);
             _playerHandler.OnActiveShootChange += InvokeShooting;
             _playerHandler.OnPause += InvokePause;
+
+            _handlerGetter.Get<IPlayerMoveHandler>().OnHaste += _hasteEffectHandler.InvokeHaste;
         }
 
         private void Move(float speed)
         {
             if (speed > 0)
-                _playerMove.Move();
+                _handlerGetter.Get<IPlayerMoveHandler>().Move();
             else
-                _playerMove.ReverseMove();
+                _handlerGetter.Get<IPlayerMoveHandler>().ReverseMove();
         }
 
         private void Rotate(float speed)
         {
-            _playerMove.Rotate(speed);
+            _handlerGetter.Get<IPlayerMoveHandler>().Rotate(speed);
         }
 
         public override void OnExit()
@@ -63,11 +65,13 @@ namespace Game.Logic.Player.Fsm.States
             _playerInput.InvokeMoveHorizontal -= Rotate;
             _playerHandler.OnActiveShootChange -= InvokeShooting;
             _playerHandler.OnPause -= InvokePause;
+
+            _handlerGetter.Get<IPlayerMoveHandler>().OnHaste -= _hasteEffectHandler.InvokeHaste;
             InvokeShooting(false);
         }
         private void InvokeShooting(bool active)
         {
-            _playerShoot.Active = active;
+            _handlerGetter.Get<IPlayerShootHandler>().Active = active;
         }
 
         protected virtual void InvokePause(bool isPause)

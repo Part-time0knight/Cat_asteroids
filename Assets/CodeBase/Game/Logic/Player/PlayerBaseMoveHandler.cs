@@ -5,14 +5,14 @@ using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerMoveHandler : MoveHandler, IFixedTickable
+    public class PlayerBaseMoveHandler : MoveHandler, IFixedTickable, IPlayerMoveHandler
     {
         public event Action<float> OnHaste;
 
         private readonly PlayerSettings _playerSettings;
         private readonly IPlayerPositionWriter _playerDataWriter;
 
-        public PlayerMoveHandler(Rigidbody2D body,
+        public PlayerBaseMoveHandler(Rigidbody2D body,
             PlayerSettings stats, IPlayerPositionWriter dataWriter) : base(body, stats)
         {
             _playerSettings = stats;

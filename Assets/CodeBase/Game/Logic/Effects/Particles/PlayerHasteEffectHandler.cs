@@ -6,14 +6,10 @@ using Zenject;
 
 namespace Game.Logic.Effects.Particles
 {
-    public class PlayerHasteEffectHandler : IInitializable, IDisposable
+    public class PlayerHasteEffectHandler
     {
-
-        private readonly PlayerMoveHandler _playerMoveHandler;
-
-        private readonly ParticleSystem _particleSystem;
         private readonly Settings _settings;
-        private readonly PlayerMoveHandler.PlayerSettings _moveSettings;
+        private readonly PlayerBaseMoveHandler.PlayerSettings _moveSettings;
 
         private readonly Timer _timer;
 
@@ -21,29 +17,16 @@ namespace Game.Logic.Effects.Particles
 
         public PlayerHasteEffectHandler(
             ParticleSystem particleSystem,
-            PlayerMoveHandler playerMoveHandler,
             Settings settings,
-            PlayerMoveHandler.PlayerSettings moveSettings)
+            PlayerBaseMoveHandler.PlayerSettings moveSettings)
         {
-            _particleSystem = particleSystem;
             _emission = particleSystem.emission;
-            _playerMoveHandler = playerMoveHandler;
             _settings = settings;
             _moveSettings = moveSettings;
             _timer = new();
         }
 
-        public void Initialize()
-        {
-            _playerMoveHandler.OnHaste += InvokeHaste;
-        }
-
-        public void Dispose()
-        {
-            _playerMoveHandler.OnHaste -= InvokeHaste;
-        }
-
-        private void InvokeHaste(float speed)
+        public void InvokeHaste(float speed)
         {
             if (_timer.Active)
                 _timer.Stop();

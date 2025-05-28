@@ -34,8 +34,8 @@ namespace Installers
         public class PlayerSettings
         {
             public PlayerHandler.PlayerSettings MainSettings;
-            public PlayerShootHandler.PlayerSettings Weapon;
-            public PlayerMoveHandler.PlayerSettings Move;
+            public PlayerBaseShootHandler.PlayerSettings Weapon;
+            public PlayerBaseMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
             public PlayerHasteEffectHandler.Settings Haste;
             public PlayerWeaponHandler.PlayerSettings Damage;

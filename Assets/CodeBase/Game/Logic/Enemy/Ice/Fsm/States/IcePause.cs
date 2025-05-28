@@ -17,7 +17,7 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
 
         public override void OnEnter()
         {
-            _iceShootHandler.SetPause();
+            _iceShootHandler.Pause();
             base.OnEnter();
         }
 

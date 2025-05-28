@@ -5,6 +5,8 @@ using System;
 using Game.Logic.Player.Fsm;
 using Game.Logic.Effects.Particles;
 using Game.Logic.Player.Animation;
+using Game.Logic.Handlers.Strategy;
+using Game.Logic.Handlers.Factory;
 
 namespace Installers
 {
@@ -40,6 +42,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<PlayerStatesFactory>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<HandlerFactory>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallPlayerComponents()
@@ -55,17 +62,17 @@ namespace Installers
                 .AsSingle();
 
             Container.
+                BindInterfacesAndSelfTo<HandlerStrategy>()
+                .AsSingle();
+
+            Container.
                 BindInterfacesAndSelfTo<PlayerInput>()
                 .AsSingle();
-            Container.
-                BindInterfacesAndSelfTo<PlayerShootHandler>()
-                .AsSingle();
-            Container.
-                BindInterfacesAndSelfTo<PlayerMoveHandler>()
-                .AsSingle();
+
             Container.
                 BindInterfacesAndSelfTo<PlayerDamageHandler>()
                 .AsSingle();
+
             Container.
                 BindInterfacesAndSelfTo<PlayerWeaponHandler>()
                 .AsSingle();
@@ -83,6 +90,12 @@ namespace Installers
             Container.
                 BindInterfacesAndSelfTo<PlayerInvincibilityHandler>()
                 .AsSingle();
+
+            Container
+                .BindInterfacesTo<PlayerBaseMoveHandler>()
+                .AsTransient();
+
+
         }
 
         [Serializable]

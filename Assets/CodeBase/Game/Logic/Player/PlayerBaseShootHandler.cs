@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Game.Logic.Player
 {
-    public class PlayerShootHandler : ShootHandler, IDisposable, IPlayerShootHandler
+    public class PlayerBaseShootHandler : ShootHandler, IDisposable, IPlayerShootHandler
     {
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
@@ -26,18 +26,18 @@ namespace Game.Logic.Player
             } 
         }
 
-        public bool Pause 
+        public bool IsPause 
         {
             set
             {
                 if (value)
-                    SetPause();
+                    Pause();
                 else
                     Continue();
             }
         }
 
-        public PlayerShootHandler(Bullet.Pool bulletPool, 
+        public PlayerBaseShootHandler(Bullet.Pool bulletPool, 
             PlayerSettings settings,
             Transform weaponPoint,
             IPlayerScoreWriter scoreWriter) : base(bulletPool, settings)
