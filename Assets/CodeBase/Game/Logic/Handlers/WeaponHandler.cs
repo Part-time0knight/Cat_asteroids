@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Logic.Handlers
 {
-    public class WeaponHandler
+    public class WeaponHandler : IWeaponHandler
     {
         protected readonly Settings _settings;
         protected readonly Timer _reloadTimer = new();

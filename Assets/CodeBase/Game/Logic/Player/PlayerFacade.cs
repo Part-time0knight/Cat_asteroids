@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerHandler : UnitHandler
+    public class PlayerFacade : UnitHandler
     {
         public event Action<int> OnTakeDamage;
         public event Action<bool> OnActiveShootChange;
@@ -48,9 +48,14 @@ namespace Game.Logic.Player
 
         public void ResetPlayer()
         {
-            _playerFSM.Enter<Initialize>();
+            _playerFSM.Enter<Reset>();
             transform.position = Vector2.zero;
             transform.eulerAngles = Vector3.zero;
+        }
+
+        public void InitializePlayer()
+        {
+            _playerFSM.Enter<Initialize>();
         }
 
         [Inject]
@@ -70,9 +75,15 @@ namespace Game.Logic.Player
         {
         }
 
-        public class Pool : MemoryPool<PlayerHandler>
+        public class Pool : MemoryPool<PlayerFacade>
         {
-            protected override void Reinitialize(PlayerHandler item)
+            protected override void OnCreated(PlayerFacade item)
+            {
+                base.OnCreated(item);
+                item.InitializePlayer();
+            }
+
+            protected override void Reinitialize(PlayerFacade item)
             {
                 base.Reinitialize(item);
             }

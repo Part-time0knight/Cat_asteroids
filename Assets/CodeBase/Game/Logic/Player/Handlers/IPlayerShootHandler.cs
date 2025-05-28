@@ -1,7 +1,7 @@
 
 using Game.Logic.Projectiles;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
     public interface IPlayerShootHandler : IShootHandler
     {

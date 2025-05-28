@@ -13,16 +13,16 @@ namespace Game.Infrastructure.States.Gameplay
     {
         private readonly IWindowFsm _windowFsm;
 
-        private readonly PlayerHandler.Pool _playerSpawner;
+        private readonly PlayerFacade.Pool _playerSpawner;
         private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
         private readonly DifficultHandler _difficultHandler;
 
-        private PlayerHandler _player;
+        private PlayerFacade _player;
 
         public GameplayState(IGameStateMachine gameFsm,
-            PlayerHandler.Pool playerSpawner,
+            PlayerFacade.Pool playerSpawner,
             ISpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
             DifficultHandler difficultHandler,

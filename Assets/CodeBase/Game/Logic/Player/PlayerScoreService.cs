@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerScoreHandler : IPlayerScoreReader,
+    public class PlayerScoreService : IPlayerScoreReader,
         IPlayerScoreWriter,
         IInitializable,
         IScoreSave

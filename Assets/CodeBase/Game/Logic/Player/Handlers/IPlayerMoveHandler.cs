@@ -1,12 +1,9 @@
 using Game.Logic.Handlers;
-using System;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
     public interface IPlayerMoveHandler : IMoveHandler
     {
-        event Action<float> OnHaste;
-
         void Move();
 
         void ReverseMove();

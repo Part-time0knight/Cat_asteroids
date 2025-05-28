@@ -2,7 +2,7 @@ using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Handlers;
 using Game.Logic.Handlers.Strategy;
-using Game.Logic.Player.Animation;
+using Game.Logic.Player.Handlers;
 using UnityEngine;
 
 namespace Game.Logic.Player.Fsm.States
@@ -10,47 +10,39 @@ namespace Game.Logic.Player.Fsm.States
     public abstract class Hitable : IState
     {
         protected readonly IGameStateMachine _stateMachine;
-        protected readonly PlayerDamageHandler _damageHandler;
-        protected readonly PlayerWeaponHandler _weaponHandler;
-        protected readonly PlayerTakeDamage _takeDamageAnimation;
-        protected readonly PlayerHandler _playerHandler;
-        protected readonly PlayerInvincibilityHandler _playerInvincibility;
+        protected readonly PlayerFacade _playerFacade;
         protected readonly IHandlerGetter _handlerGetter;
 
 
         public Hitable(IGameStateMachine stateMachine,
-            PlayerDamageHandler damageHandler,
-            PlayerWeaponHandler weaponHandler,
-            PlayerTakeDamage playerTakeDamage,
-            PlayerHandler playerHandler,
-            PlayerInvincibilityHandler playerInvincibility,
+            PlayerFacade playerFacade,
             IHandlerGetter handlerGetter)
         {
             _stateMachine = stateMachine;
-            _damageHandler = damageHandler;
-            _weaponHandler = weaponHandler;
             _handlerGetter = handlerGetter;
-            _takeDamageAnimation = playerTakeDamage;
-            _playerHandler = playerHandler;
-            _playerInvincibility = playerInvincibility;
+            _playerFacade = playerFacade;
         }
 
         public virtual void OnEnter()
         {
-            _playerHandler.OnTakeDamage += _damageHandler.TakeDamage;
+            _playerFacade.OnTakeDamage +=
+                _handlerGetter.Get<IPlayerDamageHandler>().TakeDamage;
 
-            _damageHandler.OnTakeDamage += InvokeHit;
-            _damageHandler.OnDeath += InvokeDead;
+            _handlerGetter.Get<IInvincibilityHandler>().OnPowerChange += InvokePower;
+
+            _handlerGetter.Get<IPlayerDamageHandler>().OnTakeDamage += InvokeHit;
+            _handlerGetter.Get<IPlayerDamageHandler>().OnDeath += InvokeDead;
             _handlerGetter.Get<IPlayerMoveHandler>().OnCollision += MakeDamage;
         }
 
         public virtual void OnExit()
         {
+            _playerFacade.OnTakeDamage -= _handlerGetter.Get<IPlayerDamageHandler>().TakeDamage;
 
-            _playerHandler.OnTakeDamage -= _damageHandler.TakeDamage;
+            _handlerGetter.Get<IInvincibilityHandler>().OnPowerChange -= InvokePower;
 
-            _damageHandler.OnTakeDamage -= InvokeHit;
-            _damageHandler.OnDeath -= InvokeDead;
+            _handlerGetter.Get<IPlayerDamageHandler>().OnTakeDamage -= InvokeHit;
+            _handlerGetter.Get<IPlayerDamageHandler>().OnDeath -= InvokeDead;
             _handlerGetter.Get<IPlayerMoveHandler>().OnCollision -= MakeDamage;
         }
 
@@ -61,15 +53,20 @@ namespace Game.Logic.Player.Fsm.States
 
         protected virtual void InvokeHit(int damage)
         {
-            _takeDamageAnimation.Play();
-            _playerInvincibility.Start();
+            _handlerGetter.Get<IInvincibilityHandler>().Start();
         }
 
         protected virtual void MakeDamage(GameObject gameObject)
         {
             var unit = gameObject.GetComponent<UnitHandler>();
             if (unit != null)
-                _weaponHandler.TickableDamage(unit);
+                _handlerGetter.Get<IWeaponHandler>().TickableDamage(unit);
+        }
+
+        protected virtual void InvokePower(bool power)
+        {
+            Debug.Log("Power: " +  power);
+            _handlerGetter.Get<IPlayerDamageHandler>().Power = power;
         }
     }
 }

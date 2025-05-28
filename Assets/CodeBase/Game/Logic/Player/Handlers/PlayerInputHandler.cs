@@ -1,11 +1,10 @@
-using Game.Logic.Handlers;
 using System;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
-    public class PlayerInput : ITickable, IFixedTickable
+    public class PlayerInputHandler : ITickable, IFixedTickable, IInputHandler
     {
         public event Action InvokeMoveButtonsDown;
 
@@ -15,19 +14,8 @@ namespace Game.Logic.Player
 
         public event Action<float> InvokeMoveVertical;
 
-        public event Action<Vector2> InvokeMove;
-
-        //public event Action InvokeAttackButton;
-        //public event Action InvokeSpellButton;
-
         private bool _isHorizontal;
         private bool _isVertical;
-
-        private bool _pause;
-        private bool _buttonUp = false;
-
-        public float Horizontal => OnMoveHorizontal();
-        public float Vertical => OnMoveVertical();
 
         public bool IsMoveButtonPress
         {
@@ -35,15 +23,9 @@ namespace Game.Logic.Player
                 || Input.GetButton("Horizontal");
         }
 
-        public PlayerInput()
+        public PlayerInputHandler()
         {
         }
-
-        public Vector2 MousePosition()
-            => Camera.main.ScreenToWorldPoint(
-                new(Input.mousePosition.x,
-                    Input.mousePosition.y,
-                    Camera.main.nearClipPlane));
 
         private bool OnMoveButtonDown()
             => Input.GetButtonDown("Vertical")
@@ -60,36 +42,16 @@ namespace Game.Logic.Player
         private float OnMoveHorizontal()
             => Input.GetAxis("Horizontal");
 
-        private bool OnAttackButton()
-            => Input.GetButton("Fire1");
-
-        private bool OnSpellButton()
-            => Input.GetButton("Spell");
-
         public void Tick()
         {
-            if (_pause)
-            {
-                if (OnMoveButtonUp())
-                    _buttonUp = true;
-                return;
-            }
             if (OnMoveButtonDown())
                 InvokeMoveButtonsDown?.Invoke();
             if (OnMoveButtonUp())
                 InvokeMoveButtonsUp?.Invoke();
-
-            //if (OnAttackButton())
-                //InvokeAttackButton?.Invoke();
-            //if (OnSpellButton())
-                //InvokeSpellButton?.Invoke();
         }
 
         public void FixedTick()
         {
-            if (_pause)
-                return;
-
             _isHorizontal = OnMoveHorizontal() != 0;
             _isVertical = OnMoveVertical() != 0;
             if (_isHorizontal)
@@ -99,18 +61,6 @@ namespace Game.Logic.Player
                 InvokeMoveVertical?.
                     Invoke(OnMoveVertical());
 
-            InvokeMove?.Invoke(new(OnMoveHorizontal(), OnMoveVertical()));
-        }
-
-        public void OnPause(bool active)
-        {
-            _pause = active;
-            if (!active && _buttonUp)
-            {
-                if (!OnMoveButtonDown())
-                    InvokeMoveButtonsUp?.Invoke();
-                _buttonUp = false;
-            }
         }
     }
 }

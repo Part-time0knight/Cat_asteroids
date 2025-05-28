@@ -1,12 +1,12 @@
 using Game.Logic.Misc;
-using Game.Logic.Player;
+using Game.Logic.Player.Handlers;
 using System;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Logic.Effects.Particles
 {
-    public class PlayerHasteEffectHandler
+    public class PlayerHasteEffect
     {
         private readonly Settings _settings;
         private readonly PlayerBaseMoveHandler.PlayerSettings _moveSettings;
@@ -15,7 +15,7 @@ namespace Game.Logic.Effects.Particles
 
         private ParticleSystem.EmissionModule _emission;
 
-        public PlayerHasteEffectHandler(
+        public PlayerHasteEffect(
             ParticleSystem particleSystem,
             Settings settings,
             PlayerBaseMoveHandler.PlayerSettings moveSettings)

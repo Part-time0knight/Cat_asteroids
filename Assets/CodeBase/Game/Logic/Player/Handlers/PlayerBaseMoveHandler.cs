@@ -1,34 +1,37 @@
+using Game.Logic.Effects.Particles;
 using Game.Logic.Handlers;
 using System;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
     public class PlayerBaseMoveHandler : MoveHandler, IFixedTickable, IPlayerMoveHandler
     {
-        public event Action<float> OnHaste;
-
         private readonly PlayerSettings _playerSettings;
         private readonly IPlayerPositionWriter _playerDataWriter;
+        private readonly PlayerHasteEffect _hasteEffect;
 
         public PlayerBaseMoveHandler(Rigidbody2D body,
-            PlayerSettings stats, IPlayerPositionWriter dataWriter) : base(body, stats)
+            PlayerHasteEffect hasteEffect,
+            PlayerSettings stats,
+            IPlayerPositionWriter dataWriter) : base(body, stats)
         {
             _playerSettings = stats;
             _playerDataWriter = dataWriter;
+            _hasteEffect = hasteEffect;
         }
 
         public void Move()
         {
             Move(_body.transform.up * Time.fixedDeltaTime);
-            OnHaste?.Invoke(_body.linearVelocity.magnitude);
+            _hasteEffect.InvokeHaste(_body.linearVelocity.magnitude);
         }
 
         public void ReverseMove()
         {
             Move(_body.transform.up
-                * -1f 
+                * -1f
                 * _playerSettings.ReverseSpeedMultiplier
                 * Time.fixedDeltaTime);
         }
@@ -36,7 +39,7 @@ namespace Game.Logic.Player
         public override void Move(Vector2 speedMultiplier)
         {
             base.Move(speedMultiplier);
-            if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed) 
+            if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed)
                 _body.linearVelocity = _body.linearVelocity.normalized * _playerSettings.MaxSpeed;
             _playerDataWriter.MakeMove = true;
         }
@@ -56,7 +59,7 @@ namespace Game.Logic.Player
         [Serializable]
         public class PlayerSettings : Settings
         {
-            [field: SerializeField, Range(0f, 1f)] 
+            [field: SerializeField, Range(0f, 1f)]
             public float ReverseSpeedMultiplier { get; private set; }
 
             [field: SerializeField] public float MaxSpeed { get; protected set; }

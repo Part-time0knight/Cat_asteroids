@@ -26,6 +26,9 @@ namespace Game.Logic.Handlers.Strategy
             Initialize(handler);
             if (!_handlers.ContainsKey(typeof(InterfaceTHandler)))
                 _handlers.Add(typeof(InterfaceTHandler), null);
+            else
+                if (_handlers[typeof(InterfaceTHandler)] is IDisposable disposable)
+                    disposable.Dispose(); 
             _handlers[typeof(InterfaceTHandler)] = handler;
         }
 

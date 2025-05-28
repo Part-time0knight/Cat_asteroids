@@ -1,27 +1,21 @@
 using Core.Infrastructure.GameFsm;
 using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Handlers.Strategy;
-using Game.Logic.Player.Animation;
+using Game.Logic.Player.Handlers;
 
 namespace Game.Logic.Player.Fsm.States
 {
     public class Pause : IState
     {
-        private readonly PlayerHandler _playerHandler;
+        private readonly PlayerFacade _playerHandler;
         private readonly IGameStateMachine _playerFsm;
         private readonly IHandlerGetter _handlerGetter;
-        private readonly PlayerTakeDamage _playerTakeDamage;
-        private readonly PlayerInvincibilityHandler _playerInvincibilityHandler;
 
         public Pause(IGameStateMachine playerFsm,
-            PlayerHandler playerHandler,
-            PlayerTakeDamage playerTakeDamage,
-            PlayerInvincibilityHandler playerInvincibilityHandler,
+            PlayerFacade playerHandler,
             IHandlerGetter handlerGetter)
         {
             _playerHandler = playerHandler;
-            _playerInvincibilityHandler = playerInvincibilityHandler;
-            _playerTakeDamage = playerTakeDamage;
             _playerFsm = playerFsm;
             _handlerGetter = handlerGetter;
         }
@@ -29,9 +23,9 @@ namespace Game.Logic.Player.Fsm.States
         public void OnEnter()
         {
             _handlerGetter.Get<IPlayerMoveHandler>().Pause();
-            _playerTakeDamage.Pause();
+            _handlerGetter.Get<IPlayerDamageHandler>().Pause();
             _handlerGetter.Get<IPlayerShootHandler>().IsPause = true;
-            _playerInvincibilityHandler.Pause();
+            _handlerGetter.Get<IInvincibilityHandler>().Pause();
             _playerHandler.OnPause += InvokePause;
         }
 
@@ -39,8 +33,8 @@ namespace Game.Logic.Player.Fsm.States
         {
             _handlerGetter.Get<IPlayerMoveHandler>().Continue();
             _handlerGetter.Get<IPlayerShootHandler>().IsPause = false;
-            _playerInvincibilityHandler.Continue();
-            _playerTakeDamage.Continue();
+            _handlerGetter.Get<IInvincibilityHandler>().Continue();
+            _handlerGetter.Get<IPlayerDamageHandler>().Continue();
             _playerHandler.OnPause -= InvokePause;
         }
 

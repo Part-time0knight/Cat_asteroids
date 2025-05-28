@@ -6,10 +6,10 @@ namespace Game.Test
 {
     public class TakeDamage : MonoBehaviour
     {
-        private PlayerHandler _player;
+        private PlayerFacade _player;
 
         [Inject]
-        private void Construct(PlayerHandler player)
+        private void Construct(PlayerFacade player)
         {
             _player = player;
         }

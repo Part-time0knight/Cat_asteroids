@@ -1,4 +1,3 @@
-using Game.Logic.Player;
 using Zenject;
 using UnityEngine;
 using System;
@@ -66,19 +65,7 @@ namespace Installers
                 .AsSingle();
 
             Container.
-                BindInterfacesAndSelfTo<PlayerInput>()
-                .AsSingle();
-
-            Container.
-                BindInterfacesAndSelfTo<PlayerDamageHandler>()
-                .AsSingle();
-
-            Container.
-                BindInterfacesAndSelfTo<PlayerWeaponHandler>()
-                .AsSingle();
-
-            Container.
-                BindInterfacesAndSelfTo<PlayerHasteEffectHandler>()
+                BindInterfacesAndSelfTo<PlayerHasteEffect>()
                 .AsSingle()
                 .WithArguments(_settings.HasteParticles);
 
@@ -86,16 +73,6 @@ namespace Installers
                 BindInterfacesAndSelfTo<PlayerTakeDamage>()
                 .AsSingle()
                 .WithArguments(_settings.DamageParticles);
-
-            Container.
-                BindInterfacesAndSelfTo<PlayerInvincibilityHandler>()
-                .AsSingle();
-
-            Container
-                .BindInterfacesTo<PlayerBaseMoveHandler>()
-                .AsTransient();
-
-
         }
 
         [Serializable]

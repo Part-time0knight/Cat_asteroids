@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
     public class PlayerBaseShootHandler : ShootHandler, IDisposable, IPlayerShootHandler
     {
@@ -15,18 +15,18 @@ namespace Game.Logic.Player
 
         private CancellationTokenSource _cts = null;
 
-        public bool Active 
+        public bool Active
         {
-            set 
+            set
             {
                 if (value)
                     StartAutomatic();
                 else
                     StopAutomatic();
-            } 
+            }
         }
 
-        public bool IsPause 
+        public bool IsPause
         {
             set
             {
@@ -37,7 +37,7 @@ namespace Game.Logic.Player
             }
         }
 
-        public PlayerBaseShootHandler(Bullet.Pool bulletPool, 
+        public PlayerBaseShootHandler(Bullet.Pool bulletPool,
             PlayerSettings settings,
             Transform weaponPoint,
             IPlayerScoreWriter scoreWriter) : base(bulletPool, settings)
@@ -56,7 +56,7 @@ namespace Game.Logic.Player
         }
 
         public void StopAutomatic()
-        { 
+        {
             if (_cts == null)
                 return;
             _cts.Cancel();

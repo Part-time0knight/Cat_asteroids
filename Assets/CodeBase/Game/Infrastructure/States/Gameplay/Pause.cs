@@ -13,17 +13,17 @@ namespace Game.Infrastructure.States.Gameplay
     public class Pause : IState
     {
         private readonly IWindowFsm _windowFsm;
-        private readonly PlayerHandler.Pool _playerPool;
+        private readonly PlayerFacade.Pool _playerPool;
         private readonly ISpawnerService _enemySpawner;
         private readonly PauseInputHandler _pauseInputHandler;
         private readonly IGameStateMachine _gameFsm;
         private readonly ExplosionSpawner _explosionSpawner;
 
-        private PlayerHandler _player;
+        private PlayerFacade _player;
 
         public Pause(IGameStateMachine gameFsm,
             IWindowFsm windowFsm,
-            PlayerHandler.Pool playerPool,
+            PlayerFacade.Pool playerPool,
             ISpawnerService enemySpawner,
             PauseInputHandler pauseInputHandler,
             ExplosionSpawner explosionSpawner)

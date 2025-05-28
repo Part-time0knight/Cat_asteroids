@@ -6,7 +6,7 @@ public class ProjectInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container
-            .BindInterfacesAndSelfTo<PlayerScoreHandler>()
+            .BindInterfacesAndSelfTo<PlayerScoreService>()
             .AsSingle()
             .NonLazy();
     }

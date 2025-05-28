@@ -1,48 +1,38 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Handlers.Strategy;
-using Game.Logic.Player.Animation;
-using UnityEngine.InputSystem;
+using Game.Logic.Player.Handlers;
 
 namespace Game.Logic.Player.Fsm.States
 {
     public class Idle : Hitable
     {
-        private readonly PlayerInput _playerInput;
 
         public Idle(IGameStateMachine stateMachine,
-            PlayerHandler playerHandler,
-            PlayerInput playerInput, 
-            PlayerDamageHandler damageHandler,
-            PlayerWeaponHandler weaponHandler,
-            PlayerTakeDamage takeDamageAnimation,
-            PlayerInvincibilityHandler playerInvincibility,
+            PlayerFacade playerHandler,
             IHandlerGetter handlerGetter) 
             : base(stateMachine,
-                  damageHandler,
-                  weaponHandler,
-                  takeDamageAnimation,
                   playerHandler,
-                  playerInvincibility,
                   handlerGetter)
         {
-            _playerInput = playerInput;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _playerInput.InvokeMoveButtonsDown += OnMoveBegin;
-            _playerHandler.OnActiveShootChange += InvokeShooting;
-            _playerHandler.OnPause += InvokePause;
-            InvokeShooting(_playerHandler.ActiveShooting);
+            _handlerGetter
+                .Get<IInputHandler>().InvokeMoveButtonsDown += OnMoveBegin;
+            _playerFacade.OnActiveShootChange += InvokeShooting;
+            _playerFacade.OnPause += InvokePause;
+            InvokeShooting(_playerFacade.ActiveShooting);
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            _playerInput.InvokeMoveButtonsDown -= OnMoveBegin;
-            _playerHandler.OnActiveShootChange -= InvokeShooting;
-            _playerHandler.OnPause -= InvokePause;
+            _handlerGetter
+                .Get<IInputHandler>().InvokeMoveButtonsDown -= OnMoveBegin;
+            _playerFacade.OnActiveShootChange -= InvokeShooting;
+            _playerFacade.OnPause -= InvokePause;
             InvokeShooting(false);
         }
 

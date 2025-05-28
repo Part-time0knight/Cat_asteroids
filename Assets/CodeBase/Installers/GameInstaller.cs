@@ -49,7 +49,7 @@ namespace Installers
         private void InstallPools()
         {
             Container
-                .BindMemoryPool<PlayerHandler, PlayerHandler.Pool>()
+                .BindMemoryPool<PlayerFacade, PlayerFacade.Pool>()
                 .FromComponentInNewPrefab(_settings.PlayerPrefab);
 
             Container
@@ -188,7 +188,7 @@ namespace Installers
         public class Settings
         {
             [field: SerializeField]
-            public PlayerHandler PlayerPrefab { get; set; }
+            public PlayerFacade PlayerPrefab { get; set; }
 
             [field: SerializeField]
             public ProjectileSettings Projectiles { get; private set; }

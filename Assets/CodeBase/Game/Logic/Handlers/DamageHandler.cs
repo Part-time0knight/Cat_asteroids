@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Game.Logic.Handlers
 {
-    public abstract class DamageHandler
+    public abstract class DamageHandler : IDamageHandler
     {
-        public Action<int> OnTakeDamage;
-        public Action OnDeath;
+        public event Action<int> OnTakeDamage;
+        public event Action OnDeath;
 
         protected int _hits;
 

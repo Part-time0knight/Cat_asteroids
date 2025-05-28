@@ -34,7 +34,7 @@ MonoBehaviour:
       <DamageDelay>k__BackingField: 0.2
     TakeDamageAnimation:
       <DamageColor>k__BackingField: {r: 1, g: 0, b: 0, a: 0.74509805}
-      <Length>k__BackingField: 2
+      <Length>k__BackingField: 1.5
       <TicLength>k__BackingField: 0.15
     Invincibility:
       <Duration>k__BackingField: 1.5

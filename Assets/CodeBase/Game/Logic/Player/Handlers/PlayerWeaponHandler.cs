@@ -1,7 +1,7 @@
 using Game.Logic.Handlers;
 using System;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
     public class PlayerWeaponHandler : WeaponHandler
     {

@@ -2,17 +2,17 @@ using Game.Logic.Misc;
 using System;
 using UnityEngine;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Handlers
 {
-    public class PlayerInvincibilityHandler
+    public class PlayerInvincibilityHandler : IInvincibilityHandler
     {
+        public event Action<bool> OnPowerChange;
+
         private readonly Settings _settings;
-        private readonly PlayerDamageHandler _playerDamageHandler;
         private Timer _timer;
 
-        public PlayerInvincibilityHandler(Settings settings, PlayerDamageHandler playerDamageHandler)
+        public PlayerInvincibilityHandler(Settings settings)
         {
-            _playerDamageHandler = playerDamageHandler;
             _settings = settings;
             _timer = new();
         }
@@ -21,7 +21,7 @@ namespace Game.Logic.Player
         {
             if (_timer.Active)
                 _timer.Stop();
-            _playerDamageHandler.Pause = true;
+            OnPowerChange.Invoke(true);
             _timer.Initialize(_settings.Duration, Stop).Play();
         }
 
@@ -43,7 +43,7 @@ namespace Game.Logic.Player
         {
             if (_timer.Active)
                 _timer.Stop();
-            _playerDamageHandler.Pause = false;
+            OnPowerChange.Invoke(false);
         }
 
         [Serializable]

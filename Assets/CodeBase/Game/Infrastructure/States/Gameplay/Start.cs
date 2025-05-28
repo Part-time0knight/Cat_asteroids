@@ -9,17 +9,17 @@ namespace Game.Infrastructure.States.Gameplay
 {
     public class Start : IState
     {
-        private readonly PlayerHandler.Pool _playerPool;
+        private readonly PlayerFacade.Pool _playerPool;
         private readonly IPlayerPositionReader _positionReader;
         private readonly IPlayerScoreWriter _playerScoreWriter;
         private readonly IGameStateMachine _gameStateMachine;
         private readonly IWindowFsm _windowFsm;
         private readonly ISpawnerService _enemySpawner;
 
-        private PlayerHandler _player;
+        private PlayerFacade _player;
 
         public Start(IGameStateMachine gameStateMachine,
-            PlayerHandler.Pool playerPool,
+            PlayerFacade.Pool playerPool,
             IPlayerPositionReader positionReader,
             IPlayerScoreWriter playerScoreWriter,
             IWindowFsm windowFsm,

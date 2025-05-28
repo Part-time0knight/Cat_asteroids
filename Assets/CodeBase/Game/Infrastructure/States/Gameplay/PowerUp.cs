@@ -9,13 +9,13 @@ namespace Game.Infrastructure.States.Gameplay
     public class PowerUp : IState
     {
         private readonly ISpawnerService _spawnerService;
-        private readonly PlayerHandler.Pool _playerPool;
+        private readonly PlayerFacade.Pool _playerPool;
         private readonly IWindowFsm _windowFsm;
 
-        private PlayerHandler _player;
+        private PlayerFacade _player;
 
         public PowerUp(ISpawnerService spawnerService,
-            PlayerHandler.Pool pool, IWindowFsm windowFsm) 
+            PlayerFacade.Pool pool, IWindowFsm windowFsm) 
         {
             _spawnerService = spawnerService;
             _playerPool = pool;

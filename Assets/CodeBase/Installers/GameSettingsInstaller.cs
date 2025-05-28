@@ -9,6 +9,7 @@ using Game.Logic.Handlers;
 using Game.Logic.Misc;
 using Game.Logic.Player;
 using Game.Logic.Player.Animation;
+using Game.Logic.Player.Handlers;
 using System;
 using UnityEngine;
 using Zenject;
@@ -33,11 +34,11 @@ namespace Installers
         [Serializable]
         public class PlayerSettings
         {
-            public PlayerHandler.PlayerSettings MainSettings;
+            public PlayerFacade.PlayerSettings MainSettings;
             public PlayerBaseShootHandler.PlayerSettings Weapon;
             public PlayerBaseMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
-            public PlayerHasteEffectHandler.Settings Haste;
+            public PlayerHasteEffect.Settings Haste;
             public PlayerWeaponHandler.PlayerSettings Damage;
             public PlayerTakeDamage.Settings TakeDamageAnimation;
             public PlayerInvincibilityHandler.Settings Invincibility;
