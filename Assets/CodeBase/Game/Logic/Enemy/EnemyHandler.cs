@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Game.Logic.Enemy
 {
-    public abstract class EnemyHandler : UnitHandler
+    public abstract class EnemyHandler : UnitFacade
     {
         public event Action<bool> OnPause;
         public event Action<int> OnDamaged;

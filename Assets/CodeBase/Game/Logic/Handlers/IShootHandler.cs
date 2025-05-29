@@ -1,8 +1,7 @@
-using Game.Logic.Handlers;
 using System;
 using UnityEngine;
 
-namespace Game.Logic.Projectiles
+namespace Game.Logic.Handlers
 {
     public interface IShootHandler : IHandler
     {

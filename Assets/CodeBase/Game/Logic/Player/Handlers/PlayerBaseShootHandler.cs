@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Game.Logic.Handlers;
+using Game.Logic.Projectiles;
 using Game.Logic.StaticData;
-using Game.Logic.Weapon;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -37,10 +37,10 @@ namespace Game.Logic.Player.Handlers
             }
         }
 
-        public PlayerBaseShootHandler(Bullet.Pool bulletPool,
+        public PlayerBaseShootHandler(ProjectileManager projectileManager,
             PlayerSettings settings,
             Transform weaponPoint,
-            IPlayerScoreWriter scoreWriter) : base(bulletPool, settings)
+            IPlayerScoreWriter scoreWriter) : base(projectileManager, settings)
         {
             _weapon = weaponPoint;
             _settings.Owner = Tags.Player;
@@ -68,7 +68,7 @@ namespace Game.Logic.Player.Handlers
             StopAutomatic();
         }
 
-        protected override void OnHit(UnitHandler unitHandler)
+        protected override void OnHit(UnitFacade unitHandler)
         {
             base.OnHit(unitHandler);
             if (unitHandler == null)

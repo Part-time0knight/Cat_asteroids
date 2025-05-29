@@ -1,5 +1,5 @@
 
-using Game.Logic.Projectiles;
+using Game.Logic.Handlers;
 
 namespace Game.Logic.Player.Handlers
 {

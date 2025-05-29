@@ -43,7 +43,7 @@ namespace Game.Logic.Player.Handlers
         {
             if (_timer.Active)
                 _timer.Stop();
-            OnPowerChange.Invoke(false);
+            OnPowerChange?.Invoke(false);
         }
 
         [Serializable]

@@ -3,11 +3,11 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Weapon
+namespace Game.Logic.Projectiles
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IProjectile
     {
-        public Action<Bullet, GameObject> InvokeHit;
+        public event Action<IProjectile, GameObject> InvokeHit;
 
         protected Vector2 _direction = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
@@ -27,7 +27,7 @@ namespace Game.Logic.Weapon
             _bulletMove.OnTrigger += OnHit;
         }
 
-        protected virtual void Initialize(Vector2 startPos, Vector2 targetPos)
+        public virtual void Initialize(Vector2 startPos, Vector2 targetPos)
         {
             transform.position = startPos;
             _direction = (targetPos - startPos).normalized;
@@ -37,23 +37,32 @@ namespace Game.Logic.Weapon
         }
 
         [Inject]
-        private void Construct(BulletMoveHandler bulletMove)
+        protected virtual void Construct(BulletMoveHandler bulletMove)
         {
             _bulletMove = bulletMove;
         }
 
-        private void OnHit(GameObject objectHit)
+        protected virtual void OnHit(GameObject objectHit)
         {
             InvokeHit?.Invoke(this, objectHit);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             _bulletMove.OnTrigger -= OnHit;
         }
 
-        public class Pool : MonoMemoryPool<Vector2, Vector2, Bullet>
+        public class Pool : MonoMemoryPool<Vector2, Vector2, Bullet>, IProjectilePool
         {
+            public void DespawnProjectile(IProjectile projectile)
+            {
+                if (projectile == null || !(projectile is Bullet bullet)) return;
+                Despawn(bullet);
+            }
+
+            public IProjectile SpawnProjectile(Vector2 startPos, Vector2 target)
+                => Spawn(startPos, target);
+
             /// <param name="startPos">World space position</param>
             /// <param name="targetPos">World space position</param>
             protected override void Reinitialize(Vector2 startPos, Vector2 targetPos, Bullet item)
@@ -61,6 +70,8 @@ namespace Game.Logic.Weapon
                 base.Reinitialize(startPos, targetPos, item);
                 item.Initialize(startPos, targetPos);
             }
+
+
         }
     }
 }

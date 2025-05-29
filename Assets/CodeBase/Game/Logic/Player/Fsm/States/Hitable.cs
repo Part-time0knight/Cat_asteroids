@@ -58,7 +58,7 @@ namespace Game.Logic.Player.Fsm.States
 
         protected virtual void MakeDamage(GameObject gameObject)
         {
-            var unit = gameObject.GetComponent<UnitHandler>();
+            var unit = gameObject.GetComponent<UnitFacade>();
             if (unit != null)
                 _handlerGetter.Get<IWeaponHandler>().TickableDamage(unit);
         }

@@ -3,6 +3,7 @@ using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Handlers;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Handlers;
+using Game.Logic.Projectiles;
 
 namespace Game.Logic.Player.Fsm.States
 {
@@ -10,17 +11,24 @@ namespace Game.Logic.Player.Fsm.States
     {
         private readonly IGameStateMachine _stateMachine;
         private readonly IHandlerSetter _handlerSetter;
+        private readonly ProjectileManager _projectileManager;
+        private readonly Laser.Pool _pool;
 
         public Initialize(IGameStateMachine stateMachine,
-            IHandlerSetter handlerSetter)
+            IHandlerSetter handlerSetter,
+            ProjectileManager projectileManager,
+            Laser.Pool pool)
         {
             _stateMachine = stateMachine;
             _handlerSetter = handlerSetter;
+            _projectileManager = projectileManager;
+            _pool = pool;
         }
 
         public void OnEnter()
         {
             HandlersResolve();
+            _projectileManager.Pool = _pool;
             _stateMachine.Enter<Idle>();
         }
 

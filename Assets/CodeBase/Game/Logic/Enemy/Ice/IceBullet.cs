@@ -1,4 +1,4 @@
-using Game.Logic.Weapon;
+using Game.Logic.Projectiles;
 using UnityEngine;
 using Zenject;
 

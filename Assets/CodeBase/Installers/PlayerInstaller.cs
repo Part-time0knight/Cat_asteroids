@@ -6,6 +6,7 @@ using Game.Logic.Effects.Particles;
 using Game.Logic.Player.Animation;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Handlers.Factory;
+using Game.Logic.Handlers;
 
 namespace Installers
 {
@@ -65,6 +66,10 @@ namespace Installers
                 .AsSingle();
 
             Container.
+                BindInterfacesAndSelfTo<ProjectileManager>()
+                .AsSingle();
+
+            Container.
                 BindInterfacesAndSelfTo<PlayerHasteEffect>()
                 .AsSingle()
                 .WithArguments(_settings.HasteParticles);
@@ -73,6 +78,8 @@ namespace Installers
                 BindInterfacesAndSelfTo<PlayerTakeDamage>()
                 .AsSingle()
                 .WithArguments(_settings.DamageParticles);
+
+
         }
 
         [Serializable]

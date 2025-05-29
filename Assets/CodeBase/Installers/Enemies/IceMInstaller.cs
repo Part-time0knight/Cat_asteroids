@@ -4,6 +4,7 @@ using Game.Logic.Enemy.Fsm;
 using Game.Logic.Enemy.Ice;
 using Game.Logic.Enemy.Ice.Fsm;
 using Game.Logic.Enemy.Ice.IceM;
+using Game.Logic.Handlers;
 using System;
 using Zenject;
 
@@ -52,6 +53,10 @@ namespace Installers.Enemies
             Container
                 .Bind<IceShootHandler>()
                 .To<IceMShootHandler>()
+                .AsSingle();
+
+            Container.
+                BindInterfacesAndSelfTo<ProjectileManager>()
                 .AsSingle();
 
             Container

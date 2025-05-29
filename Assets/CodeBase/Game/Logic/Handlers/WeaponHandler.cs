@@ -10,14 +10,14 @@ namespace Game.Logic.Handlers
         protected readonly Timer _reloadTimer = new();
         protected readonly Timer _delayTimer = new();
 
-        protected UnitHandler _target;
+        protected UnitFacade _target;
 
         public WeaponHandler(Settings settings)
         {
             _settings = settings;
         }
 
-        public virtual void TickableDamage(UnitHandler target)
+        public virtual void TickableDamage(UnitFacade target)
         {
             if (_reloadTimer.Active)
                 return;

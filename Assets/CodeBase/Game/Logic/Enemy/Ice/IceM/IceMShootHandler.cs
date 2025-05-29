@@ -1,5 +1,5 @@
+using Game.Logic.Handlers;
 using Game.Logic.Player;
-using Game.Logic.Weapon;
 using System;
 using UnityEngine;
 
@@ -10,11 +10,11 @@ namespace Game.Logic.Enemy.Ice.IceM
         public IceMShootHandler(IPlayerPositionReader playerPositionReader,
             IEnemyPositionReader enemyPositionReader,
             Transform transform,
-            IceBullet.IcePool bulletPool,
+            ProjectileManager projectileManager,
             IceMSettings settings) 
             : base(playerPositionReader,
                   enemyPositionReader,
-                  transform, bulletPool,
+                  transform, projectileManager,
                   settings)
         {
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Logic.Handlers
 {
-    public abstract class UnitHandler : MonoBehaviour
+    public abstract class UnitFacade : MonoBehaviour
     {
         protected Settings _settings;
 

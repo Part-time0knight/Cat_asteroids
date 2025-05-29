@@ -11,7 +11,7 @@ using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
-using Game.Logic.Weapon;
+using Game.Logic.Projectiles;
 using Game.Presentation.ViewModel;
 using System;
 using UnityEngine;
@@ -55,6 +55,11 @@ namespace Installers
             Container
                 .BindMemoryPool<Bullet, Bullet.Pool>()
                 .FromComponentInNewPrefab(_settings.Projectiles.BulletPrefab)
+                .UnderTransform(_settings.Projectiles.Container);
+            
+            Container
+                .BindMemoryPool<Laser, Laser.Pool>()
+                .FromComponentInNewPrefab(_settings.Projectiles.LaserPrefab)
                 .UnderTransform(_settings.Projectiles.Container);
 
             Container
@@ -210,6 +215,9 @@ namespace Installers
 
                 [field: SerializeField]
                 public Bullet IceBulletPrefab { get; private set; }
+                
+                [field: SerializeField]
+                public Laser LaserPrefab { get; private set; }
             }
 
             [Serializable]

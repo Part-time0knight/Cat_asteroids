@@ -944,6 +944,7 @@ MonoBehaviour:
       <Container>k__BackingField: {fileID: 1343615797}
       <BulletPrefab>k__BackingField: {fileID: 934031776928171266, guid: 69f9db645d71f0141948e95f45bd3dca, type: 3}
       <IceBulletPrefab>k__BackingField: {fileID: 2498041309817031609, guid: 65dc9dd2df8b67a4bbede5be74553085, type: 3}
+      <LaserPrefab>k__BackingField: {fileID: 7615545369753443210, guid: 0d5e0f8f024fe8b42a99ab416ebe8965, type: 3}
     <Enemies>k__BackingField:
       <Container>k__BackingField: {fileID: 2022264621632344016}
       <AsteroidBigPrefab>k__BackingField: {fileID: 1428568571213834824, guid: c48fe25a1c7d5bd44830344708f477c7, type: 3}
@@ -1426,6 +1427,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 1173893846488032109, guid: 44d0f58f7cd3bbd489b0b092222243f2, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 1173893846488032109, guid: 44d0f58f7cd3bbd489b0b092222243f2, type: 3}
       propertyPath: m_Enabled
       value: 0

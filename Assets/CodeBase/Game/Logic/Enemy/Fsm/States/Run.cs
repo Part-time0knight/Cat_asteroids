@@ -52,7 +52,7 @@ namespace Game.Logic.Enemy.Fsm.States
 
         protected void Hit(GameObject gameObject)
         {
-            var target = gameObject.GetComponent<UnitHandler>();
+            var target = gameObject.GetComponent<UnitFacade>();
             if (target == null) return;
             _weapon.TickableDamage(target);
         }

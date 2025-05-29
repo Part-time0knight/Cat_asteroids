@@ -10,6 +10,7 @@ using Game.Logic.Misc;
 using Game.Logic.Player;
 using Game.Logic.Player.Animation;
 using Game.Logic.Player.Handlers;
+using Game.Logic.Projectiles;
 using System;
 using UnityEngine;
 using Zenject;
@@ -50,6 +51,8 @@ namespace Installers
             public BulletMoveHandler.BulletSettings BaseMove;
 
             public IceBulletMoveHandler.IceBulletSettings IceMove;
+
+            public Laser.Settings Laser;
         }
 
 
@@ -119,6 +122,7 @@ namespace Installers
             InstallPlayer();
 
             Container.BindInstance(Projectile.BaseMove).AsSingle();
+            Container.BindInstance(Projectile.Laser).AsSingle();
             Container.BindInstance(Projectile.IceMove).AsSingle();
 
             InstallGameplayParams();

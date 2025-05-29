@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Game.Logic.Player
 {
-    public class PlayerFacade : UnitHandler
+    public class PlayerFacade : UnitFacade
     {
         public event Action<int> OnTakeDamage;
         public event Action<bool> OnActiveShootChange;

@@ -1,4 +1,4 @@
-using Game.Logic.Handlers;
+using Game.Logic.Enemy.Ice;
 using Game.Logic.Misc;
 using Game.Logic.Projectiles;
 using System;
@@ -6,23 +6,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Weapon
+namespace Game.Logic.Handlers
 {
     public abstract class ShootHandler : IInitializable, IShootHandler
     {
 
-        protected readonly Bullet.Pool _bulletPool;
+        protected readonly ProjectileManager _projectileManager;
         protected readonly Settings _settings;
         protected readonly Timer _timer = new();
 
-        protected List<Bullet> _bullets = new();
-        protected Bullet _currentBullet;
+        protected readonly List<IProjectile> _bullets = new();
+        protected readonly Dictionary<IProjectile, IProjectilePool> _bulletsPools = new();
 
-        private UnitHandler _unitHandler;
+        protected IProjectile _currentBullet;
 
-        public ShootHandler(Bullet.Pool bulletPool, Settings settings)
+        private UnitFacade _unitHandler;
+
+        public ShootHandler(ProjectileManager projectileManager, Settings settings)
         {
-            _bulletPool = bulletPool;
+            _projectileManager = projectileManager;
             _settings = settings;
         }
 
@@ -44,9 +46,7 @@ namespace Game.Logic.Weapon
         {
             while (_bullets.Count > 0)
             {
-                _bullets[0].InvokeHit -= Hit;
-                _bulletPool.Despawn(_bullets[0]);
-                _bullets.Remove(_bullets[0]);
+                RemoveProjectile(_bullets[0]);
             }
         }
 
@@ -78,11 +78,12 @@ namespace Game.Logic.Weapon
         /// <param name="onReloadEnd"></param>
         public virtual void Shoot(Vector2 weaponPos, Vector2 target, Action onReloadEnd = null)
         {
-            _currentBullet = _bulletPool
-                .Spawn(weaponPos, target);
+            _currentBullet = _projectileManager.Pool
+                .SpawnProjectile(weaponPos, target);
             _bullets.Add(_currentBullet);
+            _bulletsPools.Add(_currentBullet, _projectileManager.Pool);
             _currentBullet.InvokeHit += Hit;
-            
+
             Action onEnd = () =>
             {
                 OnEndReload();
@@ -99,23 +100,30 @@ namespace Game.Logic.Weapon
                 _settings.AttackDelay, step: 0.05f, onEnd).Play();
         }
 
-        protected virtual void Hit(Bullet bullet, GameObject target)
+        protected virtual void Hit(IProjectile iBullet, GameObject target)
         {
-            _unitHandler = target.GetComponent<UnitHandler>();
+            _unitHandler = target.GetComponent<UnitFacade>();
+
             if (target.tag == _settings.Owner)
                 return;
-            bullet.InvokeHit -= Hit;
-            _bulletPool.Despawn(bullet);
-            _bullets.Remove(bullet);
+            RemoveProjectile(iBullet);
             if (_unitHandler)
                 _unitHandler.MakeCollision(_settings.Damage);
             OnHit(_unitHandler);
         }
 
+        private void RemoveProjectile(IProjectile iBullet)
+        {
+            iBullet.InvokeHit -= Hit;
+            _bulletsPools[iBullet].DespawnProjectile(iBullet);
+            _bulletsPools.Remove(iBullet);
+            _bullets.Remove(iBullet);
+        }
+
         protected virtual void OnEndReload()
         { }
 
-        protected virtual void OnHit(UnitHandler unitHandler)
+        protected virtual void OnHit(UnitFacade unitHandler)
         { }
 
         [Serializable]
