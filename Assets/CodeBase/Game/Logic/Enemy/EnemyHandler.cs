@@ -59,6 +59,7 @@ namespace Game.Logic.Enemy
         public void Kill()
         {
             _fsm.Enter<Dead>();
+            Clear();
         }
 
         [Inject]
