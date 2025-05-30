@@ -91,7 +91,7 @@ namespace Game.Logic.Projectiles
             _laserLine.SetPositions(new Vector3[] { transform.position, _endPoint });
             _laserLine.enabled = true;
 
-            _timer.Initialize(0.01f, Hit).Play();
+            _timer.Initialize(Time.fixedDeltaTime, Hit).Play();
 
 
             LaserAnimation();
@@ -118,6 +118,7 @@ namespace Game.Logic.Projectiles
         private void OnAnimationEnd()
         {
             _laserLine.enabled = false;
+            _damageHandler.TakeDamage(1);
         }
 
         private void AnimationClear()
@@ -148,10 +149,10 @@ namespace Game.Logic.Projectiles
                 if (laser._sequence.IsPlaying())
                     laser._sequence.OnComplete(() =>
                     {
-                        Despawn(projectile as Laser);
+                        Despawn(laser);
                     });
                 else
-                    Despawn(projectile as Laser);
+                    Despawn(laser);
 
 
             }

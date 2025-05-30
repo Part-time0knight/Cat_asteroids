@@ -10,6 +10,7 @@ namespace Game.Logic.Enemy.Ice
 
         protected override void SetPause()
         {
+            if (_particles == null) return;
             base.SetPause();
             _particles.Pause();
 

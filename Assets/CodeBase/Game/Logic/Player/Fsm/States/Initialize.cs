@@ -12,12 +12,12 @@ namespace Game.Logic.Player.Fsm.States
         private readonly IGameStateMachine _stateMachine;
         private readonly IHandlerSetter _handlerSetter;
         private readonly ProjectileManager _projectileManager;
-        private readonly Bullet.Pool _pool;
+        private readonly Laser.Pool _pool;
 
         public Initialize(IGameStateMachine stateMachine,
             IHandlerSetter handlerSetter,
             ProjectileManager projectileManager,
-            Bullet.Pool pool)
+            Laser.Pool pool)
         {
             _stateMachine = stateMachine;
             _handlerSetter = handlerSetter;
