@@ -5,11 +5,11 @@ namespace Game.Logic.Projectiles
 {
     public interface IProjectile 
     {
-        event Action<IProjectile, GameObject> InvokeHit;
+        event Action<IProjectile, GameObject> OnHit;
+        public event Action<IProjectile> OnDead;
 
         void Initialize(Vector2 startPos, Vector2 targetPos);
 
-        void Continue();
-        void Pause();
+        bool Pause { set; }
     }
 }

@@ -6,7 +6,16 @@ namespace Game.Logic.Handlers
     {
         protected Settings _settings;
 
-        public int Score => _settings.Score;
+        public int Score
+        {
+            get
+            {
+                if (_settings == null)
+                    return 0;
+
+                return _settings.Score;
+            }
+        }
         public float Size => _settings.SizeMultiplier;
 
         public virtual bool Pause { get; set; }

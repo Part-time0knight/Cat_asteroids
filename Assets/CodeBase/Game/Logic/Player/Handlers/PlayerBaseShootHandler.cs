@@ -40,10 +40,13 @@ namespace Game.Logic.Player.Handlers
         public PlayerBaseShootHandler(ProjectileManager projectileManager,
             PlayerSettings settings,
             Transform weaponPoint,
-            IPlayerScoreWriter scoreWriter) : base(projectileManager, settings)
+            PlayerFacade playerFacade,
+            IPlayerScoreWriter scoreWriter) : base(
+                projectileManager,
+                playerFacade,
+                settings)
         {
             _weapon = weaponPoint;
-            _settings.Owner = Tags.Player;
             _scoreWriter = scoreWriter;
         }
 
@@ -73,7 +76,8 @@ namespace Game.Logic.Player.Handlers
             base.OnHit(unitHandler);
             if (unitHandler == null)
                 return;
-            _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
+            if (unitHandler.Score > 0)
+                _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
         }
 
         private async UniTask Repeater()

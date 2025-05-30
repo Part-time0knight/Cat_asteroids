@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Game.Logic.Enemy.Asteroid.AsteroidS
 {
-    public class AsteroidSmallHandler : EnemyHandler
+    public class AsteroidSmallHandler : EnemyFacade
     {
         [Inject]
         private void InjectSettings(AsteroidSettings settings)

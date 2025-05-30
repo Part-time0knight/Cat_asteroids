@@ -11,7 +11,8 @@ namespace Game.Logic.Projectiles
 {
     public class Laser : MonoBehaviour, IProjectile
     {
-        public event Action<IProjectile, GameObject> InvokeHit;
+        public event Action<IProjectile, GameObject> OnHit;
+        public event Action<IProjectile> OnDead;
 
         protected Vector2 _direction = Vector2.zero;
         protected Vector2 _endPoint = Vector2.zero;
@@ -24,13 +25,30 @@ namespace Game.Logic.Projectiles
 
         private readonly Timer _timer = new();
 
-        public virtual void Pause()
+        protected ProjectileDamageHandler _damageHandler;
+
+        bool IProjectile.Pause 
         {
+            set
+            {
+                if (value)
+                    SetPause();
+                else
+                    Continue();
+            }
         }
 
-        public virtual void Continue()
+        protected virtual void SetPause()
         {
+            _sequence.Pause();
         }
+
+        protected virtual void Continue()
+        {
+            _sequence.Play();
+        }
+
+
 
         public void Initialize(Vector2 startPos, Vector2 targetPos)
         {
@@ -41,11 +59,19 @@ namespace Game.Logic.Projectiles
             Fire();
         }
 
+        protected virtual void Awake()
+        {
+            _damageHandler.OnDeath += InvokeDeath;
+        }
+
         [Inject]
-        private void Construct(LineRenderer laserLine, Settings settings)
+        private void Construct(LineRenderer laserLine,
+            ProjectileDamageHandler projectileDamageHandler,
+            Settings settings)
         {
             _laserLine = laserLine;
             _settings = settings;
+            _damageHandler = projectileDamageHandler;
             _laserLine.enabled = false;
             _laserLine.startWidth = _settings.Laser.Width;
             _laserLine.endWidth = _settings.Laser.Width;
@@ -86,7 +112,7 @@ namespace Game.Logic.Projectiles
 
         private void Hit()
         {
-            InvokeHit?.Invoke(this, _hit.collider.gameObject);
+            OnHit?.Invoke(this, _hit.collider.gameObject);
         }
 
         private void OnAnimationEnd()
@@ -101,9 +127,15 @@ namespace Game.Logic.Projectiles
             _sequence = null;
         }
 
-        private void OnDisable()
+        protected virtual void OnDestroy()
         {
             AnimationClear();
+            _damageHandler.OnDeath -= InvokeDeath;
+        }
+
+        private void InvokeDeath()
+        {
+            OnDead?.Invoke(this);
         }
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, Laser>, IProjectilePool

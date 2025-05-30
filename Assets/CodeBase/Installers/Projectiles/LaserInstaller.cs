@@ -1,5 +1,4 @@
-using Game.Logic.Enemy.Ice;
-using Game.Logic.Misc;
+using Game.Logic.Projectiles;
 using System;
 using UnityEngine;
 using Zenject;
@@ -19,6 +18,10 @@ namespace Installers.Projectiles
         {
             Container
                 .BindInstance(_settings.Line)
+                .AsSingle();
+            
+            Container
+                .BindInterfacesAndSelfTo<ProjectileDamageHandler>()
                 .AsSingle();
         }
 

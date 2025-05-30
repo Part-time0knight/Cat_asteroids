@@ -1,4 +1,5 @@
 using Game.Logic.Misc;
+using Game.Logic.Projectiles;
 using System;
 using UnityEngine;
 using Zenject;
@@ -10,12 +11,18 @@ public class ProjectileInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInstance(_settings.Body).AsSingle();
-        InstallMoveHandler();
+        InstallHandlers();
     }
 
-    protected virtual void InstallMoveHandler()
+    protected virtual void InstallHandlers()
     {
-        Container.BindInterfacesAndSelfTo<BulletMoveHandler>().AsSingle();
+        Container
+            .BindInterfacesAndSelfTo<BulletMoveHandler>()
+            .AsSingle();
+        
+        Container
+            .BindInterfacesAndSelfTo<ProjectileDamageHandler>()
+            .AsSingle();
     }
 
     [Serializable]

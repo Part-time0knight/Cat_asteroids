@@ -7,10 +7,10 @@ namespace Game.Logic.Enemy.Fsm.States
     public class Pause : IState
     {
         private readonly IGameStateMachine _stateMachine;
-        private readonly EnemyHandler _enemy;
+        private readonly EnemyFacade _enemy;
 
         public Pause(IGameStateMachine stateMachine,
-            EnemyHandler enemy)
+            EnemyFacade enemy)
         {
             _enemy = enemy;
             _stateMachine = stateMachine;

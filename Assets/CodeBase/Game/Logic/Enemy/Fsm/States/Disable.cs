@@ -11,7 +11,7 @@ namespace Game.Logic.Enemy.Fsm.States
         private List<Collider2D> _colliders = new();
 
         public Disable(Rigidbody2D body,
-            EnemyHandler enemyHandler)
+            EnemyFacade enemyHandler)
         {
             _body = body;
         }

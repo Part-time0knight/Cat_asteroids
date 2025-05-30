@@ -8,16 +8,24 @@ namespace Game.Logic.Enemy.Ice
     {
         private ParticleSystem _particles;
 
-        public override void Pause()
+        protected override void SetPause()
         {
-            base.Pause();
+            base.SetPause();
             _particles.Pause();
+
         }
 
-        public override void Continue()
+        protected override void Continue()
         {
             base.Continue();
             _particles.Play();
+        }
+
+        protected override void InvokeHit(GameObject objectHit)
+        {
+            if (objectHit.tag == "Border")
+                Debug.Log("Ice strike border!");
+            base.InvokeHit(objectHit);
         }
 
         [Inject]
@@ -28,7 +36,10 @@ namespace Game.Logic.Enemy.Ice
 
         public class IcePool : Pool
         {
-
+            public override void DespawnProjectile(IProjectile projectile)
+            {
+                base.DespawnProjectile(projectile);
+            }
         }
     }
 }

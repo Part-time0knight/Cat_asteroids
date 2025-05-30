@@ -3,6 +3,6 @@ namespace Game.Logic.Handlers
 {
     public interface IWeaponHandler : IHandler
     {
-        void TickableDamage(UnitFacade target);
+        void FrameDamage(UnitFacade target);
     }
 }

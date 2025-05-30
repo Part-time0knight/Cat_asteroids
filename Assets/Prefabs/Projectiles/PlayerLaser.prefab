@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 7615545369753443210}
   - component: {fileID: 226056309089570385}
   - component: {fileID: 3975824735587426143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerLaser
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -10,7 +10,7 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
         private readonly IceShootHandler _iceShootHandler;
 
         public IceRun(IGameStateMachine stateMachine,
-            EnemyHandler enemyHandler, 
+            EnemyFacade enemyHandler, 
             EnemyMoveHandler moveHandler, 
             EnemyWeaponHandler weapon,
             EnemyDamageHandler damageHandler,
@@ -29,7 +29,7 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
             _iceShootHandler.StartAutomatic();
             _moveHandler.OnCollision += Hit;
             _damageHandler.OnDeath += InvokeDeath;
-            _moveHandler.OnTrigger += InvokeDisable;
+            _moveHandler.OnTrigger += InvokeTrigger;
             _enemyHandler.OnDamaged += InvokeDamaged;
             _enemyHandler.OnPause += InvokePause;
             _moveHandler.Move(_enemyHandler.Direction);

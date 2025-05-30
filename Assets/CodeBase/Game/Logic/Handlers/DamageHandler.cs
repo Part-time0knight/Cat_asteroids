@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 namespace Game.Logic.Handlers
@@ -28,21 +29,15 @@ namespace Game.Logic.Handlers
                 OnDeath?.Invoke();
         }
 
+        public virtual void Reset()
+        {
+            _hits = _stats.HitPoints;
+        }
+
+        [Serializable]
         public class Settings
         {
             [field: SerializeField] public int HitPoints { get; protected set; }
-
-            public Settings()
-            { }
-
-            public Settings(int hitPoints)
-            {
-                HitPoints = hitPoints;
-            }
-
-            public Settings(Settings settings) : this(
-                settings.HitPoints)
-            { }
         }
     }
 }

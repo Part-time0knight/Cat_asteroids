@@ -15,10 +15,10 @@ namespace Game.Logic.Enemy.Spawner
         private readonly IPlayerPositionReader _playerDataReader;
         private readonly Timer _timer;
 
-        private readonly EnemyHandler.Pool _pool;
+        private readonly EnemyFacade.Pool _pool;
         private readonly ISpawner.Settings _settings;
 
-        private readonly List<EnemyHandler> _enemies;
+        private readonly List<EnemyFacade> _enemies;
 
         private Vector2 _position;
         private Vector2 _direction;
@@ -27,7 +27,7 @@ namespace Game.Logic.Enemy.Spawner
 
         public bool Active => _cts != null;
 
-        public EnemySpawner(EnemyHandler.Pool pool,
+        public EnemySpawner(EnemyFacade.Pool pool,
             ISpawner.Settings settings,
             IPlayerPositionReader playerDataReader)
         {
@@ -120,7 +120,7 @@ namespace Game.Logic.Enemy.Spawner
             _enemies.Add(enemy);
         }
 
-        private void OnDeath(EnemyHandler enemyHandler)
+        private void OnDeath(EnemyFacade enemyHandler)
         {
             _enemies.Remove(enemyHandler);
             _pool.Despawn(enemyHandler);
@@ -128,7 +128,7 @@ namespace Game.Logic.Enemy.Spawner
             enemyHandler.OnDeactivate -= OnDeactivate;
         }
 
-        private void OnDeactivate(EnemyHandler enemyHandler)
+        private void OnDeactivate(EnemyFacade enemyHandler)
         {
             _enemies.Remove(enemyHandler);
             _pool.Despawn(enemyHandler);

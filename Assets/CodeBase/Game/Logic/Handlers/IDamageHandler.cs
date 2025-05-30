@@ -8,5 +8,7 @@ namespace Game.Logic.Handlers
         event Action OnDeath;
 
         void TakeDamage(int damage);
+
+        void Reset();
     }
 }

@@ -11,13 +11,13 @@ namespace Game.Logic.Enemy.Fsm.States
         private readonly IGameStateMachine _fsm;
         private readonly Rigidbody2D _body;
         private readonly ExplosionSpawner _spawner;
-        private readonly EnemyHandler _enemyHandler;
+        private readonly EnemyFacade _enemyHandler;
         private List<Collider2D> _colliders = new();
 
         public Dead(IGameStateMachine fsm,
             Rigidbody2D body,
             ExplosionSpawner spawner,
-            EnemyHandler enemyHandler) 
+            EnemyFacade enemyHandler) 
         {
             _fsm = fsm;
             _body = body;

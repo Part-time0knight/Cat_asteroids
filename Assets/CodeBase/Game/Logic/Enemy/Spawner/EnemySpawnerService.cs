@@ -100,7 +100,7 @@ namespace Game.Logic.Enemy.Spawner
                 return;
             }
 
-            var pool = _container.TryResolveId<EnemyHandler.Pool>(id);
+            var pool = _container.TryResolveId<EnemyFacade.Pool>(id);
             if (pool == null)
             {
                 Debug.LogError("Not found pool for spawner with id: " + id);

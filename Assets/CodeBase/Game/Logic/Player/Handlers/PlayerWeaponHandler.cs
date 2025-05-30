@@ -18,7 +18,8 @@ namespace Game.Logic.Player.Handlers
             base.MakeDamage();
             if (_target == null)
                 return;
-            _scoreWriter.AddScore(_target.Score, _target.transform.position);
+            if (_target.Score > 0)
+                _scoreWriter.AddScore(_target.Score, _target.transform.position);
         }
 
         [Serializable]

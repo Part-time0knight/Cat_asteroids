@@ -11,9 +11,11 @@ namespace Game.Logic.Enemy.Ice.IceM
             IEnemyPositionReader enemyPositionReader,
             Transform transform,
             ProjectileManager projectileManager,
+            EnemyFacade iceFacade,
             IceMSettings settings) 
             : base(playerPositionReader,
                   enemyPositionReader,
+                  iceFacade,
                   transform, projectileManager,
                   settings)
         {

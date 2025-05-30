@@ -10,7 +10,7 @@ namespace Game.Logic.Enemy.Asteroid.Fsm.States
         private readonly AsteroidRotate _rotate;
 
         public AsteroidRun(IGameStateMachine stateMachine, 
-            EnemyHandler enemyHandler, 
+            EnemyFacade enemyHandler, 
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
             EnemyDamageHandler damageHandler,

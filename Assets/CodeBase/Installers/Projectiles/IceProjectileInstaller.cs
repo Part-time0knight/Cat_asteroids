@@ -1,9 +1,10 @@
 using Game.Logic.Enemy.Ice;
 using Game.Logic.Misc;
+using Game.Logic.Projectiles;
 using System;
 using UnityEngine;
 
-namespace Installers.Enemies
+namespace Installers.Projectiles
 {
     public class IceProjectileInstaller : ProjectileInstaller
     {
@@ -15,7 +16,7 @@ namespace Installers.Enemies
             Container.BindInstance(_iceSettings.Particles).AsSingle();
         }
 
-        protected override void InstallMoveHandler()
+        protected override void InstallHandlers()
         {
             Container
                 .BindInterfacesAndSelfTo<IceBulletMoveHandler>()
@@ -23,6 +24,11 @@ namespace Installers.Enemies
 
             Container.Bind<BulletMoveHandler>()
                 .FromResolveGetter<IceBulletMoveHandler>(fsm => fsm);
+
+            Container
+                .Bind<ProjectileDamageHandler>()
+                .To<IceProjectileDamageHandler>()
+                .AsSingle();
         }
 
         [Serializable]

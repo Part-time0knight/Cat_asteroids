@@ -7,14 +7,14 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
     public class IceInitialize : Initialize
     {
         private readonly IceMoveHandler _moveHandler;
-        private readonly EnemyHandler _enemyHandler;
+        private readonly EnemyFacade _enemyHandler;
         private readonly ProjectileManager _projectileManager;
         private readonly IceBullet.IcePool _icePool;
 
         public IceInitialize(IGameStateMachine stateMachine,
             EnemyDamageHandler enemyDamageHandler,
             IceMoveHandler enemyMoveHandler,
-            EnemyHandler enemyHandler,
+            EnemyFacade enemyHandler,
             ProjectileManager projectileManager,
             IceBullet.IcePool icePool) : 
             base(stateMachine,

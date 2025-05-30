@@ -7,13 +7,13 @@ using Zenject;
 
 namespace Game.Logic.Enemy
 {
-    public abstract class EnemyHandler : UnitFacade
+    public abstract class EnemyFacade : UnitFacade
     {
         public event Action<bool> OnPause;
         public event Action<int> OnDamaged;
 
-        public event Action<EnemyHandler> OnDeath;
-        public event Action<EnemyHandler> OnDeactivate;
+        public event Action<EnemyFacade> OnDeath;
+        public event Action<EnemyFacade> OnDeactivate;
 
         protected EnemyFsm _fsm;
         private bool _pause = false;
@@ -81,9 +81,9 @@ namespace Game.Logic.Enemy
             _fsm.Enter<Disable>();
         }
 
-        public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyHandler>
+        public class Pool : MonoMemoryPool<Vector2, Vector2, EnemyFacade>
         {
-            protected override void OnDespawned(EnemyHandler item)
+            protected override void OnDespawned(EnemyFacade item)
             {
                 base.OnDespawned(item);
                 item.Deactivate();
@@ -91,7 +91,7 @@ namespace Game.Logic.Enemy
 
             protected override void Reinitialize(Vector2 spawnPoint,
                 Vector2 direction,
-                EnemyHandler item)
+                EnemyFacade item)
             {
                 base.Reinitialize(spawnPoint, direction, item);
                 item.Initialize(spawnPoint, direction);

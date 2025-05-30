@@ -51,6 +51,7 @@ namespace Installers.Enemies
                 .Bind<EnemyWeaponHandler>()
                 .To<AsteroidBWeaponHandler>()
                 .AsSingle();
+
             Container
                 .Bind<EnemyMoveHandler>()
                 .To<AsteroidBMoveHandler>()

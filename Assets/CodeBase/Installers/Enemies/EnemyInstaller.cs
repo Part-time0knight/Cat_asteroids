@@ -16,7 +16,6 @@ namespace Installers.Enemies
             InstallFsm();
 
             InstallEnemyComponents();
-
         }
 
         protected virtual void InstallEnemyComponents()

@@ -19,7 +19,7 @@ namespace Game.Logic.Player.Handlers
             _playerTakeDamage = playerTakeDamage;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             Power = false;
             _hits = _stats.HitPoints;
@@ -29,7 +29,7 @@ namespace Game.Logic.Player.Handlers
         public override void TakeDamage(int damage)
         {
             if (Power)
-                damage = 0;
+                return;
             base.TakeDamage(damage);
             _playerHitsWriter.IsTakeDamage = true;
             _playerHitsWriter.Hits = _hits;

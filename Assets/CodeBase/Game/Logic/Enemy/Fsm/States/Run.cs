@@ -12,10 +12,10 @@ namespace Game.Logic.Enemy.Fsm.States
         protected readonly EnemyMoveHandler _moveHandler;
         protected readonly EnemyWeaponHandler _weapon;
         protected readonly EnemyDamageHandler _damageHandler;
-        protected readonly EnemyHandler _enemyHandler;
+        protected readonly EnemyFacade _enemyHandler;
 
         public Run(IGameStateMachine stateMachine,
-            EnemyHandler enemyHandler,
+            EnemyFacade enemyHandler,
             EnemyMoveHandler moveHandler,
             EnemyWeaponHandler weapon,
             EnemyDamageHandler damageHandler)
@@ -33,7 +33,7 @@ namespace Game.Logic.Enemy.Fsm.States
             //Debug.Log("Enter in Run state " + GetType());
             _moveHandler.OnCollision += Hit;
             _damageHandler.OnDeath += InvokeDeath;
-            _moveHandler.OnTrigger += InvokeDisable;
+            _moveHandler.OnTrigger += InvokeTrigger;
             _enemyHandler.OnDamaged += InvokeDamaged;
             _enemyHandler.OnPause += InvokePause;
             _moveHandler.Move(_enemyHandler.Direction);
@@ -43,7 +43,7 @@ namespace Game.Logic.Enemy.Fsm.States
         public virtual void OnExit()
         {
             _moveHandler.OnCollision -= Hit;
-            _moveHandler.OnTrigger -= InvokeDisable;
+            _moveHandler.OnTrigger -= InvokeTrigger;
             _damageHandler.OnDeath -= InvokeDeath;
             _enemyHandler.OnDamaged -= InvokeDamaged;
             _enemyHandler.OnPause -= InvokePause;
@@ -54,7 +54,7 @@ namespace Game.Logic.Enemy.Fsm.States
         {
             var target = gameObject.GetComponent<UnitFacade>();
             if (target == null) return;
-            _weapon.TickableDamage(target);
+            _weapon.FrameDamage(target);
         }
 
         protected void InvokeDamaged(int damage)
@@ -67,11 +67,12 @@ namespace Game.Logic.Enemy.Fsm.States
             _stateMachine.Enter<Dead>();
         }
 
-        protected void InvokeDisable(GameObject gameObject)
+        protected void InvokeTrigger(GameObject gameObject)
         {
-            if (gameObject.tag != "Border")
-                return;
-            _enemyHandler.InvokeDeactivate();
+            if (gameObject.tag == "Border")
+                _enemyHandler.InvokeDeactivate();
+            if (gameObject.tag == "Projectile")
+                Hit(gameObject);
         }
 
         protected void InvokePause(bool pause)

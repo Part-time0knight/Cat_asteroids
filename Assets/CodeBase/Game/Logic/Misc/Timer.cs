@@ -29,7 +29,7 @@ namespace Game.Logic.Misc
 
         public Timer Initialize(float time, Action callback = null)
         {
-            return Initialize(time, 0.1f, null, callback);
+            return Initialize(time, Time.fixedDeltaTime, null, callback);
         }
 
         public Timer Initialize(float time, float step, Action callback)
@@ -39,7 +39,7 @@ namespace Game.Logic.Misc
 
         public Timer Initialize(float time, Action<float> callTick, Action callback)
         {
-            return Initialize(time, 0.1f, callTick, callback);
+            return Initialize(time, Time.fixedDeltaTime, callTick, callback);
         }
 
         public Timer Initialize(float time, float step, Action<float> callTick, Action callback)

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Projectiles;
@@ -19,10 +20,12 @@ namespace Game.Logic.Enemy.Ice
 
         public IceShootHandler(IPlayerPositionReader playerPositionReader,
             IEnemyPositionReader enemyPositionReader,
+            EnemyFacade iceFacade,
             Transform transform,
             ProjectileManager projectileManager,
             IceSettings settings) 
             : base(projectileManager,
+                  iceFacade,
                   settings)
         {
             _playerPositionReader = playerPositionReader;
@@ -61,16 +64,13 @@ namespace Game.Logic.Enemy.Ice
             {
                 await UniTask.WaitWhile(() => _timer.Active, cancellationToken: _cts.Token);
                 Vector2 target = GetTarget();
+                Vector2 startPos = new(_transform.position.x, _transform.position.y);
+                startPos = startPos
+                    + (target - startPos).normalized 
+                    * 1.3f;
                 if (!_cts.IsCancellationRequested)
-                    Shoot(_transform.position, target);
+                    Shoot(startPos, target);
             } while (!_cts.IsCancellationRequested);
-        }
-
-        protected override void Hit(IProjectile iBullet, GameObject target)
-        {
-            if (target.transform == _transform)
-                return;
-            base.Hit(iBullet, target);
         }
 
         private Vector2 GetTarget()

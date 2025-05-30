@@ -14,18 +14,21 @@ namespace Game.Logic.Handlers
         protected readonly ProjectileManager _projectileManager;
         protected readonly Settings _settings;
         protected readonly Timer _timer = new();
+        protected readonly Timer _damageDelay = new();
 
         protected readonly List<IProjectile> _bullets = new();
         protected readonly Dictionary<IProjectile, IProjectilePool> _bulletsPools = new();
 
-        protected IProjectile _currentBullet;
 
         private UnitFacade _unitHandler;
 
-        public ShootHandler(ProjectileManager projectileManager, Settings settings)
+        public ShootHandler(ProjectileManager projectileManager, 
+            UnitFacade unitFacade,
+            Settings settings)
         {
             _projectileManager = projectileManager;
             _settings = settings;
+            _settings.Owner = unitFacade.gameObject;
         }
 
         public virtual void Initialize()
@@ -39,7 +42,7 @@ namespace Game.Logic.Handlers
         {
             PauseReload();
             foreach (var bullet in _bullets)
-                bullet.Pause();
+                bullet.Pause = true;
         }
 
         public virtual void Clear()
@@ -54,7 +57,7 @@ namespace Game.Logic.Handlers
         {
             ContinueReload();
             foreach (var bullet in _bullets)
-                bullet.Continue();
+                bullet.Pause = false;
         }
 
         protected virtual void PauseReload()
@@ -76,19 +79,14 @@ namespace Game.Logic.Handlers
         /// <param name="weaponPos">World space position</param>
         /// <param name="target">World space position</param>
         /// <param name="onReloadEnd"></param>
-        public virtual void Shoot(Vector2 weaponPos, Vector2 target, Action onReloadEnd = null)
+        public virtual void Shoot(Vector2 weaponPos, Vector2 target)
         {
-            _currentBullet = _projectileManager.Pool
+            var currentBullet = _projectileManager.Pool
                 .SpawnProjectile(weaponPos, target);
-            _bullets.Add(_currentBullet);
-            _bulletsPools.Add(_currentBullet, _projectileManager.Pool);
-            _currentBullet.InvokeHit += Hit;
-
-            Action onEnd = () =>
-            {
-                OnEndReload();
-                onReloadEnd?.Invoke();
-            };
+            _bullets.Add(currentBullet);
+            _bulletsPools.Add(currentBullet, _projectileManager.Pool);
+            currentBullet.OnHit += Hit;
+            currentBullet.OnDead += RemoveProjectile;
 
             if (_timer.Active)
             {
@@ -97,24 +95,41 @@ namespace Game.Logic.Handlers
             }
 
             _timer.Initialize(
-                _settings.AttackDelay, step: 0.05f, onEnd).Play();
+                _settings.AttackDelay, step: 0.05f, OnEndReload).Play();
         }
 
         protected virtual void Hit(IProjectile iBullet, GameObject target)
         {
             _unitHandler = target.GetComponent<UnitFacade>();
 
-            if (target.tag == _settings.Owner)
+            if (target.transform == _settings.Owner.transform)
                 return;
-            RemoveProjectile(iBullet);
-            if (_unitHandler)
-                _unitHandler.MakeCollision(_settings.Damage);
+            if (target.tag == "Border")
+            {
+                RemoveProjectile(iBullet);
+                return;
+            }
+
+            if (_unitHandler != null)
+            {
+                MakeDamage(_unitHandler);
+            }
+            
             OnHit(_unitHandler);
+        }
+
+        private void MakeDamage(UnitFacade unit)
+        {
+            Timer timer = new();
+            timer.Initialize(Time.fixedDeltaTime,
+                    () => unit.MakeCollision(_settings.Damage))
+                    .Play();
         }
 
         private void RemoveProjectile(IProjectile iBullet)
         {
-            iBullet.InvokeHit -= Hit;
+            iBullet.OnHit -= Hit;
+            iBullet.OnDead -= RemoveProjectile;
             _bulletsPools[iBullet].DespawnProjectile(iBullet);
             _bulletsPools.Remove(iBullet);
             _bullets.Remove(iBullet);
@@ -135,7 +150,7 @@ namespace Game.Logic.Handlers
             /// <summary>
             /// Tag of the GameObject that belongs to the owner of the ShootHandler.
             /// </summary>
-            public string Owner { get; set; }
+            public GameObject Owner { get; set; }
         }
 
     }

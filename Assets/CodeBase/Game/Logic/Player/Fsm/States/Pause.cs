@@ -1,27 +1,28 @@
 using Core.Infrastructure.GameFsm;
-using Core.Infrastructure.GameFsm.States;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Handlers;
 
 namespace Game.Logic.Player.Fsm.States
 {
-    public class Pause : IState
+    public class Pause : Hitable
     {
         private readonly PlayerFacade _playerHandler;
         private readonly IGameStateMachine _playerFsm;
-        private readonly IHandlerGetter _handlerGetter;
 
         public Pause(IGameStateMachine playerFsm,
             PlayerFacade playerHandler,
-            IHandlerGetter handlerGetter)
+            IHandlerGetter handlerGetter) 
+            : base(playerFsm, 
+                playerHandler, 
+                handlerGetter)
         {
             _playerHandler = playerHandler;
             _playerFsm = playerFsm;
-            _handlerGetter = handlerGetter;
         }
 
-        public void OnEnter()
+        public override void OnEnter()
         {
+            base.OnEnter();
             _handlerGetter.Get<IPlayerMoveHandler>().Pause();
             _handlerGetter.Get<IPlayerDamageHandler>().Pause();
             _handlerGetter.Get<IPlayerShootHandler>().IsPause = true;
@@ -29,8 +30,9 @@ namespace Game.Logic.Player.Fsm.States
             _playerHandler.OnPause += InvokePause;
         }
 
-        public void OnExit()
+        public override void OnExit()
         {
+            base.OnExit();
             _handlerGetter.Get<IPlayerMoveHandler>().Continue();
             _handlerGetter.Get<IPlayerShootHandler>().IsPause = false;
             _handlerGetter.Get<IInvincibilityHandler>().Continue();

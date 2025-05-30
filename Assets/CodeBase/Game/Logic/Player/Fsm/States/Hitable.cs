@@ -33,6 +33,7 @@ namespace Game.Logic.Player.Fsm.States
             _handlerGetter.Get<IPlayerDamageHandler>().OnTakeDamage += InvokeHit;
             _handlerGetter.Get<IPlayerDamageHandler>().OnDeath += InvokeDead;
             _handlerGetter.Get<IPlayerMoveHandler>().OnCollision += MakeDamage;
+            _handlerGetter.Get<IPlayerMoveHandler>().OnTrigger += MakeDamage;
         }
 
         public virtual void OnExit()
@@ -44,6 +45,7 @@ namespace Game.Logic.Player.Fsm.States
             _handlerGetter.Get<IPlayerDamageHandler>().OnTakeDamage -= InvokeHit;
             _handlerGetter.Get<IPlayerDamageHandler>().OnDeath -= InvokeDead;
             _handlerGetter.Get<IPlayerMoveHandler>().OnCollision -= MakeDamage;
+            _handlerGetter.Get<IPlayerMoveHandler>().OnTrigger -= MakeDamage;
         }
 
         protected virtual void InvokeDead()
@@ -60,7 +62,7 @@ namespace Game.Logic.Player.Fsm.States
         {
             var unit = gameObject.GetComponent<UnitFacade>();
             if (unit != null)
-                _handlerGetter.Get<IWeaponHandler>().TickableDamage(unit);
+                _handlerGetter.Get<IWeaponHandler>().FrameDamage(unit);
         }
 
         protected virtual void InvokePower(bool power)

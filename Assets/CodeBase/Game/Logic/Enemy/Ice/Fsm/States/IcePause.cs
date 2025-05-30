@@ -8,7 +8,7 @@ namespace Game.Logic.Enemy.Ice.Fsm.States
         private readonly IceShootHandler _iceShootHandler;
 
         public IcePause(IGameStateMachine stateMachine,
-            EnemyHandler enemy, IceShootHandler iceShootHandler)
+            EnemyFacade enemy, IceShootHandler iceShootHandler)
             : base(stateMachine,
                   enemy)
         {

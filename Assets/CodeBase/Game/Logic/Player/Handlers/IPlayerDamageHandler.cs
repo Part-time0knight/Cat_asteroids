@@ -9,8 +9,6 @@ namespace Game.Logic.Player.Handlers
         /// </summary>
         bool Power { get; set; }
 
-        void Reset();
-
         public void Pause();
 
         public void Continue();

@@ -8,11 +8,6 @@ namespace Game.Logic.Enemy
         public EnemyDamageHandler(EnemySettings stats) : base(stats)
         { }
 
-        public void Reset()
-        {
-            _hits = _stats.HitPoints;
-        }
-
         [Serializable]
         public class EnemySettings : Settings
         { 

@@ -100,7 +100,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &3337772486470077523
 CapsuleCollider2D:
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 336865874588060514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c4420155d476840bed15116c7c1f77, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d3aefd705087234ea6fb2b23795e331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5040762080325144264

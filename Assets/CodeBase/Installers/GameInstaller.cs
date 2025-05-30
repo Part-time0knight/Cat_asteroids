@@ -40,7 +40,7 @@ namespace Installers
                 .NonLazy();
 
             Container
-                .BindFactory<EnemyHandler.Pool, ISpawner.Settings, ISpawner, SpawnerFactory>()
+                .BindFactory<EnemyFacade.Pool, ISpawner.Settings, ISpawner, SpawnerFactory>()
                 .To<EnemySpawner>()
                 .FromNew()
                 .NonLazy();
@@ -68,25 +68,25 @@ namespace Installers
                 .UnderTransform(_settings.Projectiles.Container);
 
             Container
-                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .BindMemoryPool<EnemyFacade, EnemyFacade.Pool>()
                 .WithId("AsteroidB")
                 .FromComponentInNewPrefab(_settings.Enemies.AsteroidBigPrefab)
                 .UnderTransform(_settings.Enemies.Container);
 
             Container
-                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .BindMemoryPool<EnemyFacade, EnemyFacade.Pool>()
                 .WithId("AsteroidM")
                 .FromComponentInNewPrefab(_settings.Enemies.AsteroidMediumPrefab)
                 .UnderTransform(_settings.Enemies.Container);
 
             Container
-                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .BindMemoryPool<EnemyFacade, EnemyFacade.Pool>()
                 .WithId("AsteroidS")
                 .FromComponentInNewPrefab(_settings.Enemies.AsteroidSmallPrefab)
                 .UnderTransform(_settings.Enemies.Container);
 
             Container
-                .BindMemoryPool<EnemyHandler, EnemyHandler.Pool>()
+                .BindMemoryPool<EnemyFacade, EnemyFacade.Pool>()
                 .WithId("IceM")
                 .FromComponentInNewPrefab(_settings.Enemies.IceMediumPrefab)
                 .UnderTransform(_settings.Enemies.Container);
@@ -249,7 +249,7 @@ namespace Installers
                 public AsteroidSmallHandler AsteroidSmallPrefab { get; private set; }
 
                 [field: SerializeField]
-                public IceHandler IceMediumPrefab { get; private set; }
+                public IceFacade IceMediumPrefab { get; private set; }
             }
         }
     }

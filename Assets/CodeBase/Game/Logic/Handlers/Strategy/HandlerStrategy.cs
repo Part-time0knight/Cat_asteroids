@@ -7,7 +7,8 @@ namespace Game.Logic.Handlers.Strategy
 {
     public class HandlerStrategy : IHandlerSetter,
         IHandlerGetter, IDisposable,
-        IFixedTickable, ITickable
+        IFixedTickable, ITickable,
+        ILateTickable
     {
         private readonly IFactory _factory;
 
@@ -64,6 +65,16 @@ namespace Game.Logic.Handlers.Strategy
                     tickable.Tick();
             }
         }
+
+        public void LateTick()
+        {
+            foreach (var handler in _handlers.Values)
+            {
+                if (handler is ILateTickable tickable)
+                    tickable.LateTick();
+            }
+        }
+
         private void Initialize(IHandler handler)
         {
             if (handler is IInitializable initializable)

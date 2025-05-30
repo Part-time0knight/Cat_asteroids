@@ -50,6 +50,10 @@ namespace Installers
         {
             public BulletMoveHandler.BulletSettings BaseMove;
 
+            public ProjectileDamageHandler.ProjectileSettings ProjectileHits;
+
+            public IceProjectileDamageHandler.IceSettings IceProjectileHits;
+
             public IceBulletMoveHandler.IceBulletSettings IceMove;
 
             public Laser.Settings Laser;
@@ -100,7 +104,7 @@ namespace Installers
             [Serializable]
             public class IceMSettings
             {
-                public IceHandler.IceSettings MainSettings;
+                public IceFacade.IceSettings MainSettings;
                 public IceMMoveHandler.IceMSettings Move;
                 public IceMDamageHandler.IceSettings Hits;
                 public IceMWeaponHandler.IceSettings Damage;
@@ -124,6 +128,9 @@ namespace Installers
             Container.BindInstance(Projectile.BaseMove).AsSingle();
             Container.BindInstance(Projectile.Laser).AsSingle();
             Container.BindInstance(Projectile.IceMove).AsSingle();
+
+            Container.BindInstance(Projectile.ProjectileHits).AsSingle();
+            Container.BindInstance(Projectile.IceProjectileHits).AsSingle();
 
             InstallGameplayParams();
 

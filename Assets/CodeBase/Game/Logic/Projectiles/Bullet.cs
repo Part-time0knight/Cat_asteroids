@@ -1,3 +1,4 @@
+using Game.Logic.Handlers;
 using Game.Logic.Misc;
 using System;
 using UnityEngine;
@@ -5,26 +6,41 @@ using Zenject;
 
 namespace Game.Logic.Projectiles
 {
-    public class Bullet : MonoBehaviour, IProjectile
+    public class Bullet : UnitFacade, IProjectile
     {
-        public event Action<IProjectile, GameObject> InvokeHit;
+        public event Action<IProjectile, GameObject> OnHit;
+        public event Action<IProjectile> OnDead;
 
         protected Vector2 _direction = Vector2.zero;
         protected BulletMoveHandler _bulletMove;
+        protected ProjectileDamageHandler _damageHandler;
 
-        public virtual void Pause()
+        public override bool Pause
+        {
+            set
+            {
+                if (value)
+                    SetPause();
+                else
+                    Continue();
+            }
+        }
+
+        protected virtual void SetPause()
         {
             _bulletMove.Pause();
         }
 
-        public virtual void Continue()
+        protected virtual void Continue()
         {
             _bulletMove.Continue();
         }
 
         protected virtual void Awake()
         {
-            _bulletMove.OnTrigger += OnHit;
+            _bulletMove.OnTrigger += InvokeHit;
+            _bulletMove.OnCollision += InvokeHit;
+            _damageHandler.OnDeath += InvokeDeath;
         }
 
         public virtual void Initialize(Vector2 startPos, Vector2 targetPos)
@@ -33,35 +49,59 @@ namespace Game.Logic.Projectiles
             _direction = (targetPos - startPos).normalized;
             float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+            _damageHandler.Reset();
             _bulletMove.Move(_direction);
         }
 
-        [Inject]
-        protected virtual void Construct(BulletMoveHandler bulletMove)
+        public override void MakeCollision(int damage)
         {
-            _bulletMove = bulletMove;
+            _damageHandler.TakeDamage(damage);
         }
 
-        protected virtual void OnHit(GameObject objectHit)
+        [Inject]
+        protected virtual void Construct(BulletMoveHandler bulletMove,
+            ProjectileDamageHandler projectileDamageHandler)
         {
-            InvokeHit?.Invoke(this, objectHit);
+            _bulletMove = bulletMove;
+            _damageHandler = projectileDamageHandler;
+        }
+
+        protected virtual void InvokeHit(GameObject objectHit)
+        {
+            OnHit?.Invoke(this, objectHit);
         }
 
         protected virtual void OnDestroy()
         {
-            _bulletMove.OnTrigger -= OnHit;
+            _bulletMove.OnTrigger -= InvokeHit;
+            _bulletMove.OnCollision -= InvokeHit;
+            _damageHandler.OnDeath -= InvokeDeath;
+        }
+
+        private void InvokeDeath()
+        {
+            OnDead?.Invoke(this);
         }
 
         public class Pool : MonoMemoryPool<Vector2, Vector2, Bullet>, IProjectilePool
         {
-            public void DespawnProjectile(IProjectile projectile)
+            public virtual void DespawnProjectile(IProjectile projectile)
             {
-                if (projectile == null || !(projectile is Bullet bullet)) return;
+                if (projectile == null || !(projectile is Bullet bullet))
+                {
+                    Debug.LogWarning("False bullet in pool!");
+                    return;
+                }
+                bullet.Pause = true;
                 Despawn(bullet);
+                
             }
 
-            public IProjectile SpawnProjectile(Vector2 startPos, Vector2 target)
-                => Spawn(startPos, target);
+            public virtual IProjectile SpawnProjectile(Vector2 startPos, Vector2 target)
+            {
+                var item = Spawn(startPos, target);
+                return item;
+            }
 
             /// <param name="startPos">World space position</param>
             /// <param name="targetPos">World space position</param>

@@ -1,6 +1,7 @@
 using Game.Logic.Misc;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Logic.Handlers
 {
@@ -17,7 +18,7 @@ namespace Game.Logic.Handlers
             _settings = settings;
         }
 
-        public virtual void TickableDamage(UnitFacade target)
+        public virtual void FrameDamage(UnitFacade target)
         {
             if (_reloadTimer.Active)
                 return;
@@ -29,7 +30,7 @@ namespace Game.Logic.Handlers
         {
             if (_delayTimer.Active)
                 return;
-            _delayTimer.Initialize(0.01f, 0.01f, MakeDamage).Play();
+            _delayTimer.Initialize(Time.fixedDeltaTime, Time.fixedDeltaTime, MakeDamage).Play();
         }
 
         protected virtual void MakeDamage()
