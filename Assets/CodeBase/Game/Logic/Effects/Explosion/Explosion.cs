@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Zenject;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace Game.Logic.Effects.Explosion
 {

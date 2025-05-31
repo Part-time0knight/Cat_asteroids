@@ -92,7 +92,13 @@ namespace Installers
                 .UnderTransform(_settings.Enemies.Container);
 
             Container.BindMemoryPool<Explosion, Explosion.Pool>()
+                .WithId("Explosion")
                 .FromComponentInNewPrefab(_settings.Explosion.ExplosionPrefab)
+                .UnderTransform(_settings.Explosion.Container);
+
+            Container.BindMemoryPool<Explosion, Explosion.Pool>()
+                .WithId("IceExplosion")
+                .FromComponentInNewPrefab(_settings.Explosion.IceExplosionPrefab)
                 .UnderTransform(_settings.Explosion.Container);
         }
 
@@ -228,6 +234,8 @@ namespace Installers
 
                 [field: SerializeField]
                 public Explosion ExplosionPrefab { get; private set; }
+                [field: SerializeField]
+                public Explosion IceExplosionPrefab { get; private set; }
 
                 [field: SerializeField]
                 public ParticleSystem BigExplosion { get; private set; }

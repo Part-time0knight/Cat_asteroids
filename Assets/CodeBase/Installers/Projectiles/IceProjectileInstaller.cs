@@ -31,10 +31,12 @@ namespace Installers.Projectiles
                 .AsSingle();
         }
 
+
+
         [Serializable]
         public class IceSettings
         {
-            [field: SerializeField] public ParticleSystem Particles;
+            [field: SerializeField] public ParticleSystem Particles { get; private set; }
         }
     }
 }

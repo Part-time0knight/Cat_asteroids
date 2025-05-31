@@ -1,4 +1,7 @@
+using Game.Logic.Effects.Explosion;
+using Game.Logic.Misc;
 using Game.Logic.Projectiles;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -6,33 +9,36 @@ namespace Game.Logic.Enemy.Ice
 {
     public class IceBullet : Bullet
     {
-        private ParticleSystem _particles;
+        private ParticleSystem _hasteParticles;
+        private ExplosionSpawner _explosionSpawner;
 
         protected override void SetPause()
         {
-            if (_particles == null) return;
+            if (_hasteParticles == null) return;
             base.SetPause();
-            _particles.Pause();
+            _hasteParticles.Pause();
 
         }
 
         protected override void Continue()
         {
             base.Continue();
-            _particles.Play();
+            _hasteParticles.Play();
         }
 
-        protected override void InvokeHit(GameObject objectHit)
+
+        protected override void InvokeDeath()
         {
-            if (objectHit.tag == "Border")
-                Debug.Log("Ice strike border!");
-            base.InvokeHit(objectHit);
+            _explosionSpawner.SpawnIce(transform.position, 0.75f);
+            base.InvokeDeath();
         }
+
 
         [Inject]
-        private void ConstructParticles(ParticleSystem particles)
+        private void ConstructParticles(ParticleSystem particles, ExplosionSpawner explosionSpawner)
         {
-            _particles = particles;
+            _hasteParticles = particles;
+            _explosionSpawner = explosionSpawner;
         }
 
         public class IcePool : Pool

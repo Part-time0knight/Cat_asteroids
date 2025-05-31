@@ -954,6 +954,7 @@ MonoBehaviour:
     <Explosion>k__BackingField:
       <Container>k__BackingField: {fileID: 167747486}
       <ExplosionPrefab>k__BackingField: {fileID: 2199385792234966007, guid: f4fd5e172fc6599448ceae7b594e6c61, type: 3}
+      <IceExplosionPrefab>k__BackingField: {fileID: 2199385792234966007, guid: 9948077917d812d49b7230dee2fc82ac, type: 3}
       <BigExplosion>k__BackingField: {fileID: 1674886011}
 --- !u!1001 &1993154727
 PrefabInstance:

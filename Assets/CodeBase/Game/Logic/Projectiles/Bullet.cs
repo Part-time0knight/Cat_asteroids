@@ -78,7 +78,7 @@ namespace Game.Logic.Projectiles
             _damageHandler.OnDeath -= InvokeDeath;
         }
 
-        private void InvokeDeath()
+        protected virtual void InvokeDeath()
         {
             OnDead?.Invoke(this);
         }
@@ -87,11 +87,9 @@ namespace Game.Logic.Projectiles
         {
             public virtual void DespawnProjectile(IProjectile projectile)
             {
-                if (projectile == null || !(projectile is Bullet bullet))
-                {
-                    Debug.LogWarning("False bullet in pool!");
-                    return;
-                }
+                if (projectile == null) return;
+
+                var bullet = projectile as Bullet;
                 bullet.Pause = true;
                 Despawn(bullet);
                 

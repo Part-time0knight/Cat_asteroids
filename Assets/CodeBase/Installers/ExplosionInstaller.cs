@@ -2,24 +2,27 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class ExplosionInstaller : MonoInstaller
+namespace Installers
 {
-    [SerializeField] private Settings _settings;
-
-    public override void InstallBindings()
+    public class ExplosionInstaller : MonoInstaller
     {
-        Container
-            .BindInstance(_settings.ExplosionAnimator)
-            .AsSingle();
-        Container
-            .BindInstance(_settings.ParticleSystem)
-            .AsSingle();
-    }
+        [SerializeField] private Settings _settings;
 
-    [Serializable]
-    public class Settings
-    {
-        [field: SerializeField] public Animator ExplosionAnimator { get; private set; }
-        [field: SerializeField] public ParticleSystem ParticleSystem { get; private set; }
+        public override void InstallBindings()
+        {
+            Container
+                .BindInstance(_settings.ExplosionAnimator)
+                .AsSingle();
+            Container
+                .BindInstance(_settings.ParticleSystem)
+                .AsSingle();
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            [field: SerializeField] public Animator ExplosionAnimator { get; private set; }
+            [field: SerializeField] public ParticleSystem ParticleSystem { get; private set; }
+        }
     }
 }
