@@ -11,6 +11,7 @@ using Game.Logic.Player;
 using Game.Logic.Player.Animation;
 using Game.Logic.Player.Handlers;
 using Game.Logic.Projectiles;
+using Game.Logic.StaticData.MutatorsData;
 using System;
 using UnityEngine;
 using Zenject;
@@ -25,6 +26,7 @@ namespace Installers
         [field: SerializeField] public ProjectilesSettings Projectile { get; private set; }
         [field: SerializeField] public EnemySpawnerSettings SpawnerSettings { get; private set; }
         [field: SerializeField] public EnemiesSettings Enemies { get; private set; }
+        [field: SerializeField] public MutatorsSettings Mutators { get; private set; }
 
         [Serializable]
         public class Gameplay
@@ -121,6 +123,12 @@ namespace Installers
             public ISpawner.Settings IceMSpawner;
         }
 
+        [Serializable]
+        public class MutatorsSettings
+        {
+            public MutatorsListSO MutatorsList;
+        }
+
         public override void InstallBindings()
         {
             InstallPlayer();
@@ -131,6 +139,8 @@ namespace Installers
 
             Container.BindInstance(Projectile.ProjectileHits).AsSingle();
             Container.BindInstance(Projectile.IceProjectileHits).AsSingle();
+
+            Container.BindInstance(Mutators.MutatorsList).AsSingle();
 
             InstallGameplayParams();
 

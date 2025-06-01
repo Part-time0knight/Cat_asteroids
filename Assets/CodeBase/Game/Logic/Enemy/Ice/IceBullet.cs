@@ -14,7 +14,7 @@ namespace Game.Logic.Enemy.Ice
 
         protected override void SetPause()
         {
-            if (_hasteParticles == null) return;
+           
             base.SetPause();
             _hasteParticles.Pause();
 

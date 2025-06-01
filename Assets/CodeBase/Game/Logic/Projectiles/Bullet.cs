@@ -87,9 +87,9 @@ namespace Game.Logic.Projectiles
         {
             public virtual void DespawnProjectile(IProjectile projectile)
             {
-                if (projectile == null) return;
-
                 var bullet = projectile as Bullet;
+                if (projectile == null || bullet == null) return;
+
                 bullet.Pause = true;
                 Despawn(bullet);
                 

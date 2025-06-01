@@ -4880,9 +4880,7 @@ MonoBehaviour:
   _settings:
     <Body>k__BackingField: {fileID: 6771232576829006859}
   _iceSettings:
-    <Particles>k__BackingField:
-      HasteParticles: {fileID: 2589594564869758844}
-      DeathParticles: {fileID: 0}
+    <Particles>k__BackingField: {fileID: 2589594564869758844}
 --- !u!1 &8036408279369102779
 GameObject:
   m_ObjectHideFlags: 0
