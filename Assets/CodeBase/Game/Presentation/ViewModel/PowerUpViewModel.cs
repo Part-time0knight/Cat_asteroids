@@ -1,9 +1,11 @@
 using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
+using Game.Domain.Dto;
 using Game.Infrastructure.States.Gameplay;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
+using Game.Logic.Services.Mutators;
 using Game.Presentation.View;
 using System;
 
@@ -12,13 +14,17 @@ namespace Game.Presentation.ViewModel
 
     public class PowerUpViewModel : AbstractViewModel
     {
-        public event Action<Dto> OnOpen;
+        public event Action<PowerUpDto> OnOpen;
+        public event Action<ShopDto> OnShopUpdate;
 
         private readonly IPlayerHitsReader _hitsReader;
         private readonly IPlayerScoreReader _scoreReader;
         private readonly IGameStateMachine _gameFsm;
+        private readonly IMutatorData _mutatorData;
         private readonly DifficultHandler _difficultHandler;
-        private readonly Dto _dto = new();
+        private readonly BundleService _bundleService;
+        private readonly PowerUpDto _dto = new();
+        private readonly ShopDto _shopDto = new();
 
         protected override Type Window => typeof(PowerUpView);
 
@@ -26,12 +32,16 @@ namespace Game.Presentation.ViewModel
             IGameStateMachine gameFsm,
             IPlayerScoreReader scoreReader,
             IPlayerHitsReader hitsReader,
-            DifficultHandler difficultHandler) : base(windowFsm)
+            DifficultHandler difficultHandler,
+            IMutatorData mutatorData,
+            BundleService mutatorBundleService) : base(windowFsm)
         {
             _hitsReader = hitsReader;
             _scoreReader = scoreReader;
             _difficultHandler = difficultHandler;
             _gameFsm = gameFsm;
+            _mutatorData = mutatorData;
+            _bundleService = mutatorBundleService;
         }
 
         public override void InvokeClose()
@@ -54,6 +64,16 @@ namespace Game.Presentation.ViewModel
             base.HandleOpenedWindow(uiWindow);
             if (uiWindow != Window) return;
             Update();
+
+            _bundleService.OnBundleUpdate += UpdateShop;
+            OpenShop();
+        }
+
+        protected override void HandleClosedWindow(Type uiWindow)
+        {
+            base.HandleClosedWindow(uiWindow);
+            if (uiWindow != Window) return;
+            _bundleService.OnBundleUpdate -= UpdateShop;
         }
 
         private void Update()
@@ -66,12 +86,42 @@ namespace Game.Presentation.ViewModel
                 .Invoke(_dto);
         }
 
-        public class Dto
+        private void OpenShop()
         {
-            public int Hits;
-            public string Score;
-            public string ScoreToNextLayer;
-            public string Layer;
+            _bundleService.GenerateBundle();
         }
+
+        private void UpdateShop()
+        {
+            _shopDto.Bundles.Clear();
+            var bundlesData = _bundleService.AvailableBundles;
+
+            foreach (var bundle in bundlesData)
+            {
+                BundleDto newBundle = new()
+                {
+                    TopName = _mutatorData.GetName(bundle.PlayerId),
+                    TopDescription = _mutatorData.GetDescription(bundle.PlayerId),
+                    TopIcon = _mutatorData.GetSprite(bundle.PlayerId),
+
+                    BottomName = _mutatorData.GetName(bundle.EnemyId),
+                    BottomDescription = _mutatorData.GetDescription(bundle.EnemyId),
+                    BottomIcon = _mutatorData.GetSprite(bundle.EnemyId),
+
+                    Cost = bundle.Cost.ToString(),
+                    OnBuy = () => InvokeBuy(bundle.Id),
+                };
+
+                _shopDto.Bundles.Add(newBundle);
+            }
+
+            OnShopUpdate?.Invoke(_shopDto);
+        }
+
+        private void InvokeBuy(int bundleId)
+        {
+            _bundleService.BuyBundle(bundleId);
+        }
+
     }
 }

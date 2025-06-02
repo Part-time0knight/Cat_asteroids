@@ -40,8 +40,12 @@ MonoBehaviour:
       <Duration>k__BackingField: 1.5
   <GameplayParams>k__BackingField:
     Difficult:
-      StepScore: 50
+      StepScore: 10
       Multiplier: 2
+    Bundles:
+      <ConstantCost>k__BackingField: 3
+      <RandomRangeCost>k__BackingField: {x: -1, y: 2}
+      <BundleCount>k__BackingField: 3
   <Projectile>k__BackingField:
     BaseMove:
       <Speed>k__BackingField: 30
@@ -50,7 +54,7 @@ MonoBehaviour:
     IceProjectileHits:
       <HitPoints>k__BackingField: 1
     IceMove:
-      <Speed>k__BackingField: 5
+      <Speed>k__BackingField: 7
     Laser:
       <Laser>k__BackingField:
         <Width>k__BackingField: 0.04
@@ -153,6 +157,8 @@ MonoBehaviour:
         <Damage>k__BackingField: 1
         <DamageDelay>k__BackingField: 1
       Shooter:
-        <AttackDelay>k__BackingField: 3
+        <AttackDelay>k__BackingField: 2.5
         <Damage>k__BackingField: 1
         <SafeZoneDistance>k__BackingField: 8
+  <Mutators>k__BackingField:
+    MutatorsList: {fileID: 11400000, guid: 191e18eb774dbfe40852c9ba59545e5b, type: 2}

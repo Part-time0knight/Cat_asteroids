@@ -4,9 +4,12 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Services
+namespace Game.Logic.Services.Mutators
 {
-    public class MutatorsService : IInitializable
+    public class MutatorsService : IInitializable, 
+        IMutatorSetter, 
+        IMutatorGetter,
+        IMutatorData
     {
         private readonly List<MutatorSO> _mutatorsSO;
 
@@ -18,17 +21,17 @@ namespace Game.Logic.Services
                 .ToList();
 
         public List<int> ActivePlayerMutators =>
-            _mutators.Where(kv => kv.Value.Active)
+            _mutators.Where(kv => kv.Value.Active && kv.Value.IsPlayer)
                 .Select(kv => kv.Key)
                 .ToList();
 
         public List<int> AvailableEnemyMutators =>
-            _mutators.Where(kv => kv.Value.Available && kv.Value.IsPlayer)
+            _mutators.Where(kv => kv.Value.Available && !kv.Value.IsPlayer)
                 .Select(kv => kv.Key)
                 .ToList();
 
         public List<int> ActiveEnemyMutators =>
-            _mutators.Where(kv => kv.Value.Active)
+            _mutators.Where(kv => kv.Value.Active && !kv.Value.IsPlayer)
                 .Select(kv => kv.Key)
                 .ToList();
 

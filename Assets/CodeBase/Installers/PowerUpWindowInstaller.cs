@@ -14,6 +14,11 @@ public class PowerUpWindowInstaller : MonoInstaller
             .BindMemoryPool<Image, HitsViewer.Pool>()
             .FromComponentInNewPrefab(_settings.HitsViewer.Prefab)
             .UnderTransform(_settings.HitsViewer.Container);
+
+        Container
+            .BindMemoryPool<Bundle, Bundle.Pool>()
+            .FromComponentInNewPrefab(_settings.Bundle.Prefab)
+            .UnderTransform(_settings.Bundle.Container);
     }
 
     [Serializable]
@@ -21,11 +26,19 @@ public class PowerUpWindowInstaller : MonoInstaller
     {
 
         [field: SerializeField] public HitsViewerSettings HitsViewer;
+        [field: SerializeField] public BundleSettings Bundle;
 
         [Serializable]
         public class HitsViewerSettings
         {
             [field: SerializeField] public Image Prefab;
+            [field: SerializeField] public RectTransform Container;
+        }
+
+        [Serializable]
+        public class BundleSettings
+        {
+            [field: SerializeField] public Bundle Prefab;
             [field: SerializeField] public RectTransform Container;
         }
     }

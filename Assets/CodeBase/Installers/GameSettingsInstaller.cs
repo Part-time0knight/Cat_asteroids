@@ -11,6 +11,7 @@ using Game.Logic.Player;
 using Game.Logic.Player.Animation;
 using Game.Logic.Player.Handlers;
 using Game.Logic.Projectiles;
+using Game.Logic.Services.Mutators;
 using Game.Logic.StaticData.MutatorsData;
 using System;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Installers
         public class Gameplay
         {
             public DifficultHandler.Settings Difficult;
+            public BundleService.Settings Bundles;
         }
 
         [Serializable]
@@ -154,6 +156,7 @@ namespace Installers
         private void InstallGameplayParams()
         {
             Container.BindInstance(GameplayParams.Difficult).AsSingle();
+            Container.BindInstance(GameplayParams.Bundles).AsSingle();
         }
 
         private void InstallPlayer()

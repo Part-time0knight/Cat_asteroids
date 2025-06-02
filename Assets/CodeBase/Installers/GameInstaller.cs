@@ -12,6 +12,7 @@ using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Projectiles;
+using Game.Logic.Services.Mutators;
 using Game.Presentation.ViewModel;
 using System;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Installers
             InstallServices();
             InstallDataObjects();
             InstallViewModel();
+            InstallMutators();
         }
 
         private void InstallFactory()
@@ -193,6 +195,19 @@ namespace Installers
                 .BindInterfacesAndSelfTo<DifficultHandler>()
                 .AsSingle()
                 .NonLazy();
+        }
+
+        private void InstallMutators()
+        {
+            Container
+                .BindInterfacesAndSelfTo<MutatorsService>()
+                .AsSingle()
+                .Lazy();
+
+            Container
+                .BindInterfacesAndSelfTo<BundleService>()
+                .AsSingle()
+                .Lazy();
         }
 
         [Serializable]

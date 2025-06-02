@@ -1,7 +1,9 @@
 using Core.MVVM.View;
+using Game.Domain.Dto;
 using Game.Presentation.Elements;
 using Game.Presentation.ViewModel;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,19 +16,25 @@ namespace Game.Presentation.View
         [SerializeField] private Settings _settings;
         
         private ParticleSystem _bigExplosion;
+        private Bundle.Pool _bundlePool;
+        private List<Bundle> _bundles = new();
         private string _title;
 
         [Inject]
-        private void Construct(PowerUpViewModel viewModel, ParticleSystem bigExplosion)
+        private void Construct(PowerUpViewModel viewModel,
+            ParticleSystem bigExplosion,
+            Bundle.Pool bundlePool)
         {
-            base.Construct(viewModel);
+            Construct(viewModel);
             _settings
                 .ExitButton
                 .onClick
                 .AddListener(_viewModel.InvokeContinue);
             _bigExplosion = bigExplosion;
             _viewModel.OnOpen += InvokeOpen;
+            _viewModel.OnShopUpdate += InvokeShopUpdate;
             _title = _settings.TitleText.text;
+            _bundlePool = bundlePool;
         }
 
         protected override void OnDestroy()
@@ -34,9 +42,10 @@ namespace Game.Presentation.View
             base.OnDestroy();
             _settings.ExitButton.onClick.RemoveListener(_viewModel.InvokeContinue);
             _viewModel.OnOpen -= InvokeOpen;
+            _viewModel.OnShopUpdate -= InvokeShopUpdate;
         }
 
-        private void InvokeOpen(PowerUpViewModel.Dto dto)
+        private void InvokeOpen(PowerUpDto dto)
         {
             _settings.TitleText.text = _title.Replace("{data}", dto.Layer);
             _settings.ScoreCountText.text = dto.Score;
@@ -46,6 +55,23 @@ namespace Game.Presentation.View
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.LayerStepCountText.rectTransform);
             _bigExplosion.Play();
+        }
+
+        private void InvokeShopUpdate(ShopDto dto)
+        {
+            ClearBundles();
+            foreach (var item in dto.Bundles)
+            {
+                _bundles.Add(_bundlePool.Spawn(item));
+            }
+        }
+
+        private void ClearBundles()
+        {
+            foreach (var item in _bundles)
+                if (item != null)
+                    _bundlePool.Despawn(item);
+            _bundles.Clear();
         }
 
         [Serializable]
