@@ -34,14 +34,14 @@ namespace Game.Presentation.ViewModel
             IPlayerHitsReader hitsReader,
             DifficultHandler difficultHandler,
             IMutatorData mutatorData,
-            BundleService mutatorBundleService) : base(windowFsm)
+            BundleService bundleService) : base(windowFsm)
         {
             _hitsReader = hitsReader;
             _scoreReader = scoreReader;
             _difficultHandler = difficultHandler;
             _gameFsm = gameFsm;
             _mutatorData = mutatorData;
-            _bundleService = mutatorBundleService;
+            _bundleService = bundleService;
         }
 
         public override void InvokeClose()
@@ -66,7 +66,7 @@ namespace Game.Presentation.ViewModel
             Update();
 
             _bundleService.OnBundleUpdate += UpdateShop;
-            OpenShop();
+            UpdateShop();
         }
 
         protected override void HandleClosedWindow(Type uiWindow)
@@ -84,11 +84,6 @@ namespace Game.Presentation.ViewModel
             _dto.Layer = "#" + (_difficultHandler.CurrentDifficult - 1);
             OnOpen?
                 .Invoke(_dto);
-        }
-
-        private void OpenShop()
-        {
-            _bundleService.GenerateBundle();
         }
 
         private void UpdateShop()
