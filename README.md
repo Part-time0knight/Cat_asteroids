@@ -33,3 +33,29 @@ The core gameplay is fully implemented. Currently in development are unique kill
 
 ### Optimization
 - Most game objects (projectiles, asteroids, effects) utilize **object pooling**
+
+## Key Features: Mutators Instead of Classic Mechanics
+
+Some familiar mechanics from the original Asteroids (like asteroid fragmentation or hyperspace jumps) are intentionally absent from the core gameplay. Instead, they're introduced through a **Mutators system** - sets of two interconnected modifiers:
+
+### Player Modifier
+Alters player ship behavior:
+- Adds new capabilities (e.g., hyperspace jump)
+- Replaces existing mechanics (e.g., switching bullets to lasers or burst fire instead of single shots)
+
+### Enemy Modifier
+Changes enemy behavior:
+- Asteroids begin splitting when destroyed
+- Enemies gain new attack patterns (e.g., homing attacks)
+
+### How It Works:
+- Mutator combinations are **randomly generated**
+- Players can purchase them between levels via a special menu (*Data layer destroyed!*), which unlocks after reaching certain score thresholds
+
+*This system is currently in development and will be expanded*
+
+## Playable Build
+- https://github.com/Part-time0knight/Cat_asteroids/releases/tag/alpha
+
+![Cats_asteroids](https://github.com/user-attachments/assets/1f3eeb80-e490-4b29-9997-3d99ae091df0)
+
