@@ -16,7 +16,7 @@ The core gameplay is fully implemented. Currently in development are unique kill
 ## Architectural Solutions
 
 ### Gameplay
-- Built using **Finite State Machine (FSM)**
+- Use **Finite State Machine (FSM)**
 - Data exchange is encapsulated through DI contexts:
   - Services are defined at scene level
   - Object-specific logic resides in their local contexts
