@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5825712889739323936}
   - component: {fileID: 8834165076572259953}
   - component: {fileID: 8374766659184530410}
+  - component: {fileID: 7547937002818727684}
   - component: {fileID: 7718514300618659566}
   m_Layer: 5
   m_Name: Load Window
@@ -167,6 +168,29 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &7547937002818727684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693067102283823387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1600, y: 900}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7718514300618659566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,10 +321,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4422323709390686917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -697.16, y: 464.21997}
-  m_SizeDelta: {x: 594.33, y: 24.44}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 102.84003, y: 14.219971}
+  m_SizeDelta: {x: 594.33, y: 24.440002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6460206184623476650
 CanvasRenderer:
