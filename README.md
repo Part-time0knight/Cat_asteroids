@@ -52,7 +52,7 @@ Changes enemy behavior:
 - Mutator combinations are **randomly generated**
 - Players can purchase them between levels via a special menu (*Data layer destroyed!*), which unlocks after reaching certain score thresholds
 
-*This system is currently in development and will be expanded*
+*This system is currently in development*
 
 ## Playable Build
 - https://github.com/Part-time0knight/Cat_asteroids/releases/tag/alpha
