@@ -40,7 +40,7 @@ MonoBehaviour:
       <Duration>k__BackingField: 1.5
   <GameplayParams>k__BackingField:
     Difficult:
-      StepScore: 10
+      StepScore: 20
       Multiplier: 2
     Bundles:
       <ConstantCost>k__BackingField: 3
@@ -84,7 +84,7 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 10
-      <Delay>k__BackingField: 4
+      <Delay>k__BackingField: 5
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:

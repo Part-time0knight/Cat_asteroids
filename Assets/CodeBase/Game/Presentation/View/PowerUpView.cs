@@ -32,7 +32,7 @@ namespace Game.Presentation.View
                 .AddListener(_viewModel.InvokeContinue);
             _bigExplosion = bigExplosion;
             _viewModel.OnOpen += InvokeOpen;
-            _viewModel.OnShopUpdate += InvokeShopUpdate;
+            //_viewModel.OnShopUpdate += InvokeShopUpdate;
             _title = _settings.TitleText.text;
             _bundlePool = bundlePool;
         }
@@ -42,7 +42,7 @@ namespace Game.Presentation.View
             base.OnDestroy();
             _settings.ExitButton.onClick.RemoveListener(_viewModel.InvokeContinue);
             _viewModel.OnOpen -= InvokeOpen;
-            _viewModel.OnShopUpdate -= InvokeShopUpdate;
+            //_viewModel.OnShopUpdate -= InvokeShopUpdate;
         }
 
         private void InvokeOpen(PowerUpDto dto)
