@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using static UnityEditor.Progress;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Game.Logic.Projectiles
 {
