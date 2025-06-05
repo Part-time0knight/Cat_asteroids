@@ -7,6 +7,8 @@ using Game.Logic.Player.Animation;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Handlers.Factory;
 using Game.Logic.Handlers;
+using Game.Logic.Player.Mutators;
+using Game.Logic.Player.Mutators.ProjectileMutators;
 
 namespace Installers
 {
@@ -20,7 +22,20 @@ namespace Installers
             InstallFactories();
             InstallPlayerComponents();
             InstallFsm();
+            InstallMutators();
+        }
 
+        private void InstallMutators()
+        {
+            Container.
+                BindInterfacesAndSelfTo<BaseMutator>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<BaseProjectile>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<Laser>()
+                .AsSingle();
         }
 
         private void InstallFsm()
