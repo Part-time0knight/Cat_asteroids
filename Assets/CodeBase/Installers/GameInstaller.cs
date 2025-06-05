@@ -155,6 +155,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<PowerUpViewModel>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<BundleChooseViewModel>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallServices()

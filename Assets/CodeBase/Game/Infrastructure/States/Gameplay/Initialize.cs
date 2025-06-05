@@ -42,6 +42,7 @@ namespace Game.Infrastructure.States.Gameplay
             _windowResolve.Set<SettingsWindowView>();
             _windowResolve.Set<LeaderBoardView>();
             _windowResolve.Set<PowerUpView>();
+            _windowResolve.Set<BundleChooseView>();
         }
     }
 }

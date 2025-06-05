@@ -36,12 +36,10 @@ namespace Game.Presentation.View
 
         private void InvokeUpdate(GameplayDto dto)
         {
-            _settings.ScoreCountText.text = dto.Score;
-            _settings.LayerStepCountText.text = dto.ToNextStep;
+            _settings.ScoreCountText.text = dto.Score + "/" + dto.ToNextStep;
             _settings.HitsViewer.SetHits(dto.Hits);
             _settings.HitsViewer.SetPanelActive(dto.ShowHits);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.LayerStepCountText.rectTransform);
         }
 
         private void InvokeTakeDamage()
@@ -57,7 +55,6 @@ namespace Game.Presentation.View
         [Serializable]
         public class Settings
         {
-            [field: SerializeField] public TMP_Text LayerStepCountText { get; private set; }
             [field: SerializeField] public TMP_Text ScoreTitleText { get; private set; }
             [field: SerializeField] public TMP_Text ScoreCountText { get; private set; }
             [field: SerializeField] public Button GoToPause { get; private set; }

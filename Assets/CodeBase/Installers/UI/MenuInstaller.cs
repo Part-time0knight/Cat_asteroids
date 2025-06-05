@@ -5,7 +5,7 @@ using Game.Logic.Handlers;
 using Game.Presentation.ViewModel;
 using Zenject;
 
-namespace Installers
+namespace Installers.UI
 {
     public class MenuInstaller : MonoInstaller
     {

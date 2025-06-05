@@ -4,6 +4,6 @@ namespace Game.Logic.Services.Mutators
 {
     public interface IMutatorSetter
     {
-        void SetActive(int mutatorId);
+        void SetActive(int mutatorId, bool active);
     }
 }

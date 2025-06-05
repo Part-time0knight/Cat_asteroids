@@ -57,9 +57,9 @@ namespace Game.Logic.Services.Mutators
             }
         }
 
-        public void SetActive(int mutatorId)
+        public void SetActive(int mutatorId, bool active)
         {
-            _mutators[mutatorId].Active = true;
+            _mutators[mutatorId].Active = active;
             Update();
         }
 

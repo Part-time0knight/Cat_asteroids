@@ -104,7 +104,7 @@ namespace Game.Presentation.ViewModel
                     BottomIcon = _mutatorData.GetSprite(bundle.EnemyId),
 
                     Cost = bundle.Cost.ToString(),
-                    OnBuy = () => InvokeBuy(bundle.Id),
+                    OnBuy = () => InvokeOpenChooseWindow(bundle.Id),
                 };
 
                 _shopDto.Bundles.Add(newBundle);
@@ -113,10 +113,12 @@ namespace Game.Presentation.ViewModel
             OnShopUpdate?.Invoke(_shopDto);
         }
 
-        private void InvokeBuy(int bundleId)
+        private void InvokeOpenChooseWindow(int bundleId)
         {
-            _bundleService.BuyBundle(bundleId);
+            _bundleService.SelectedBundle = bundleId;
+            _windowFsm.OpenWindow(typeof(BundleChooseView), false);
         }
+
 
     }
 }

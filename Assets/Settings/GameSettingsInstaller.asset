@@ -40,12 +40,13 @@ MonoBehaviour:
       <Duration>k__BackingField: 1.5
   <GameplayParams>k__BackingField:
     Difficult:
-      StepScore: 20
+      StepScore: 2
       Multiplier: 2
     Bundles:
       <ConstantCost>k__BackingField: 3
       <RandomRangeCost>k__BackingField: {x: -1, y: 2}
       <BundleCount>k__BackingField: 3
+      <SlotsCount>k__BackingField: 0
   <Projectile>k__BackingField:
     BaseMove:
       <Speed>k__BackingField: 30

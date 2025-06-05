@@ -2,21 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Game.Logic.Services.Mutators
 {
-    public class BundleService
+    public class BundleService : IInitializable
     {
         public event Action OnBundleUpdate;
 
         private readonly IMutatorGetter _mutatorGetter;
         private readonly IMutatorSetter _mutatorSetter;
         private readonly Settings _settings;
-        private readonly List<Bundle> _availableBundles = new();
-        private readonly List<Bundle> _activeBundles = new();
+        private readonly List<Bundle> _availableBundles = new(3);
+        private readonly List<Bundle> _slots = new(3);
+
+        private int _selectedBundle = -1;
+        private int _selectedSlot = -1;
 
         public List<Bundle> AvailableBundles => new(_availableBundles);
+        public List<Bundle> Slots => new(_slots);
+
+        public int SelectedBundle 
+        { 
+            get => _selectedBundle;
+            set => _selectedBundle = value;
+        }
+
+        public int SelectedSlot
+        {
+            get => _selectedSlot; 
+            set
+            {
+                _selectedSlot = value;
+                BuyBundle();
+            }
+        }
+
 
         public BundleService(IMutatorGetter mutatorGetter,
             IMutatorSetter setter,
@@ -27,7 +49,7 @@ namespace Game.Logic.Services.Mutators
             _settings = settings;
         }
 
-        public void GenerateBundle()
+        public void GenerateBundles()
         {
             _availableBundles.Clear();
             var pMutators = _mutatorGetter.AvailablePlayerMutators;
@@ -49,18 +71,53 @@ namespace Game.Logic.Services.Mutators
             OnBundleUpdate?.Invoke();
         }
 
-        public void BuyBundle(int id, int pos)
+        public void Initialize()
         {
-            BuyBundle(id);
+            for (int i = 0; i < _settings.BundleCount; i++)
+            {
+                Bundle bundle = new()
+                {
+                    Id = i,
+                    PlayerId = -1,
+                    EnemyId = -1,
+                    Cost = 0
+                };
+                _slots.Add(bundle);
+            }
         }
 
-        public void BuyBundle(int id)
+        public void BuyBundle()
         {
-            var bundle = _availableBundles.FirstOrDefault(i => i.Id == id);
+            var bundle = ActivateBundle(SelectedBundle);
+            RemoveSlot(SelectedSlot);
+
             _availableBundles.Remove(bundle);
-            _mutatorSetter.SetActive(bundle.PlayerId);
-            _mutatorSetter.SetActive(bundle.EnemyId);
+
+            bundle.Id = SelectedSlot;
+
+            _slots[SelectedSlot] = bundle;
+
             OnBundleUpdate?.Invoke();
+        }
+
+        private Bundle ActivateBundle(int id)
+        {
+            var bundle = _availableBundles
+                .FirstOrDefault(i => i.Id == id);
+
+            _mutatorSetter.SetActive(bundle.PlayerId, true);
+            _mutatorSetter.SetActive(bundle.EnemyId, true);
+
+            return bundle;
+        }
+
+        private void RemoveSlot(int pos)
+        {
+            if (_slots[pos].PlayerId == -1)
+                return;
+
+            _mutatorSetter.SetActive(_slots[pos].PlayerId, false);
+            _mutatorSetter.SetActive(_slots[pos].EnemyId, false);
         }
 
         [Serializable]
@@ -70,6 +127,7 @@ namespace Game.Logic.Services.Mutators
             [field: SerializeField] public Vector2Int RandomRangeCost { get; private set; }
 
             [field: SerializeField] public int BundleCount { get; private set; }
+            [field: SerializeField] public int SlotsCount { get; private set; }
         }
 
         public struct Bundle

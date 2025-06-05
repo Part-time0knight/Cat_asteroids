@@ -32,7 +32,7 @@ namespace Game.Infrastructure.States.Gameplay
             _spawnerService.KillAll();
             _player = _playerPool.Spawn();
             _player.Pause = true;
-            _bundleService.GenerateBundle();
+            _bundleService.GenerateBundles();
             _windowFsm.OpenWindow(typeof(PowerUpView), true);
         }
 
