@@ -110,6 +110,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<PlayerDynamicData>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<BurstData>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallViewModel()
@@ -158,6 +163,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<BundleChooseViewModel>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<BurstViewModel>()
                 .AsSingle()
                 .NonLazy();
         }

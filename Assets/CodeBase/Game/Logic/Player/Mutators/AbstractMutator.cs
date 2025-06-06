@@ -1,7 +1,6 @@
 using Game.Logic.Services.Mutators;
 using Game.Logic.StaticData.MutatorsData;
 using System;
-using UnityEngine;
 using Zenject;
 
 public abstract class AbstractMutator : IInitializable, IDisposable

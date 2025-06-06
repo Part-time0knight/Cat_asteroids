@@ -4,7 +4,6 @@ using Game.Domain.Dto;
 using Game.Logic.Services.Mutators;
 using Game.Presentation.View;
 using System;
-using Zenject;
 
 namespace Game.Presentation.ViewModel
 {

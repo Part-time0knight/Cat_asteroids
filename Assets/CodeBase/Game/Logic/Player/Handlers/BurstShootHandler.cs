@@ -13,6 +13,7 @@ namespace Game.Logic.Player.Handlers
         private readonly BurstShootSettings _burstSettings;
         private readonly Burst _mutator;
         private readonly Timer _burstTimer = new();
+        private readonly IBurstWritter _burstWritter;
 
         private int _magazine = 0;
 
@@ -43,7 +44,7 @@ namespace Game.Logic.Player.Handlers
             Transform weaponPoint,
             PlayerFacade playerFacade,
             IPlayerScoreWriter scoreWriter,
-            Burst mutator) : base(
+            Burst mutator, IBurstWritter burstWritter) : base(
                 projectileManager,
                 playerFacade,
                 settings)
@@ -52,12 +53,14 @@ namespace Game.Logic.Player.Handlers
             _scoreWriter = scoreWriter;
             _burstSettings = settings;
             _mutator = mutator;
+            _burstWritter = burstWritter;
         }
 
         public override void Initialize()
         {
             base.Initialize();
             _magazine = _burstSettings.BurstMagazine;
+            _burstWritter.Ammo = _magazine;
         }
 
         public void Shoot()
@@ -72,6 +75,7 @@ namespace Game.Logic.Player.Handlers
             if (_burstTimer.Active) return;
             if (_magazine == 0) return;
             _magazine--;
+            _burstWritter.Ammo = _magazine;
             CreateProjectile(weaponPos, target);
 
             _burstTimer.Initialize(
@@ -114,11 +118,13 @@ namespace Game.Logic.Player.Handlers
                 step: _settings.AttackDelay,
                 callback: AddBulletMagazine)
                 .Play();
+            _burstWritter.ReloadTime = _settings.AttackDelay;
         }
 
         private void AddBulletMagazine()
         {
             _magazine++;
+            _burstWritter.Ammo = _magazine;
             if (_magazine < _burstSettings.BurstMagazine)
                 ReloadMagazine();
         }
