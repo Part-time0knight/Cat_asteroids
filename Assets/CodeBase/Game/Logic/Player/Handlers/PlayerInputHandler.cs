@@ -13,6 +13,8 @@ namespace Game.Logic.Player.Handlers
         public event Action<float> InvokeMoveHorizontal;
 
         public event Action<float> InvokeMoveVertical;
+        
+        
 
         private bool _isHorizontal;
         private bool _isVertical;

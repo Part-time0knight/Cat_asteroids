@@ -49,6 +49,9 @@ namespace Game.Logic.Services.Mutators
             _settings = settings;
         }
 
+        public Bundle GetSlot(int index)
+            => _slots[index];
+
         public void GenerateBundles()
         {
             _availableBundles.Clear();

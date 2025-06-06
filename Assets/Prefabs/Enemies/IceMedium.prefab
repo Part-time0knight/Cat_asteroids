@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2398827344765678743}
   - component: {fileID: 6674403964096117228}
   - component: {fileID: 3337772486470077523}
-  - component: {fileID: 5143340537456331800}
   - component: {fileID: 3947394320243707400}
+  - component: {fileID: 556987422647025202}
   m_Layer: 6
   m_Name: IceMedium
   m_TagString: Enemy
@@ -139,7 +139,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.27}
   m_Size: {x: 2, y: 1}
   m_Direction: 1
---- !u!70 &5143340537456331800
+--- !u!114 &3947394320243707400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336865874588060514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3aefd705087234ea6fb2b23795e331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!70 &556987422647025202
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,18 +188,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.29}
   m_Size: {x: 0.56, y: 1}
   m_Direction: 0
---- !u!114 &3947394320243707400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336865874588060514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d3aefd705087234ea6fb2b23795e331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5040762080325144264
 GameObject:
   m_ObjectHideFlags: 0

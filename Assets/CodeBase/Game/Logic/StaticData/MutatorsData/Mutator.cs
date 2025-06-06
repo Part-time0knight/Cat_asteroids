@@ -3,7 +3,7 @@ namespace Game.Logic.StaticData.MutatorsData
     public enum Mutator : int
     {
         Laser = 0,
-        Mutator1 = 1,
+        Burst = 1,
         Mutator2 = 2,
 
 

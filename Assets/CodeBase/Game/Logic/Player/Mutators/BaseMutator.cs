@@ -25,7 +25,7 @@ namespace Game.Logic.Player.Mutators
         private void Resolve()
         {
             _handlerSetter.Set<PlayerInvincibilityHandler, IInvincibilityHandler>();
-            _handlerSetter.Set<PlayerBaseShootHandler, IPlayerShootHandler>();
+            
             _handlerSetter.Set<PlayerBaseMoveHandler, IPlayerMoveHandler>();
             _handlerSetter.Set<PlayerDamageHandler, IPlayerDamageHandler>();
             _handlerSetter.Set<PlayerWeaponHandler, IWeaponHandler>();

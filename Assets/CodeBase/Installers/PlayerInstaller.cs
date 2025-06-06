@@ -9,6 +9,7 @@ using Game.Logic.Handlers.Factory;
 using Game.Logic.Handlers;
 using Game.Logic.Player.Mutators;
 using Game.Logic.Player.Mutators.ProjectileMutators;
+using Game.Logic.Player.Mutators.ShooterMutators;
 
 namespace Installers
 {
@@ -30,11 +31,21 @@ namespace Installers
             Container.
                 BindInterfacesAndSelfTo<BaseMutator>()
                 .AsSingle();
+
+
             Container.
                 BindInterfacesAndSelfTo<BaseProjectile>()
                 .AsSingle();
             Container.
                 BindInterfacesAndSelfTo<Laser>()
+                .AsSingle();
+
+
+            Container.
+                BindInterfacesAndSelfTo<BaseShooter>()
+                .AsSingle();
+            Container.
+                BindInterfacesAndSelfTo<Burst>()
                 .AsSingle();
         }
 

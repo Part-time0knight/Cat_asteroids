@@ -1,4 +1,3 @@
-using Game.Logic.Enemy.Ice;
 using Game.Logic.Misc;
 using Game.Logic.Projectiles;
 using System;
@@ -81,12 +80,7 @@ namespace Game.Logic.Handlers
         /// <param name="onReloadEnd"></param>
         public virtual void Shoot(Vector2 weaponPos, Vector2 target)
         {
-            var currentBullet = _projectileManager.Pool
-                .SpawnProjectile(weaponPos, target);
-            _bullets.Add(currentBullet);
-            _bulletsPools.Add(currentBullet, _projectileManager.Pool);
-            currentBullet.OnHit += Hit;
-            currentBullet.OnDead += RemoveProjectile;
+            CreateProjectile(weaponPos, target);
 
             if (_timer.Active)
             {
@@ -95,7 +89,9 @@ namespace Game.Logic.Handlers
             }
 
             _timer.Initialize(
-                _settings.AttackDelay, step: 0.05f, OnEndReload).Play();
+                time: _settings.AttackDelay,
+                step: _settings.AttackDelay,
+                OnEndReload).Play();
         }
 
         protected virtual void Hit(IProjectile iBullet, GameObject target)
@@ -118,7 +114,7 @@ namespace Game.Logic.Handlers
             OnHit(_unitHandler);
         }
 
-        private void MakeDamage(UnitFacade unit)
+        protected void MakeDamage(UnitFacade unit)
         {
             Timer timer = new();
             timer.Initialize(Time.fixedDeltaTime,
@@ -126,7 +122,18 @@ namespace Game.Logic.Handlers
                     .Play();
         }
 
-        private void RemoveProjectile(IProjectile iBullet)
+        protected IProjectile CreateProjectile(Vector2 weaponPos, Vector2 target)
+        {
+            var currentBullet = _projectileManager.Pool
+                .SpawnProjectile(weaponPos, target);
+            _bullets.Add(currentBullet);
+            _bulletsPools.Add(currentBullet, _projectileManager.Pool);
+            currentBullet.OnHit += Hit;
+            currentBullet.OnDead += RemoveProjectile;
+            return currentBullet;
+        }
+
+        protected void RemoveProjectile(IProjectile iBullet)
         {
             iBullet.OnHit -= Hit;
             iBullet.OnDead -= RemoveProjectile;

@@ -213,6 +213,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<BundleService>()
                 .AsSingle()
                 .Lazy();
+
+            Container
+                .BindInterfacesAndSelfTo<BundleInput>()
+                .AsSingle()
+                .Lazy();
         }
 
         [Serializable]

@@ -41,6 +41,7 @@ namespace Installers
         {
             public PlayerFacade.PlayerSettings MainSettings;
             public PlayerBaseShootHandler.PlayerSettings Weapon;
+            public BurstShootHandler.BurstShootSettings BurstWeapon;
             public PlayerBaseMoveHandler.PlayerSettings Move;
             public PlayerDamageHandler.PlayerSettings Hits;
             public PlayerHasteEffect.Settings Haste;
@@ -163,6 +164,7 @@ namespace Installers
         {
             Container.BindInstance(Player.MainSettings).AsSingle();
             Container.BindInstance(Player.Weapon).AsSingle();
+            Container.BindInstance(Player.BurstWeapon).AsSingle();
             Container.BindInstance(Player.Move).AsSingle();
             Container.BindInstance(Player.Hits).AsSingle();
             Container.BindInstance(Player.Haste).AsSingle();

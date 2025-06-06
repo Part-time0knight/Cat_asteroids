@@ -19,6 +19,11 @@ MonoBehaviour:
     Weapon:
       <AttackDelay>k__BackingField: 0.6
       <Damage>k__BackingField: 1
+    BurstWeapon:
+      <AttackDelay>k__BackingField: 0.6
+      <Damage>k__BackingField: 1
+      <BurstDelay>k__BackingField: 0.1
+      <BurstMagazine>k__BackingField: 5
     Move:
       <Speed>k__BackingField: 4
       <ReverseSpeedMultiplier>k__BackingField: 0.3
