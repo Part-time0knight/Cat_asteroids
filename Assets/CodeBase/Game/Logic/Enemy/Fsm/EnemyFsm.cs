@@ -14,7 +14,6 @@ namespace Game.Logic.Enemy.Fsm
         public void Initialize()
         {
             StateResolve();
-            Enter<Initialize>();
         }
 
         protected virtual void StateResolve()

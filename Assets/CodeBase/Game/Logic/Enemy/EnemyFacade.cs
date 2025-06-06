@@ -63,7 +63,7 @@ namespace Game.Logic.Enemy
         }
 
         [Inject]
-        protected virtual void Construct(EnemyFsm fsm)
+        protected virtual void ConstructFsm(EnemyFsm fsm)
         {
             _fsm = fsm;
         }

@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
-using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
-using Game.Logic.Projectiles;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -60,17 +58,19 @@ namespace Game.Logic.Enemy.Ice
 
         private async UniTask Repeater()
         {
+            var token = _cts;
+            Vector2 target, startPos;
             do
             {
-                await UniTask.WaitWhile(() => _timer.Active, cancellationToken: _cts.Token);
-                Vector2 target = GetTarget();
-                Vector2 startPos = new(_transform.position.x, _transform.position.y);
+                await UniTask.WaitWhile(() => _timer.Active, cancellationToken: token.Token);
+                target = GetTarget();
+                startPos = new(_transform.position.x, _transform.position.y);
                 startPos = startPos
                     + (target - startPos).normalized 
                     * 1.3f;
-                if (!_cts.IsCancellationRequested)
+                if (!token.IsCancellationRequested)
                     Shoot(startPos, target);
-            } while (!_cts.IsCancellationRequested);
+            } while (!token.IsCancellationRequested);
         }
 
         private Vector2 GetTarget()

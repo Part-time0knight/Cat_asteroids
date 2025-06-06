@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Logic.Enemy.Ice.IceM
+namespace Game.Logic.Enemy.Ice
 {
     public class IceFacade : EnemyFacade
     {
@@ -17,11 +17,6 @@ namespace Game.Logic.Enemy.Ice.IceM
         private void InjectSettings(IceSettings settings)
         {
             SetSettings(settings);
-        }
-
-        protected override void Initialize(Vector2 spawnPoint, Vector2 direction)
-        {
-            base.Initialize(spawnPoint, direction);
         }
 
         [Serializable]
