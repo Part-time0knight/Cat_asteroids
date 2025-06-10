@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Logic.Player.Handlers
 {
-    public class BurstShootHandler : ShootHandler, IPlayerShootHandler
+    public class BurstShootHandler : ShootHandler, IPlayerShootHandler, IDisposable
     {
         private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
@@ -136,6 +136,12 @@ namespace Game.Logic.Player.Handlers
                 return;
             if (unitHandler.Score > 0)
                 _scoreWriter.AddScore(unitHandler.Score, unitHandler.transform.position);
+        }
+
+        public void Dispose()
+        {
+            
+            Clear();
         }
 
         [Serializable]

@@ -91,8 +91,9 @@ namespace Game.Logic.Services.Mutators
 
         public void BuyBundle()
         {
-            var bundle = ActivateBundle(SelectedBundle);
             RemoveSlot(SelectedSlot);
+            var bundle = ActivateBundle(SelectedBundle);
+            
 
             _availableBundles.Remove(bundle);
 
