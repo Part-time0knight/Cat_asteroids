@@ -22,7 +22,7 @@ namespace Game.Logic.Player.Handlers
             if (_timer.Active)
                 _timer.Stop();
             OnPowerChange.Invoke(true);
-            _timer.Initialize(_settings.Duration, Stop).Play();
+            _timer.Initialize(_settings.Duration, 0.1f, Stop).Play();
         }
 
         public void Pause()

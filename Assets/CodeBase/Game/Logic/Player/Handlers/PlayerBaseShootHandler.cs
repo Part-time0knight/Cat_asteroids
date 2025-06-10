@@ -69,6 +69,7 @@ namespace Game.Logic.Player.Handlers
         public void Dispose()
         {
             StopAutomatic();
+            Clear();
         }
 
         protected override void OnHit(UnitFacade unitHandler)

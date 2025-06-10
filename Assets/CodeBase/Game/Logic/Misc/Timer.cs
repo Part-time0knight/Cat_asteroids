@@ -63,13 +63,13 @@ namespace Game.Logic.Misc
         }
 
         public void Pause()
-            => _cts.Cancel();
+            => _cts?.Cancel();
 
         public void Stop()
         {
             _currentTime = 0;
             _invokeTick?.Invoke(_currentTime);
-            _cts.Cancel();
+            _cts?.Cancel();
             _active = false;
         }
 
