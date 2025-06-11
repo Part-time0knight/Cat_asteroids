@@ -21,7 +21,6 @@ namespace Game.Infrastructure.States.Gameplay
 
         public void OnEnter()
         {
-            //UnityEngine.Debug.Log("Enter state Initialize");
             WindowResolve();
             _stateMachine.Enter<Start>();
         }

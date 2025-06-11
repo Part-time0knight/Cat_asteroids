@@ -89,25 +89,25 @@ namespace Game.Logic.Player.Handlers
 
         private void StartManual()
         {
+            Debug.Log("Start manual");
             _mutator.OnFire += Shoot;
         }
 
         private void StopManual()
         {
+            Debug.Log("Stop manual");
             _mutator.OnFire -= Shoot;
         }
 
         public override void Pause()
         {
             base.Pause();
-            StopManual();
             _burstTimer.Pause();
         }
 
         public override void Continue()
         {
             base.Continue();
-            StartManual();
             _burstTimer.Play();
         }
 

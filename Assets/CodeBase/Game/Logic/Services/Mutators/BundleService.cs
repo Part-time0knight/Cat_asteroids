@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Game.Logic.Services.Mutators
 {
-    public class BundleService : IInitializable
+    public class BundleService
     {
         public event Action OnBundleUpdate;
 
@@ -74,19 +73,10 @@ namespace Game.Logic.Services.Mutators
             OnBundleUpdate?.Invoke();
         }
 
-        public void Initialize()
+        public void ReInitialize()
         {
-            for (int i = 0; i < _settings.BundleCount; i++)
-            {
-                Bundle bundle = new()
-                {
-                    Id = i,
-                    PlayerId = -1,
-                    EnemyId = -1,
-                    Cost = 0
-                };
-                _slots.Add(bundle);
-            }
+            ClearBundles();
+            CreateEmptyBundles();
         }
 
         public void BuyBundle()
@@ -102,6 +92,30 @@ namespace Game.Logic.Services.Mutators
             _slots[SelectedSlot] = bundle;
 
             OnBundleUpdate?.Invoke();
+        }
+
+        private void ClearBundles()
+        {
+            foreach (var slot in _slots)
+            {
+                RemoveSlot(slot.Id); 
+            }
+            _slots.Clear();
+        }
+
+        private void CreateEmptyBundles()
+        {
+            for (int i = 0; i < _settings.BundleCount; i++)
+            {
+                Bundle bundle = new()
+                {
+                    Id = i,
+                    PlayerId = -1,
+                    EnemyId = -1,
+                    Cost = 0
+                };
+                _slots.Add(bundle);
+            }
         }
 
         private Bundle ActivateBundle(int id)

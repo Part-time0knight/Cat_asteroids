@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 729578644}
   - component: {fileID: 729578646}
   - component: {fileID: 729578645}
+  - component: {fileID: 729578647}
   m_Layer: 0
   m_Name: MutatorsCanvas
   m_TagString: Untagged
@@ -610,6 +611,19 @@ Canvas:
   m_SortingLayerID: 2064670383
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &729578647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729578643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1baa2c42572474294627bd11b4d631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 729578646}
 --- !u!1001 &902726536
 PrefabInstance:
   m_ObjectHideFlags: 0

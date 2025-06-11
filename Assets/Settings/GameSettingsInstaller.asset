@@ -36,13 +36,13 @@ MonoBehaviour:
       <EmissionRate>k__BackingField: 160
     Damage:
       <Damage>k__BackingField: 1
-      <DamageDelay>k__BackingField: 0.2
+      <DamageDelay>k__BackingField: 0.01
     TakeDamageAnimation:
       <DamageColor>k__BackingField: {r: 1, g: 0, b: 0, a: 0.74509805}
-      <Length>k__BackingField: 1.5
+      <Length>k__BackingField: 2
       <TicLength>k__BackingField: 0.15
     Invincibility:
-      <Duration>k__BackingField: 1.5
+      <Duration>k__BackingField: 2
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 2
@@ -75,22 +75,22 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2
+      <Delay>k__BackingField: 2000
     AsteroidMSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2
+      <Delay>k__BackingField: 2000
     AsteroidSSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2
+      <Delay>k__BackingField: 2000
     IceMSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 10
-      <Delay>k__BackingField: 5
+      <Delay>k__BackingField: 1
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:

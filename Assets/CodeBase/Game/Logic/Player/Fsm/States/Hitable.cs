@@ -67,7 +67,7 @@ namespace Game.Logic.Player.Fsm.States
 
         protected virtual void InvokePower(bool power)
         {
-            Debug.Log("Power: " +  power);
+            //Debug.Log("Power: " +  power);
             _handlerGetter.Get<IPlayerDamageHandler>().Power = power;
         }
     }

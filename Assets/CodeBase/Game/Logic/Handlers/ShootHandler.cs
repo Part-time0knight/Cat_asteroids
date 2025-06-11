@@ -98,8 +98,6 @@ namespace Game.Logic.Handlers
         {
             _unitHandler = target.GetComponent<UnitFacade>();
 
-            if (target.transform == _settings.Owner.transform)
-                return;
             if (target.tag == "Border")
             {
                 RemoveProjectile(iBullet);

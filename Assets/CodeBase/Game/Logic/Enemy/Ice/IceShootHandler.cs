@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using System;
-using System.Threading;
 using UnityEngine;
 
 namespace Game.Logic.Enemy.Ice
@@ -13,8 +12,6 @@ namespace Game.Logic.Enemy.Ice
         private readonly IEnemyPositionReader _enemyPositionReader;
         private readonly Transform _transform;
         private readonly IceSettings _iceSettings;
-
-        private CancellationTokenSource _cts = null;
 
         public IceShootHandler(IPlayerPositionReader playerPositionReader,
             IEnemyPositionReader enemyPositionReader,
@@ -34,20 +31,18 @@ namespace Game.Logic.Enemy.Ice
 
         public void StartAutomatic()
         {
-            if (_cts != null)
-                return;
-            _cts = new();
-            _timer.Initialize(
-                _settings.AttackDelay).Play();
-            Repeater().Forget();
+            Vector2 target, startPos;
+            target = GetTarget();
+            startPos = new(_transform.position.x, _transform.position.y);
+            startPos = startPos
+                + (target - startPos).normalized
+                * 1.3f;
+            Shoot(startPos, target);
         }
 
         public void StopAutomatic()
         {
-            if (_cts == null)
-                return;
-            _cts.Cancel();
-            _cts = null;
+            _timer.Stop();
         }
 
         public void Dispose()
@@ -56,21 +51,10 @@ namespace Game.Logic.Enemy.Ice
             Clear();
         }
 
-        private async UniTask Repeater()
+        protected override void OnEndReload()
         {
-            var token = _cts;
-            Vector2 target, startPos;
-            do
-            {
-                await UniTask.WaitWhile(() => _timer.Active, cancellationToken: token.Token);
-                target = GetTarget();
-                startPos = new(_transform.position.x, _transform.position.y);
-                startPos = startPos
-                    + (target - startPos).normalized 
-                    * 1.3f;
-                if (!token.IsCancellationRequested)
-                    Shoot(startPos, target);
-            } while (!token.IsCancellationRequested);
+            base.OnEndReload();
+            StartAutomatic();
         }
 
         private Vector2 GetTarget()
