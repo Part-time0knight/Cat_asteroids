@@ -18,6 +18,7 @@ namespace Game.Logic.Handlers
         protected readonly List<IProjectile> _bullets = new();
         protected readonly Dictionary<IProjectile, IProjectilePool> _bulletsPools = new();
 
+        
 
         private UnitFacade _unitHandler;
 

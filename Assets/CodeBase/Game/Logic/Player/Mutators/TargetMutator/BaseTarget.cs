@@ -1,22 +1,24 @@
+
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Handlers;
 
-namespace Game.Logic.Player.Mutators.ShooterMutators
+namespace Game.Logic.Player.Mutators.TargetMutators
 {
-    public class BaseShooter
+    public class BaseTarget
     {
         private readonly IHandlerSetter _handlerSetter;
 
-
-        public BaseShooter(IHandlerSetter handlerSetter)
+        public BaseTarget(IHandlerSetter handlerSetter)
         {
             _handlerSetter = handlerSetter;
-
         }
 
         public void Set()
         {
-            _handlerSetter.Set<PlayerBaseShootHandler, IPlayerShootHandler>();
+            _handlerSetter
+                .Set<PlayerTargetHandler, IPlayerTargetHandler>();
         }
+
+
     }
 }

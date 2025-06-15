@@ -4,8 +4,8 @@ namespace Game.Logic.StaticData.MutatorsData
     {
         Laser = 0,
         Burst = 1,
-        Mutator2 = 2,
-
+        AIM = 2,
+        Gyperjump = 3,
 
         Mutator3 = 100,
         Mutator4 = 101,

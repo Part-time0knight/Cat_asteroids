@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: 0
   <Type>k__BackingField: 0
-  <Icon>k__BackingField: {fileID: 1161201145128540330, guid: e6808676d58a12049934aa29c327e6b5, type: 3}
+  <Icon>k__BackingField: {fileID: 1645836570, guid: e6808676d58a12049934aa29c327e6b5, type: 3}
   <Name>k__BackingField: Laser
   <Description>k__BackingField: "\u0417\u0430\u043C\u0435\u043D\u044F\u0435\u0442
     \u043F\u0443\u043B\u0438 \u043B\u0430\u0437\u0435\u0440\u043E\u043C"

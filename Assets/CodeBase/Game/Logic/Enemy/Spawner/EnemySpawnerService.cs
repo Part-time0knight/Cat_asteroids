@@ -66,7 +66,7 @@ namespace Game.Logic.Enemy.Spawner
 
         public Vector2 GetNearest(Vector2 point)
         {
-            Vector2 res = point;
+            Vector2 res = Vector2.zero;
             float distance = float.MaxValue;
             foreach (var spawner in _spawners.Values)
             {

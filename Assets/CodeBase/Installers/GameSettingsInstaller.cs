@@ -10,6 +10,7 @@ using Game.Logic.Misc;
 using Game.Logic.Player;
 using Game.Logic.Player.Animation;
 using Game.Logic.Player.Handlers;
+using Game.Logic.Player.Mutators.GyperjumpMutator;
 using Game.Logic.Projectiles;
 using Game.Logic.Services.Mutators;
 using Game.Logic.StaticData.MutatorsData;
@@ -48,6 +49,8 @@ namespace Installers
             public PlayerWeaponHandler.PlayerSettings Damage;
             public PlayerTakeDamage.Settings TakeDamageAnimation;
             public PlayerInvincibilityHandler.Settings Invincibility;
+            public Invincibility.Settings InvincibilityAnimation;
+            public Gyperjump.Settings Gyperjump;
         }
 
         [Serializable]
@@ -171,6 +174,8 @@ namespace Installers
             Container.BindInstance(Player.Damage).AsSingle();
             Container.BindInstance(Player.TakeDamageAnimation).AsSingle();
             Container.BindInstance(Player.Invincibility).AsSingle();
+            Container.BindInstance(Player.InvincibilityAnimation).AsSingle();
+            Container.BindInstance(Player.Gyperjump).AsSingle();
         }
 
         private void InstallAsteroidB()

@@ -8,12 +8,14 @@ namespace Game.Logic.Player.Handlers
 {
     public class BurstShootHandler : ShootHandler, IPlayerShootHandler, IDisposable
     {
-        private readonly Transform _weapon;
         private readonly IPlayerScoreWriter _scoreWriter;
         private readonly BurstShootSettings _burstSettings;
         private readonly Burst _mutator;
         private readonly Timer _burstTimer = new();
         private readonly IBurstWritter _burstWritter;
+
+        private Func<Vector2> _targetGetter;
+        private Func<Vector2> _positionGetter;
 
         private int _magazine = 0;
 
@@ -41,7 +43,6 @@ namespace Game.Logic.Player.Handlers
 
         public BurstShootHandler(ProjectileManager projectileManager,
             BurstShootSettings settings,
-            Transform weaponPoint,
             PlayerFacade playerFacade,
             IPlayerScoreWriter scoreWriter,
             Burst mutator, IBurstWritter burstWritter) : base(
@@ -49,11 +50,20 @@ namespace Game.Logic.Player.Handlers
                 playerFacade,
                 settings)
         {
-            _weapon = weaponPoint;
             _scoreWriter = scoreWriter;
             _burstSettings = settings;
             _mutator = mutator;
             _burstWritter = burstWritter;
+        }
+
+        public void SetTarget(Func<Vector2> targetGetter)
+        {
+            _targetGetter = targetGetter;
+        }
+
+        public void SetPosition(Func<Vector2> positionGetter)
+        {
+            _positionGetter = positionGetter;
         }
 
         public override void Initialize()
@@ -65,9 +75,9 @@ namespace Game.Logic.Player.Handlers
 
         public void Shoot()
         {
-            Vector2 target = _weapon.TransformPoint(
-                    new(_weapon.localPosition.x, _weapon.localPosition.y + 1f));
-            Shoot(_weapon.position, target);
+            Vector2 target = _targetGetter.Invoke();
+            Vector2 position = _positionGetter.Invoke();
+            Shoot(position, target);
         }
 
         public override void Shoot(Vector2 weaponPos, Vector2 target)
@@ -87,6 +97,18 @@ namespace Game.Logic.Player.Handlers
                 ReloadMagazine();
         }
 
+        public override void Pause()
+        {
+            base.Pause();
+            _burstTimer.Pause();
+        }
+
+        public override void Continue()
+        {
+            base.Continue();
+            _burstTimer.Play();
+        }
+
         private void StartManual()
         {
             Debug.Log("Start manual");
@@ -99,17 +121,6 @@ namespace Game.Logic.Player.Handlers
             _mutator.OnFire -= Shoot;
         }
 
-        public override void Pause()
-        {
-            base.Pause();
-            _burstTimer.Pause();
-        }
-
-        public override void Continue()
-        {
-            base.Continue();
-            _burstTimer.Play();
-        }
 
         private void ReloadMagazine()
         {

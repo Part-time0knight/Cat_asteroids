@@ -24,9 +24,11 @@ namespace Game.Logic.Handlers
         {
             _hits -= damage;
             _hits = Mathf.Max(Mathf.Min(_hits, _stats.HitPoints), 0);
-            OnTakeDamage?.Invoke(_hits);
+            
             if (_hits <= 0)
                 OnDeath?.Invoke();
+            else
+                OnTakeDamage?.Invoke(_hits);
         }
 
         public virtual void Reset()

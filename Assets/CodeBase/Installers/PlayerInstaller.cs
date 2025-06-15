@@ -10,6 +10,10 @@ using Game.Logic.Handlers;
 using Game.Logic.Player.Mutators;
 using Game.Logic.Player.Mutators.ProjectileMutators;
 using Game.Logic.Player.Mutators.ShooterMutators;
+using Game.Logic.Player.Mutators.TargetMutators;
+using Game.Logic.Player.Handlers;
+using Game.Logic.Player.Mutators.TargetMutator;
+using Game.Logic.Player.Mutators.GyperjumpMutator;
 
 namespace Installers
 {
@@ -28,24 +32,35 @@ namespace Installers
 
         private void InstallMutators()
         {
-            Container.
-                BindInterfacesAndSelfTo<BaseMutator>()
+            Container
+                .BindInterfacesAndSelfTo<BaseMutator>()
                 .AsSingle();
 
 
-            Container.
-                BindInterfacesAndSelfTo<BaseProjectile>()
+            Container
+                .BindInterfacesAndSelfTo<BaseProjectile>()
                 .AsSingle();
-            Container.
-                BindInterfacesAndSelfTo<Laser>()
+            Container
+                .BindInterfacesAndSelfTo<Laser>()
                 .AsSingle();
 
 
+            Container
+                .BindInterfacesAndSelfTo<BaseShooter>()
+                .AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<Burst>()
+                .AsSingle();
+
             Container.
-                BindInterfacesAndSelfTo<BaseShooter>()
+                BindInterfacesAndSelfTo<BaseTarget>()
                 .AsSingle();
             Container.
-                BindInterfacesAndSelfTo<Burst>()
+                BindInterfacesAndSelfTo<Aim>()
+                .AsSingle();
+
+            Container.
+                BindInterfacesAndSelfTo<Gyperjump>()
                 .AsSingle();
         }
 
@@ -100,7 +115,10 @@ namespace Installers
                 .AsSingle()
                 .WithArguments(_settings.DamageParticles);
 
-
+            Container.
+                BindInterfacesAndSelfTo<Invincibility>()
+                .AsSingle()
+                .WithArguments(_settings.InvincibilityRender);
         }
 
         [Serializable]
@@ -111,6 +129,7 @@ namespace Installers
             [field: SerializeField] public ParticleSystem HasteParticles { get; private set; }
             [field: SerializeField] public ParticleSystem DamageParticles { get; private set; }
             [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
+            [field: SerializeField] public SpriteRenderer InvincibilityRender { get; private set; }
         }
     }
 }

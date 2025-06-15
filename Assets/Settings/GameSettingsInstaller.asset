@@ -75,22 +75,22 @@ MonoBehaviour:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2000
+      <Delay>k__BackingField: 2
     AsteroidMSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2000
+      <Delay>k__BackingField: 2
     AsteroidSSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 5
-      <Delay>k__BackingField: 2000
+      <Delay>k__BackingField: 2
     IceMSpawner:
       <HorizontalBorders>k__BackingField: {x: -28, y: 28}
       <VerticalBorders>k__BackingField: {x: -18, y: 18}
       <MinimalRangeToPlayer>k__BackingField: 10
-      <Delay>k__BackingField: 1
+      <Delay>k__BackingField: 5
   <Enemies>k__BackingField:
     AsteroidBig:
       MainSettings:

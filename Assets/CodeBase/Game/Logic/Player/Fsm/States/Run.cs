@@ -1,19 +1,24 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Handlers;
+using Game.Logic.Services.Mutators;
 
 
 namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
+        private readonly BundleInput _bundleInput;
+
         public Run(IGameStateMachine stateMachine,
             PlayerFacade playerFacade,
+            BundleInput bundleInput,
             IHandlerGetter handlerGetter) 
             : base(stateMachine,
                 playerFacade,
                 handlerGetter)
         {
+            _bundleInput = bundleInput;
         }
 
         public override void OnEnter()
@@ -26,10 +31,12 @@ namespace Game.Logic.Player.Fsm.States
                 .Get<IInputHandler>().InvokeMoveHorizontal += Rotate;
             _handlerGetter
                 .Get<IInputHandler>().InvokeMoveButtonsUp += InvokeEndMove;
-
+            
             InvokeShooting(_playerFacade.ActiveShooting);
             _playerFacade.OnActiveShootChange += InvokeShooting;
             _playerFacade.OnPause += InvokePause;
+
+            _bundleInput.Active = true;
         }
 
         private void Move(float speed)
@@ -49,6 +56,8 @@ namespace Game.Logic.Player.Fsm.States
         {
             base.OnExit();
 
+            _bundleInput.Active = false;
+
             _handlerGetter
                 .Get<IInputHandler>().InvokeMoveVertical -= Move;
             _handlerGetter
@@ -64,7 +73,19 @@ namespace Game.Logic.Player.Fsm.States
         }
         private void InvokeShooting(bool active)
         {
-            _handlerGetter.Get<IPlayerShootHandler>().Active = active;
+            if (active)
+            {
+                _handlerGetter
+                    .Get<IPlayerShootHandler>()
+                    .SetTarget(_handlerGetter.Get<IPlayerTargetHandler>().GetTarget);
+
+                _handlerGetter
+                    .Get<IPlayerShootHandler>()
+                    .SetPosition(_handlerGetter.Get<IPlayerTargetHandler>().GetPosition);
+            }
+            _handlerGetter
+                .Get<IPlayerShootHandler>()
+                .Active = active;
         }
 
         protected virtual void InvokePause(bool isPause)

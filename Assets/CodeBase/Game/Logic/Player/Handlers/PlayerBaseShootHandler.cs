@@ -1,7 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Game.Logic.Handlers;
-using Game.Logic.Projectiles;
-using Game.Logic.StaticData;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -10,8 +8,11 @@ namespace Game.Logic.Player.Handlers
 {
     public class PlayerBaseShootHandler : ShootHandler, IDisposable, IPlayerShootHandler
     {
-        private readonly Transform _weapon;
+
         private readonly IPlayerScoreWriter _scoreWriter;
+
+        private Func<Vector2> _targetGetter;
+        private Func<Vector2> _positionGetter;
 
         private CancellationTokenSource _cts = null;
 
@@ -39,14 +40,12 @@ namespace Game.Logic.Player.Handlers
 
         public PlayerBaseShootHandler(ProjectileManager projectileManager,
             PlayerSettings settings,
-            Transform weaponPoint,
             PlayerFacade playerFacade,
             IPlayerScoreWriter scoreWriter) : base(
                 projectileManager,
                 playerFacade,
                 settings)
         {
-            _weapon = weaponPoint;
             _scoreWriter = scoreWriter;
         }
 
@@ -72,6 +71,17 @@ namespace Game.Logic.Player.Handlers
             Clear();
         }
 
+
+        public void SetTarget(Func<Vector2> targetGetter)
+        {
+            _targetGetter = targetGetter;
+        }
+
+        public void SetPosition(Func<Vector2> positionGetter)
+        {
+            _positionGetter = positionGetter;
+        }
+
         protected override void OnHit(UnitFacade unitHandler)
         {
             base.OnHit(unitHandler);
@@ -83,16 +93,17 @@ namespace Game.Logic.Player.Handlers
 
         private async UniTask Repeater()
         {
+            Vector2 target;
+            Vector2 position;
             do
             {
                 await UniTask.WaitWhile(() => _timer.Active, cancellationToken: _cts.Token);
-                Vector2 target = _weapon.TransformPoint(
-                    new(_weapon.localPosition.x, _weapon.localPosition.y + 1f));
+                target = _targetGetter.Invoke();
+                position = _positionGetter.Invoke();
                 if (!_cts.IsCancellationRequested)
-                    Shoot(_weapon.position, target);
+                    Shoot(position, target);
             } while (!_cts.IsCancellationRequested);
         }
-
 
         [Serializable]
         public class PlayerSettings : Settings
