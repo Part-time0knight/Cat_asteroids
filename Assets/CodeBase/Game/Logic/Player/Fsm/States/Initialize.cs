@@ -13,19 +13,16 @@ namespace Game.Logic.Player.Fsm.States
         private readonly BaseProjectile _baseLaserMutator;
         private readonly BaseShooter _baseShooter;
         private readonly BaseTarget _baseTarget;
-        private readonly BundleInput _bundleInput;
 
         public Initialize(IGameStateMachine stateMachine,
             BaseProjectile baseLaserMutator,
             BaseShooter baseShooter,
-            BaseTarget baseTarget,
-            BundleInput bundleInput)
+            BaseTarget baseTarget)
         {
             _stateMachine = stateMachine;
             _baseLaserMutator = baseLaserMutator;
             _baseShooter = baseShooter;
             _baseTarget = baseTarget;
-            _bundleInput = bundleInput;
         }
 
         public void OnEnter()
@@ -34,7 +31,6 @@ namespace Game.Logic.Player.Fsm.States
             _baseShooter.Set();
             _baseTarget.Set();
             _stateMachine.Enter<Idle>();
-            _bundleInput.Active = false;
         }
 
         public void OnExit()

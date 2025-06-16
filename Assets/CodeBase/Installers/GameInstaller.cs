@@ -7,10 +7,11 @@ using Game.Logic.Enemy.Asteroid.AsteroidB;
 using Game.Logic.Enemy.Asteroid.AsteroidM;
 using Game.Logic.Enemy.Asteroid.AsteroidS;
 using Game.Logic.Enemy.Ice;
-using Game.Logic.Enemy.Ice.IceM;
 using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
+using Game.Logic.Player.Mutators.GyperjumpMutator;
+using Game.Logic.Player.Mutators.ShooterMutators;
 using Game.Logic.Projectiles;
 using Game.Logic.Services.Mutators;
 using Game.Presentation.ViewModel;
@@ -115,6 +116,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<BurstData>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<GyperjumpData>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallViewModel()
@@ -168,6 +174,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<BurstViewModel>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<GyperjumpViewModel>()
                 .AsSingle()
                 .NonLazy();
         }

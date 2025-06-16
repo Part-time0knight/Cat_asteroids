@@ -13,22 +13,26 @@ namespace Game.Infrastructure.States.Gameplay
         private readonly PlayerFacade.Pool _playerPool;
         private readonly IWindowFsm _windowFsm;
         private readonly BundleService _bundleService;
+        private readonly IMutatorPause _mutatorPause;
 
         private PlayerFacade _player;
 
         public PowerUp(ISpawnerService spawnerService,
             PlayerFacade.Pool pool,
             IWindowFsm windowFsm,
-            BundleService bundleService) 
+            BundleService bundleService,
+            IMutatorPause mutatorPause) 
         {
             _spawnerService = spawnerService;
             _playerPool = pool;
             _windowFsm = windowFsm;
             _bundleService = bundleService;
+            _mutatorPause = mutatorPause;
         }
 
         public void OnEnter()
         {
+            _mutatorPause.SetPause(true);
             _spawnerService.KillAll();
             _player = _playerPool.Spawn();
             _player.Pause = true;
@@ -38,6 +42,7 @@ namespace Game.Infrastructure.States.Gameplay
 
         public void OnExit()
         {
+            _mutatorPause.SetPause(false);
             _player.Pause = false;
             _playerPool.Despawn(_player);
             _windowFsm.CloseWindow();

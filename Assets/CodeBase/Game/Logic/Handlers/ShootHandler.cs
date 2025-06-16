@@ -91,7 +91,6 @@ namespace Game.Logic.Handlers
 
             _timer.Initialize(
                 time: _settings.AttackDelay,
-                step: _settings.AttackDelay,
                 OnEndReload).Play();
         }
 

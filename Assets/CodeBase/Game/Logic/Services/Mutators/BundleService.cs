@@ -51,6 +51,17 @@ namespace Game.Logic.Services.Mutators
         public Bundle GetSlot(int index)
             => _slots[index];
 
+        public int GetSlotIdFromMutatorId(int id)
+        {
+            foreach (var bundle in _slots)
+            {
+                if (bundle.PlayerId == id ||
+                    bundle.EnemyId == id)
+                    return bundle.Id;
+            }
+            return -1;
+        }
+
         public void GenerateBundles()
         {
             _availableBundles.Clear();
@@ -82,14 +93,15 @@ namespace Game.Logic.Services.Mutators
         public void BuyBundle()
         {
             RemoveSlot(SelectedSlot);
-            var bundle = ActivateBundle(SelectedBundle);
+            var bundle = GetAvailableBundle(SelectedBundle);
             
-
             _availableBundles.Remove(bundle);
 
             bundle.Id = SelectedSlot;
 
             _slots[SelectedSlot] = bundle;
+
+            ActivateBundle(SelectedSlot);
 
             OnBundleUpdate?.Invoke();
         }
@@ -118,15 +130,14 @@ namespace Game.Logic.Services.Mutators
             }
         }
 
-        private Bundle ActivateBundle(int id)
-        {
-            var bundle = _availableBundles
+        private Bundle GetAvailableBundle(int id)
+            => _availableBundles
                 .FirstOrDefault(i => i.Id == id);
 
-            _mutatorSetter.SetActive(bundle.PlayerId, true);
-            _mutatorSetter.SetActive(bundle.EnemyId, true);
-
-            return bundle;
+        private void ActivateBundle(int index)
+        {
+            _mutatorSetter.SetActive(_slots[index].PlayerId, true);
+            _mutatorSetter.SetActive(_slots[index].EnemyId, true);
         }
 
         private void RemoveSlot(int pos)

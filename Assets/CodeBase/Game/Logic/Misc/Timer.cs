@@ -18,6 +18,8 @@ namespace Game.Logic.Misc
 
         private float _currentTime;
 
+        private float _pausedTime;
+
         private float _step;
 
         public bool Active => _active;
@@ -29,7 +31,7 @@ namespace Game.Logic.Misc
 
         public Timer Initialize(float time, Action callback = null)
         {
-            return Initialize(time, Time.fixedDeltaTime, null, callback);
+            return Initialize(time, 0.1f, null, callback);
         }
 
         public Timer Initialize(float time, float step, Action callback)
@@ -39,7 +41,7 @@ namespace Game.Logic.Misc
 
         public Timer Initialize(float time, Action<float> callTick, Action callback)
         {
-            return Initialize(time, Time.fixedDeltaTime, callTick, callback);
+            return Initialize(time, 0.1f, callTick, callback);
         }
 
         public Timer Initialize(float time, float step, Action<float> callTick, Action callback)
@@ -49,13 +51,14 @@ namespace Game.Logic.Misc
             _invokeComplete = callback;
             _invokeTick = callTick;
             _step = step;
+            _pausedTime = 0f;
 
             return this;
         }
 
         public void Play()
         {
-            if (_currentTime == 0)
+            if (_currentTime == 0f)
                 return;
             _active = true;
             _cts = new();
@@ -63,11 +66,13 @@ namespace Game.Logic.Misc
         }
 
         public void Pause()
-            => _cts?.Cancel();
+        {
+            _cts?.Cancel();
+        }
 
         public void Stop()
         {
-            _currentTime = 0;
+            _currentTime = 0f;
             _invokeTick?.Invoke(_currentTime);
             _cts?.Cancel();
             _active = false;
@@ -88,10 +93,10 @@ namespace Game.Logic.Misc
             } while (_currentTime > 0f && !_cts.IsCancellationRequested);
 
             _active = false;
-
-            if (_currentTime <= 0 && !_cts.IsCancellationRequested)
+            _currentTime = 0f;
+            if (_currentTime <= 0f && !_cts.IsCancellationRequested)
                 _invokeComplete?.Invoke();
-
+            
         }
 
     }

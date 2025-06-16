@@ -41,7 +41,7 @@ namespace Core.MVVM.View
                 SetActive(true);
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             if(OnAnimationHide.GetPersistentEventCount() > 0)
                 OnAnimationHide?.Invoke(() =>  SetActive(false));

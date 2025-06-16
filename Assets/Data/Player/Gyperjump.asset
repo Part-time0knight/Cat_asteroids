@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17c7f1d25333cc44b0f76cf49b5c900, type: 3}
   m_Name: Gyperjump
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 0
+  <Id>k__BackingField: 3
   <Type>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 1177969788, guid: e6808676d58a12049934aa29c327e6b5, type: 3}
   <Name>k__BackingField: Gyperjump

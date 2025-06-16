@@ -19,6 +19,7 @@ namespace Game.Logic.Player.Mutators.ShooterMutators
         private readonly IWindowFsm _windowFsm;
 
         private bool _active = false;
+        
 
         protected override Mutator Id => Mutator.Burst;
 
@@ -58,11 +59,13 @@ namespace Game.Logic.Player.Mutators.ShooterMutators
             _handlerSetter.Set<BurstShootHandler, IPlayerShootHandler>();
             _input.OnButton += InvokeFire;
             _windowFsm.OpenWindow(typeof(BurstView), false);
+            
         }
 
         private void InvokeFire(int id)
         {
             if (id != (int)Id) return;
+            if (_pause) return;
             OnFire?.Invoke();
         }
     }

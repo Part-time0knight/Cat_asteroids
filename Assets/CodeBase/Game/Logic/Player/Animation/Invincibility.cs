@@ -35,7 +35,7 @@ namespace Game.Logic.Player.Animation
                     .SetEase(Ease.Linear)
                     .SetLoops(int.MaxValue, LoopType.Restart))
                 .Join(_spriteRenderer
-                    .DOFade(0.75f, _settings.BlinkDuration)
+                    .DOFade(_settings.Fade, _settings.BlinkDuration)
                     .SetEase(Ease.InOutSine)
                     .SetLoops(int.MaxValue, LoopType.Yoyo))
                 .Play();
@@ -77,6 +77,7 @@ namespace Game.Logic.Player.Animation
         {
             [field: SerializeField] public float RotateSpeed { get; private set; } = 120f;
             [field: SerializeField] public float BlinkDuration { get; private set; } = 0.15f;
+            [field: SerializeField] public float Fade { get; private set; } = 0.4f;
         }
     }
 }

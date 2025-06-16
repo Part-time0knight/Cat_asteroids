@@ -1,24 +1,20 @@
 using Core.Infrastructure.GameFsm;
 using Game.Logic.Handlers.Strategy;
 using Game.Logic.Player.Handlers;
-using Game.Logic.Services.Mutators;
 
 
 namespace Game.Logic.Player.Fsm.States
 {
     public class Run : Hitable
     {
-        private readonly BundleInput _bundleInput;
 
         public Run(IGameStateMachine stateMachine,
             PlayerFacade playerFacade,
-            BundleInput bundleInput,
             IHandlerGetter handlerGetter) 
             : base(stateMachine,
                 playerFacade,
                 handlerGetter)
         {
-            _bundleInput = bundleInput;
         }
 
         public override void OnEnter()
@@ -35,8 +31,6 @@ namespace Game.Logic.Player.Fsm.States
             InvokeShooting(_playerFacade.ActiveShooting);
             _playerFacade.OnActiveShootChange += InvokeShooting;
             _playerFacade.OnPause += InvokePause;
-
-            _bundleInput.Active = true;
         }
 
         private void Move(float speed)
@@ -55,8 +49,6 @@ namespace Game.Logic.Player.Fsm.States
         public override void OnExit()
         {
             base.OnExit();
-
-            _bundleInput.Active = false;
 
             _handlerGetter
                 .Get<IInputHandler>().InvokeMoveVertical -= Move;

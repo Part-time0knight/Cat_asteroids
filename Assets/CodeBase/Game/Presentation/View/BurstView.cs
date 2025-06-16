@@ -1,6 +1,5 @@
 using Core.MVVM.View;
 using DG.Tweening;
-using Game.Domain.Dto;
 using Game.Presentation.ViewModel;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +16,28 @@ namespace Game.Presentation.View
 
         private List<Image> _ammoIcons = new();
 
+        public override void Show()
+        {
+            gameObject.SetActive(true);
+            base.Show();
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            gameObject.SetActive(false);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            ClearAnimation();
+
+            _viewModel.OnAmmoUpdate -= SetAmmo;
+            _viewModel.OnReloadUpdate -= ReloadAnimation;
+            _viewModel.OnOrderUpdate -= UpdateOrder;
+        }
+
         [Inject]
         private void Construct(BurstViewModel viewModel, Pool pool)
         {
@@ -24,6 +45,13 @@ namespace Game.Presentation.View
             _pool = pool;
             _viewModel.OnAmmoUpdate += SetAmmo;
             _viewModel.OnReloadUpdate += ReloadAnimation;
+            _viewModel.OnOrderUpdate += UpdateOrder;
+            gameObject.SetActive(false);
+        }
+
+        private void UpdateOrder(int order)
+        {
+            transform.SetSiblingIndex(order);
         }
 
         private void SetAmmo(int count)
@@ -52,18 +80,9 @@ namespace Game.Presentation.View
             _reloadFill.fillAmount = 0;
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            ClearAnimation();
 
-            _viewModel.OnAmmoUpdate -= SetAmmo;
-            _viewModel.OnReloadUpdate -= ReloadAnimation;
-        }
 
         public class Pool : MonoMemoryPool<Image>
-        {
-
-        }
+        { }
     }
 }

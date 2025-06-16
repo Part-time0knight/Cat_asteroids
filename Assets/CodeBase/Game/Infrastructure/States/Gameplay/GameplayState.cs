@@ -64,7 +64,7 @@ namespace Game.Infrastructure.States.Gameplay
 
         private void InvokePressPause()
         {
-            _gameFsm.Enter<Pause>();
+            _gameFsm.Enter<MenuPause>();
         }
 
         private void PowerUp(int difficult)

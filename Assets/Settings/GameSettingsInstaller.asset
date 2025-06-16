@@ -43,6 +43,12 @@ MonoBehaviour:
       <TicLength>k__BackingField: 0.15
     Invincibility:
       <Duration>k__BackingField: 2
+    InvincibilityAnimation:
+      <RotateSpeed>k__BackingField: 360
+      <BlinkDuration>k__BackingField: 0.3
+      <Fade>k__BackingField: 0.5
+    Gyperjump:
+      <Delay>k__BackingField: 5
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 2

@@ -90,7 +90,6 @@ namespace Game.Logic.Player.Handlers
 
             _burstTimer.Initialize(
                 time: _burstSettings.BurstDelay,
-                step: _burstSettings.BurstDelay,
                 OnEndReload).Play();
 
             if (!_timer.Active)
@@ -111,13 +110,11 @@ namespace Game.Logic.Player.Handlers
 
         private void StartManual()
         {
-            Debug.Log("Start manual");
             _mutator.OnFire += Shoot;
         }
 
         private void StopManual()
         {
-            Debug.Log("Stop manual");
             _mutator.OnFire -= Shoot;
         }
 
@@ -126,7 +123,6 @@ namespace Game.Logic.Player.Handlers
         {
             _timer.Initialize(
                 time: _settings.AttackDelay,
-                step: _settings.AttackDelay,
                 callback: AddBulletMagazine)
                 .Play();
             _burstWritter.ReloadTime = _settings.AttackDelay;
@@ -151,7 +147,6 @@ namespace Game.Logic.Player.Handlers
 
         public void Dispose()
         {
-            
             Clear();
         }
 

@@ -7,17 +7,13 @@ namespace Game.Logic.Player.Fsm.States
 {
     public class Idle : Hitable
     {
-        private readonly BundleInput _bundleInput;
-
         public Idle(IGameStateMachine stateMachine,
             PlayerFacade playerHandler,
-            IHandlerGetter handlerGetter,
-            BundleInput bundleInput) 
+            IHandlerGetter handlerGetter) 
             : base(stateMachine,
                   playerHandler,
                   handlerGetter)
         {
-            _bundleInput = bundleInput;
         }
 
         public override void OnEnter()
@@ -28,15 +24,11 @@ namespace Game.Logic.Player.Fsm.States
             _playerFacade.OnActiveShootChange += InvokeShooting;
             _playerFacade.OnPause += InvokePause;
             InvokeShooting(_playerFacade.ActiveShooting);
-
-            _bundleInput.Active = true;
         }
 
         public override void OnExit()
         {
             base.OnExit();
-
-            _bundleInput.Active = false;
 
             _handlerGetter
                 .Get<IInputHandler>().InvokeMoveButtonsDown -= OnMoveBegin;
@@ -53,10 +45,15 @@ namespace Game.Logic.Player.Fsm.States
         private void InvokeShooting(bool active)
         {
             if (active)
+            {
                 _handlerGetter
                     .Get<IPlayerShootHandler>()
                     .SetTarget(_handlerGetter.Get<IPlayerTargetHandler>().GetTarget);
 
+                _handlerGetter
+                    .Get<IPlayerShootHandler>()
+                    .SetPosition(_handlerGetter.Get<IPlayerTargetHandler>().GetPosition);
+            }
             _handlerGetter.Get<IPlayerShootHandler>().Active = active;
         }
 

@@ -11,9 +11,12 @@ namespace Game.Logic.Services.Mutators
         IMutatorSetter, 
         IMutatorGetter,
         IMutatorsObservable,
-        IMutatorData
+        IMutatorData,
+        IMutatorPause
     {
         public event Action<int> OnMutatorUpdate;
+
+        public event Action<bool> OnMutatorsPause;
 
         private readonly List<MutatorSO> _mutatorsSO;
 
@@ -81,6 +84,9 @@ namespace Game.Logic.Services.Mutators
 
         public bool IsActive(int mutatorId)
             => _mutators[mutatorId].Active;
+
+        public void SetPause(bool pause)
+            => OnMutatorsPause?.Invoke(pause);
 
         private void Update()
         {

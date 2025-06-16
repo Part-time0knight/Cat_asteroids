@@ -9,6 +9,8 @@ public abstract class AbstractMutator : IInitializable, IDisposable
 
     protected readonly IMutatorsObservable _mutatorObservable;
     protected readonly IMutatorData _mutatorData;
+    
+    protected bool _pause = false;
 
     protected virtual Mutator Id { get; }
 
@@ -22,11 +24,13 @@ public abstract class AbstractMutator : IInitializable, IDisposable
     public virtual void Initialize()
     {
         _mutatorObservable.OnMutatorUpdate += InvokeUpdate;
+        _mutatorObservable.OnMutatorsPause += InvokePause;
     }
 
     public virtual void Dispose()
     {
         _mutatorObservable.OnMutatorUpdate -= InvokeUpdate;
+        _mutatorObservable.OnMutatorsPause -= InvokePause;
     }
 
     protected virtual void InvokeUpdate(int id)
@@ -38,6 +42,11 @@ public abstract class AbstractMutator : IInitializable, IDisposable
             Set();
         else
             Remove();
+    }
+
+    protected virtual void InvokePause(bool pause)
+    {
+        _pause = pause;
     }
 
     protected abstract void Set();

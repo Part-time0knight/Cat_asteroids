@@ -51,7 +51,7 @@ namespace Game.Presentation.ViewModel
 
         public void InvokePause()
         {
-            _gameFsm.Enter<Pause>();
+            _gameFsm.Enter<MenuPause>();
         }
 
         protected override void HandleOpenedWindow(Type uiWindow)

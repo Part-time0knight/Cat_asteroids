@@ -11,13 +11,6 @@ namespace Game.Logic.Services.Mutators
         public event Action<int> OnButton;
 
         private readonly BundleService _bundleService;
-        private bool _active;
-
-        public bool Active 
-        {
-            get => _active; 
-            set => _active = value;
-        }
 
         public BundleInput(BundleService bundleService)
         {
@@ -26,8 +19,6 @@ namespace Game.Logic.Services.Mutators
 
         public void Tick()
         {
-            if (!_active) return;
-
             if (Input.GetButtonDown("Mutator1"))
                 OnButtonDown?.Invoke(_bundleService.GetSlot(0).PlayerId);
             if (Input.GetButtonDown("Mutator2"))
@@ -38,8 +29,6 @@ namespace Game.Logic.Services.Mutators
 
         public void FixedTick()
         {
-            if (!_active) return;
-
             if (Input.GetButton("Mutator1"))
                 OnButton?.Invoke(_bundleService.GetSlot(0).PlayerId);
             if (Input.GetButton("Mutator2"))

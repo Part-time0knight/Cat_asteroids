@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Logic.Player
+namespace Game.Logic.Player.Mutators.ShooterMutators
 {
     public class BurstData : IBurstReader, IBurstWritter
     {
