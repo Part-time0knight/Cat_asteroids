@@ -18,8 +18,6 @@ namespace Game.Logic.Misc
 
         private float _currentTime;
 
-        private float _pausedTime;
-
         private float _step;
 
         public bool Active => _active;
@@ -51,7 +49,6 @@ namespace Game.Logic.Misc
             _invokeComplete = callback;
             _invokeTick = callTick;
             _step = step;
-            _pausedTime = 0f;
 
             return this;
         }

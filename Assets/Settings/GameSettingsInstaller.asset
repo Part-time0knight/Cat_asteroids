@@ -48,7 +48,14 @@ MonoBehaviour:
       <BlinkDuration>k__BackingField: 0.3
       <Fade>k__BackingField: 0.5
     Gyperjump:
-      <Delay>k__BackingField: 5
+      <Delay>k__BackingField: 10
+      <HeightBorder>k__BackingField: 14
+      <WidthBorder>k__BackingField: 25
+    ReactiveArmor:
+      <AttackDelay>k__BackingField: 0
+      <Damage>k__BackingField: 1
+      <ProjectileCount>k__BackingField: 8
+      <Radius>k__BackingField: 1.2
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 2

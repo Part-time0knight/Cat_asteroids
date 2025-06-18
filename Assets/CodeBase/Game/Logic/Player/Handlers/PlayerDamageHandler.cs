@@ -6,6 +6,8 @@ namespace Game.Logic.Player.Handlers
 {
     public class PlayerDamageHandler : DamageHandler, IPlayerDamageHandler
     {
+        public event Action OnTryTakeDamage;
+
         public bool Power { get; set; } = false;
 
         private readonly IPlayerHitsWriter _playerHitsWriter;
@@ -28,8 +30,11 @@ namespace Game.Logic.Player.Handlers
 
         public override void TakeDamage(int damage)
         {
+            OnTryTakeDamage?.Invoke();
+
             if (Power)
                 return;
+
             base.TakeDamage(damage);
             _playerHitsWriter.IsTakeDamage = true;
             _playerHitsWriter.Hits = _hits;

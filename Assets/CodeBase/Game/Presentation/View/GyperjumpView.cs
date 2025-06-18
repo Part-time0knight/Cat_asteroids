@@ -61,7 +61,10 @@ namespace Game.Presentation.View
             if (pause)
                 _settings.LoadFill.DOPause();
             else
+            {
+                _settings.LoadFill.fillAmount = 1f;
                 _settings.LoadFill.DOPlay();
+            }
         }
 
 

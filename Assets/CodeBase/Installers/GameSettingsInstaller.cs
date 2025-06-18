@@ -51,6 +51,7 @@ namespace Installers
             public PlayerInvincibilityHandler.Settings Invincibility;
             public Invincibility.Settings InvincibilityAnimation;
             public Gyperjump.Settings Gyperjump;
+            public ReactiveArmorShootHandler.ReactiveArmorSettings ReactiveArmor;
         }
 
         [Serializable]
@@ -176,6 +177,7 @@ namespace Installers
             Container.BindInstance(Player.Invincibility).AsSingle();
             Container.BindInstance(Player.InvincibilityAnimation).AsSingle();
             Container.BindInstance(Player.Gyperjump).AsSingle();
+            Container.BindInstance(Player.ReactiveArmor).AsSingle();
         }
 
         private void InstallAsteroidB()

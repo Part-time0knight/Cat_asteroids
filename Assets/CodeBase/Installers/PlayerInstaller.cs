@@ -14,6 +14,7 @@ using Game.Logic.Player.Mutators.TargetMutators;
 using Game.Logic.Player.Handlers;
 using Game.Logic.Player.Mutators.TargetMutator;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
+using Game.Logic.Player.Mutators.ReactiveArmorMutator;
 
 namespace Installers
 {
@@ -61,6 +62,10 @@ namespace Installers
 
             Container.
                 BindInterfacesAndSelfTo<Gyperjump>()
+                .AsSingle();
+
+            Container.
+                BindInterfacesAndSelfTo<ReactiveArmor>()
                 .AsSingle();
         }
 

@@ -39,6 +39,9 @@ namespace Game.Presentation.Elements
             int i = 0;
             while (i++ < hits)
                 _hits.Add(_pool.Spawn());
+
+            LayoutRebuilder.
+                ForceRebuildLayoutImmediate(_container.GetComponent<RectTransform>());
         }
 
         public class Pool : MonoMemoryPool<Image>

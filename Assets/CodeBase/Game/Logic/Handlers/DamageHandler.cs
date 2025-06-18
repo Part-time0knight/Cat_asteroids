@@ -1,11 +1,11 @@
 using System;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 namespace Game.Logic.Handlers
 {
     public abstract class DamageHandler : IDamageHandler
     {
+       
         public event Action<int> OnTakeDamage;
         public event Action OnDeath;
 
@@ -24,7 +24,6 @@ namespace Game.Logic.Handlers
         {
             _hits -= damage;
             _hits = Mathf.Max(Mathf.Min(_hits, _stats.HitPoints), 0);
-            
             if (_hits <= 0)
                 OnDeath?.Invoke();
             else
