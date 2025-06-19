@@ -21,6 +21,16 @@ namespace Installers.UI
                 .BindMemoryPool<Image, HitsViewer.Pool>()
                 .FromComponentInNewPrefab(_settings.HitsViewer.Prefab)
                 .UnderTransform(_settings.HitsViewer.Container);
+
+            Container
+                .Bind<Sprite>()
+                .WithId("Heart")
+                .FromInstance(_settings.HitsViewer.Heart);
+
+            Container
+                .Bind<Sprite>()
+                .WithId("Shield")
+                .FromInstance(_settings.HitsViewer.Shield);
         }
 
         [Serializable]
@@ -41,6 +51,8 @@ namespace Installers.UI
             [Serializable]
             public class HitsViewerSettings
             {
+                [field: SerializeField] public Sprite Heart;
+                [field: SerializeField] public Sprite Shield;
                 [field: SerializeField] public Image Prefab;
                 [field: SerializeField] public RectTransform Container;
             }

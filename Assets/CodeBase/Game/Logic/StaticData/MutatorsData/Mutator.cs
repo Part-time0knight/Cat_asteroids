@@ -7,6 +7,7 @@ namespace Game.Logic.StaticData.MutatorsData
         AIM = 2,
         Gyperjump = 3,
         ReactiveArmor = 4,
+        Vampiric = 5,
 
         Mutator3 = 100,
         Mutator4 = 101,

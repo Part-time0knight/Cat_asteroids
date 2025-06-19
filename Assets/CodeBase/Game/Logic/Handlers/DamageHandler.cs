@@ -6,8 +6,8 @@ namespace Game.Logic.Handlers
     public abstract class DamageHandler : IDamageHandler
     {
        
-        public event Action<int> OnTakeDamage;
-        public event Action OnDeath;
+        public virtual event Action<int> OnTakeDamage;
+        public virtual event Action OnDeath;
 
         protected int _hits;
 

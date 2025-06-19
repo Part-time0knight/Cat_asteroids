@@ -323,6 +323,8 @@ MonoBehaviour:
       Prefab: {fileID: -1848402257361914213, guid: f88894751f39a694fa2558e5979a6657, type: 3}
       Container: {fileID: 3413241676217960812}
     HitsViewer:
+      Heart: {fileID: 21300000, guid: 5c12eadb6093e9046a2a17c10a0daadb, type: 3}
+      Shield: {fileID: 21300000, guid: defa90ef0424180489d2d1ab63cc0266, type: 3}
       Prefab: {fileID: 8346741454723404559, guid: b057a138b88c72642a4a2a7a5343a479, type: 3}
       Container: {fileID: 8817391094713647957}
 --- !u!1 &3086278321522130831

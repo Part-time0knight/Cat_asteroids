@@ -12,7 +12,7 @@ public abstract class AbstractMutator : IInitializable, IDisposable
     
     protected bool _pause = false;
 
-    protected virtual Mutator Id { get; }
+    protected abstract Mutator Id { get; }
 
     public AbstractMutator(IMutatorsObservable mutatorObservable,
         IMutatorData mutatorData)

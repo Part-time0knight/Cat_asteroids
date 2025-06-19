@@ -10,7 +10,7 @@ namespace Core.MVVM.ViewModel
 
         protected readonly IWindowFsm _windowFsm;
         
-        protected virtual Type Window { get; }
+        protected abstract Type Window { get; }
 
         public AbstractViewModel(IWindowFsm windowFsm)
         {

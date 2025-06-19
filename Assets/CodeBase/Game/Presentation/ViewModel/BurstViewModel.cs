@@ -45,7 +45,7 @@ namespace Game.Presentation.ViewModel
             _burstData.OnTimeChange += UpdateReload;
 
             OnOrderUpdate?
-                .Invoke(_bundleService.GetSlotIdFromMutatorId((int)Mutator.Burst));
+                .Invoke(_bundleService.GetSlotIndex((int)Mutator.Burst));
 
             UpdateAmmo();
             UpdateReload();

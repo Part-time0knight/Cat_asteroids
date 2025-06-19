@@ -733,6 +733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     HitsViewer:
+      Heart: {fileID: 21300000, guid: 5c12eadb6093e9046a2a17c10a0daadb, type: 3}
+      Shield: {fileID: 21300000, guid: defa90ef0424180489d2d1ab63cc0266, type: 3}
       Prefab: {fileID: 8346741454723404559, guid: b057a138b88c72642a4a2a7a5343a479, type: 3}
       Container: {fileID: 1822834353193042901}
     Bundle:

@@ -51,12 +51,13 @@ namespace Game.Logic.Services.Mutators
         public Bundle GetSlot(int index)
             => _slots[index];
 
-        public int GetSlotIdFromMutatorId(int id)
+
+        public int GetSlotIndex(int MutatorId)
         {
             foreach (var bundle in _slots)
             {
-                if (bundle.PlayerId == id ||
-                    bundle.EnemyId == id)
+                if (bundle.PlayerId == MutatorId ||
+                    bundle.EnemyId == MutatorId)
                     return bundle.Id;
             }
             return -1;

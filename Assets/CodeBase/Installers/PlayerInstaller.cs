@@ -11,10 +11,10 @@ using Game.Logic.Player.Mutators;
 using Game.Logic.Player.Mutators.ProjectileMutators;
 using Game.Logic.Player.Mutators.ShooterMutators;
 using Game.Logic.Player.Mutators.TargetMutators;
-using Game.Logic.Player.Handlers;
 using Game.Logic.Player.Mutators.TargetMutator;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
 using Game.Logic.Player.Mutators.ReactiveArmorMutator;
+using Game.Logic.Player.Mutators.VampiricMutator;
 
 namespace Installers
 {
@@ -53,19 +53,23 @@ namespace Installers
                 .BindInterfacesAndSelfTo<Burst>()
                 .AsSingle();
 
-            Container.
-                BindInterfacesAndSelfTo<BaseTarget>()
+            Container
+                .BindInterfacesAndSelfTo<BaseTarget>()
                 .AsSingle();
-            Container.
-                BindInterfacesAndSelfTo<Aim>()
-                .AsSingle();
-
-            Container.
-                BindInterfacesAndSelfTo<Gyperjump>()
+            Container
+                .BindInterfacesAndSelfTo<Aim>()
                 .AsSingle();
 
-            Container.
-                BindInterfacesAndSelfTo<ReactiveArmor>()
+            Container
+                .BindInterfacesAndSelfTo<Gyperjump>()
+                .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<ReactiveArmor>()
+                .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<Vampiric>()
                 .AsSingle();
         }
 

@@ -12,8 +12,10 @@ namespace Game.Logic.Player.Handlers
         /// </summary>
         bool Power { get; set; }
 
-        public void Pause();
+        void Pause();
 
-        public void Continue();
+        void Continue();
+
+        void SetShield(int hits);
     }
 }

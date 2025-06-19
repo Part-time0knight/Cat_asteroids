@@ -12,6 +12,7 @@ using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
 using Game.Logic.Player.Mutators.ShooterMutators;
+using Game.Logic.Player.Mutators.VampiricMutator;
 using Game.Logic.Projectiles;
 using Game.Logic.Services.Mutators;
 using Game.Presentation.ViewModel;
@@ -121,6 +122,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<GyperjumpData>()
                 .AsSingle()
                 .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<VampiricData>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallViewModel()
@@ -179,6 +185,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<GyperjumpViewModel>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<VampiricViewModel>()
                 .AsSingle()
                 .NonLazy();
         }

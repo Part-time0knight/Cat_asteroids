@@ -10,7 +10,7 @@ namespace Game.Logic.StaticData.MutatorsData
         [field: SerializeField] public MutatorType Type { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public string Description { get; private set; }
+        [field: SerializeField] [field: TextArea] public string Description { get; private set; }
         [field: SerializeField] public List<Mutator> Dependency { get; private set; } = new();
     }
 }

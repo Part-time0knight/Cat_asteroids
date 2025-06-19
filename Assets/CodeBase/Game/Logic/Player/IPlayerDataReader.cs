@@ -22,9 +22,11 @@ namespace Game.Logic.Player
     public interface IPlayerHitsReader
     {
         event Action OnHitsUpdate;
+        event Action OnShieldUpdate;
         event Action<bool> OnDamaged;
 
         int Hits { get; }
 
+        int ShieldHits { get; }
     }
 }

@@ -6,6 +6,7 @@ namespace Game.Domain.Dto
     {
         public string Score;
         public int Hits;
+        public int ShieldHits;
         public bool ShowHits;
         public string ToNextStep;
     }

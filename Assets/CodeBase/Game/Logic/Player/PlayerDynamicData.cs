@@ -13,12 +13,14 @@ namespace Game.Logic.Player
         public event Action OnScoreUpdate;
         public event Action<int, Vector2> OnScoreAdd;
         public event Action<bool> OnDamaged;
-        public event Action OnHitsUpdate;
 
+        public event Action OnHitsUpdate;
+        public event Action OnShieldUpdate;
 
         private Vector2 _position;
         private int _score;
         private int _hits;
+        private int _shieldHits;
 
         public Vector2 Position 
         { 
@@ -43,6 +45,16 @@ namespace Game.Logic.Player
             {
                 _hits = value;
                 OnHitsUpdate?.Invoke();
+            }
+        }
+
+        public int ShieldHits
+        {
+            get => _shieldHits;
+            set
+            {
+                _shieldHits = value;
+                OnShieldUpdate?.Invoke();
             }
         }
 

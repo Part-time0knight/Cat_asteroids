@@ -31,6 +31,7 @@ MonoBehaviour:
       <RotateSpeed>k__BackingField: 200
     Hits:
       <HitPoints>k__BackingField: 4
+      <ShieldHits>k__BackingField: 0
     Haste:
       <EmissionMin>k__BackingField: 0
       <EmissionRate>k__BackingField: 160
@@ -54,8 +55,10 @@ MonoBehaviour:
     ReactiveArmor:
       <AttackDelay>k__BackingField: 0
       <Damage>k__BackingField: 1
-      <ProjectileCount>k__BackingField: 8
+      <ProjectileCount>k__BackingField: 12
       <Radius>k__BackingField: 1.2
+    Vampiric:
+      <ShieldResetCount>k__BackingField: 20
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 2

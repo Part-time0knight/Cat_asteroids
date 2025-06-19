@@ -1,3 +1,4 @@
+using Core.Data.Dto;
 using Core.Infrastructure.GameFsm;
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
@@ -79,6 +80,7 @@ namespace Game.Presentation.ViewModel
         private void Update()
         {
             _dto.Hits = _hitsReader.Hits;
+            _dto.ShieldHits = _hitsReader.ShieldHits;
             _dto.Score = _scoreReader.Score.ToString();
             _dto.ScoreToNextLayer = _difficultHandler.NextStep.ToString();
             _dto.Layer = "#" + (_difficultHandler.CurrentDifficult - 1);

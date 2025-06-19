@@ -37,7 +37,7 @@ namespace Game.Presentation.View
         private void InvokeUpdate(GameplayDto dto)
         {
             _settings.ScoreCountText.text = dto.Score + "/" + dto.ToNextStep;
-            _settings.HitsViewer.SetHits(dto.Hits);
+            _settings.HitsViewer.SetHits(dto.Hits, dto.ShieldHits);
             _settings.HitsViewer.SetPanelActive(dto.ShowHits);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
         }

@@ -1,7 +1,7 @@
 using Core.MVVM.ViewModel;
 using Core.MVVM.Windows;
 using Game.Domain.Dto;
-using Game.Logic.Player.Mutators.GyperjumpMutator;
+using Game.Logic.Player.Mutators.VampiricMutator;
 using Game.Logic.Services.Mutators;
 using Game.Logic.StaticData.MutatorsData;
 using Game.Presentation.View;
@@ -9,22 +9,22 @@ using System;
 
 namespace Game.Presentation.ViewModel
 {
-    public class GyperjumpViewModel : AbstractViewModel
+    public class VampiricViewModel : AbstractViewModel
     {
-        public event Action<GyperjumpDto> OnUpdate;
-        public event Action<bool> OnPause;
+        public event Action<VampiricDto> OnUpdate;
 
-        private readonly IGyperjumpReader _reader;
-        private readonly GyperjumpDto _dto = new();
         private readonly BundleService _bundleService;
+        private readonly IVampiricReader _reader;
+        private readonly VampiricDto _dto = new();
+        
 
-        protected override Type Window => typeof(GyperjumpView);
+        protected override Type Window => typeof(VampiricView);
 
-        public GyperjumpViewModel(IWindowFsm windowFsm,
-            IGyperjumpReader gyperjumpReader,
+        public VampiricViewModel(IWindowFsm windowFsm, 
+            IVampiricReader vampiricReader,
             BundleService bundleService) : base(windowFsm)
         {
-            _reader = gyperjumpReader;
+            _reader = vampiricReader;
             _bundleService = bundleService;
         }
 
@@ -42,12 +42,11 @@ namespace Game.Presentation.ViewModel
         {
             base.HandleOpenedWindow(uiWindow);
             if (uiWindow != Window) return;
-            _reader.OnActivate += InvokeUpdate;
-            _reader.OnReloadEnd += InvokeUpdate;
-            _reader.OnPause += InvokePause;
 
-            _dto.Order = 
-                _bundleService.GetSlotIndex((int)Mutator.Gyperjump);
+            _reader.OnUpdate += InvokeUpdate;
+
+            _dto.Order =
+                _bundleService.GetSlotIndex((int)Mutator.Vampiric);
 
             InvokeUpdate();
         }
@@ -56,22 +55,18 @@ namespace Game.Presentation.ViewModel
         {
             base.HandleClosedWindow(uiWindow);
             if (uiWindow != Window) return;
-            _reader.OnActivate -= InvokeUpdate;
-            _reader.OnReloadEnd -= InvokeUpdate;
-            _reader.OnPause -= InvokePause;
+
+            _reader.OnUpdate -= InvokeUpdate;
         }
 
         private void InvokeUpdate()
         {
-            _dto.LoadDuration = _reader.ReloadTime;
             _dto.ShowLoad = _reader.Reload;
             _dto.ShowReady = !_reader.Reload;
-            OnUpdate?.Invoke(_dto);
-        }
 
-        private void InvokePause(bool pause)
-        {
-            OnPause?.Invoke(pause);
+            _dto.Progress = (float)_reader.CurrentPoints / _reader.NeedPoints;
+
+            OnUpdate?.Invoke(_dto);
         }
     }
 }

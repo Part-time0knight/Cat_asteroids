@@ -51,7 +51,7 @@ namespace Game.Presentation.View
             _settings.ScoreCountText.text = dto.Score;
             _settings.LayerStepCountText.text = dto.ScoreToNextLayer;
             _settings.HitsViewer.SetPanelActive(true);
-            _settings.HitsViewer.SetHits(dto.Hits);
+            _settings.HitsViewer.SetHits(dto.Hits, dto.ShieldHits);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.ScoreCountText.rectTransform);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_settings.LayerStepCountText.rectTransform);
             _bigExplosion.Play();
