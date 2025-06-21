@@ -11,6 +11,7 @@ using Game.Logic.Enemy.Spawner;
 using Game.Logic.Handlers;
 using Game.Logic.Player;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
+using Game.Logic.Player.Mutators.RamMutator;
 using Game.Logic.Player.Mutators.ShooterMutators;
 using Game.Logic.Player.Mutators.VampiricMutator;
 using Game.Logic.Projectiles;
@@ -110,23 +111,23 @@ namespace Installers
         {
             Container
                 .BindInterfacesAndSelfTo<PlayerDynamicData>()
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
 
             Container
                 .BindInterfacesAndSelfTo<BurstData>()
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
 
             Container
                 .BindInterfacesAndSelfTo<GyperjumpData>()
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<RamData>()
+                .AsSingle();
 
             Container
                 .BindInterfacesAndSelfTo<VampiricData>()
-                .AsSingle()
-                .NonLazy();
+                .AsSingle();
         }
 
         private void InstallViewModel()
@@ -185,6 +186,11 @@ namespace Installers
 
             Container
                 .BindInterfacesAndSelfTo<GyperjumpViewModel>()
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<RamViewModel>()
                 .AsSingle()
                 .NonLazy();
 

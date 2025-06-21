@@ -19,18 +19,20 @@ namespace Game.Logic.Handlers.Strategy
             _factory = factory;
         }
 
-        public void Set<ClassTHandler, InterfaceTHandler>()
+        public void Set<ClassTHandler, KeyTHandler>()
             where ClassTHandler : class, IHandler
-            where InterfaceTHandler : class, IHandler
+            where KeyTHandler : IHandler
         {
             var handler = _factory.Create<ClassTHandler>();
             Initialize(handler);
-            if (!_handlers.ContainsKey(typeof(InterfaceTHandler)))
-                _handlers.Add(typeof(InterfaceTHandler), null);
+
+            if (!_handlers.ContainsKey(typeof(KeyTHandler)))
+                _handlers.Add(typeof(KeyTHandler), null);
             else
-                if (_handlers[typeof(InterfaceTHandler)] is IDisposable disposable)
-                    disposable.Dispose(); 
-            _handlers[typeof(InterfaceTHandler)] = handler;
+                if (_handlers[typeof(KeyTHandler)] is IDisposable disposable)
+                    disposable.Dispose();
+
+            _handlers[typeof(KeyTHandler)] = handler;
         }
 
         public THandler Get<THandler>()

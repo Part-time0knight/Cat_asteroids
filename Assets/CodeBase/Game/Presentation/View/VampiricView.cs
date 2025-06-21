@@ -44,6 +44,7 @@ namespace Game.Presentation.View
             _settings.LoadFill.fillAmount = dto.Progress;
             _settings.LoadFill.gameObject.SetActive(dto.ShowLoad);
             _settings.Ready.SetActive(dto.ShowReady);
+            _settings.Reload.SetActive(!dto.ShowReady);
             transform.SetSiblingIndex(dto.Order);
         }
 
@@ -52,6 +53,7 @@ namespace Game.Presentation.View
         {
             [field: SerializeField] public Image LoadFill { get; private set; }
             [field: SerializeField] public GameObject Ready { get; private set; }
+            [field: SerializeField] public GameObject Reload { get; private set; }
         }
     }
 }

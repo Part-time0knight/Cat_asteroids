@@ -15,6 +15,7 @@ using Game.Logic.Player.Mutators.TargetMutator;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
 using Game.Logic.Player.Mutators.ReactiveArmorMutator;
 using Game.Logic.Player.Mutators.VampiricMutator;
+using Game.Logic.Player.Mutators.RamMutator;
 
 namespace Installers
 {
@@ -71,6 +72,10 @@ namespace Installers
             Container
                 .BindInterfacesAndSelfTo<Vampiric>()
                 .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<Ram>()
+                .AsSingle();
         }
 
         private void InstallFsm()
@@ -123,6 +128,10 @@ namespace Installers
                 BindInterfacesAndSelfTo<PlayerTakeDamage>()
                 .AsSingle()
                 .WithArguments(_settings.DamageParticles);
+
+            Container
+                .BindInterfacesAndSelfTo<ColorChanger>()
+                .AsSingle();
 
             Container.
                 BindInterfacesAndSelfTo<Invincibility>()

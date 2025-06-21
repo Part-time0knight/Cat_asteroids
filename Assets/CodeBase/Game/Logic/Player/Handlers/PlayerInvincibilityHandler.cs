@@ -22,14 +22,19 @@ namespace Game.Logic.Player.Handlers
             _timer = new();
         }
 
-        public void Start()
+        public void Start(float duration)
         {
             if (_timer.Active)
                 _timer.Stop();
             OnPowerChange.Invoke(true);
 
-            _invincibility.Play(_settings.Duration);
-            _timer.Initialize(_settings.Duration, _settings.Duration, Stop).Play();
+            _invincibility.Play(duration);
+            _timer.Initialize(duration, Stop).Play();
+        }
+
+        public void Start()
+        {
+            Start(_settings.Duration);
         }
 
         public void Pause()

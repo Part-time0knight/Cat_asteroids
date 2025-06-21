@@ -46,8 +46,8 @@ MonoBehaviour:
       <Duration>k__BackingField: 2
     InvincibilityAnimation:
       <RotateSpeed>k__BackingField: 360
-      <BlinkDuration>k__BackingField: 0.3
-      <Fade>k__BackingField: 0.5
+      <BlinkDuration>k__BackingField: 0.4
+      <Fade>k__BackingField: 0.7
     Gyperjump:
       <Delay>k__BackingField: 10
       <HeightBorder>k__BackingField: 14
@@ -55,10 +55,17 @@ MonoBehaviour:
     ReactiveArmor:
       <AttackDelay>k__BackingField: 0
       <Damage>k__BackingField: 1
-      <ProjectileCount>k__BackingField: 12
+      <ProjectileCount>k__BackingField: 16
       <Radius>k__BackingField: 1.2
     Vampiric:
-      <ShieldResetCount>k__BackingField: 20
+      <ShieldResetCount>k__BackingField: 12
+    Ram:
+      <Speed>k__BackingField: 75
+      <Mass>k__BackingField: 20
+      <HasteDuration>k__BackingField: 2
+      <Invincibility>k__BackingField: 4
+      <Reload>k__BackingField: 10
+      <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 0.74509805}
   <GameplayParams>k__BackingField:
     Difficult:
       StepScore: 2

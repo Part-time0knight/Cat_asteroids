@@ -7,9 +7,9 @@ namespace Game.Logic.Handlers.Strategy
         /// 
         /// </summary>
         /// <typeparam name="ClassTHandler">Implementation type</typeparam>
-        /// <typeparam name="InterfaceTHandler">Key type</typeparam>
-        public void Set<ClassTHandler, InterfaceTHandler>()
+        /// <typeparam name="KeyTHandler">Key type</typeparam>
+        public void Set<ClassTHandler, KeyTHandler>()
             where ClassTHandler : class, IHandler
-            where InterfaceTHandler : class, IHandler;
+            where KeyTHandler : IHandler;
     }
 }

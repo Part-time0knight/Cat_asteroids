@@ -10,6 +10,8 @@ namespace Game.Logic.Player.Handlers
 
         void Start();
 
+        void Start(float duration);
+
         public void Pause();
 
         public void Continue();

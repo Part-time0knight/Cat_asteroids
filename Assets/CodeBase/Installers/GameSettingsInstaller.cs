@@ -11,6 +11,7 @@ using Game.Logic.Player;
 using Game.Logic.Player.Animation;
 using Game.Logic.Player.Handlers;
 using Game.Logic.Player.Mutators.GyperjumpMutator;
+using Game.Logic.Player.Mutators.RamMutator;
 using Game.Logic.Player.Mutators.VampiricMutator;
 using Game.Logic.Projectiles;
 using Game.Logic.Services.Mutators;
@@ -54,6 +55,7 @@ namespace Installers
             public Gyperjump.Settings Gyperjump;
             public ReactiveArmorShootHandler.ReactiveArmorSettings ReactiveArmor;
             public Vampiric.Settings Vampiric;
+            public Ram.Settings Ram;
         }
 
         [Serializable]
@@ -178,9 +180,15 @@ namespace Installers
             Container.BindInstance(Player.TakeDamageAnimation).AsSingle();
             Container.BindInstance(Player.Invincibility).AsSingle();
             Container.BindInstance(Player.InvincibilityAnimation).AsSingle();
+            PlayerMutators();
+        }
+
+        private void PlayerMutators()
+        {
             Container.BindInstance(Player.Gyperjump).AsSingle();
             Container.BindInstance(Player.ReactiveArmor).AsSingle();
             Container.BindInstance(Player.Vampiric).AsSingle();
+            Container.BindInstance(Player.Ram).AsSingle();
         }
 
         private void InstallAsteroidB()

@@ -257,7 +257,7 @@ TextureImporter:
         serializedVersion: 2
         x: 160
         y: 224
-        width: 33
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -269,6 +269,28 @@ TextureImporter:
       bones: []
       spriteID: 7a4017fd1d063314d867ec298d25395f
       internalID: -1776077125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ram
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54620b4537a14254da148b54013239d2
+      internalID: 1968201387
       vertices: []
       indices: 
       edges: []
@@ -291,6 +313,7 @@ TextureImporter:
       Burst: -66514655
       Jump: 1177969788
       Laser: 1645836570
+      Ram: 1968201387
       Reactive: -333976511
       Vampiric: -1776077125
   mipmapLimitGroupName: 

@@ -8,9 +8,11 @@ namespace Game.Logic.Player.Handlers
 {
     public class PlayerBaseMoveHandler : MoveHandler, IFixedTickable, IPlayerMoveHandler
     {
-        private readonly PlayerSettings _playerSettings;
-        private readonly IPlayerPositionWriter _playerDataWriter;
-        private readonly PlayerHasteEffect _hasteEffect;
+        protected readonly PlayerSettings _playerSettings;
+        protected readonly IPlayerPositionWriter _playerDataWriter;
+        protected readonly PlayerHasteEffect _hasteEffect;
+
+        protected bool _needMaxSpeed = true;
 
         public PlayerBaseMoveHandler(Rigidbody2D body,
             PlayerHasteEffect hasteEffect,
@@ -22,13 +24,13 @@ namespace Game.Logic.Player.Handlers
             _hasteEffect = hasteEffect;
         }
 
-        public void Move()
+        public virtual void Move()
         {
             Move(_body.transform.up * Time.fixedDeltaTime);
             _hasteEffect.InvokeHaste(_body.linearVelocity.magnitude);
         }
 
-        public void ReverseMove()
+        public virtual void ReverseMove()
         {
             Move(_body.transform.up
                 * -1f
@@ -39,19 +41,20 @@ namespace Game.Logic.Player.Handlers
         public override void Move(Vector2 speedMultiplier)
         {
             base.Move(speedMultiplier);
-            if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed)
+            if (Mathf.Abs(_body.linearVelocity.magnitude) > _playerSettings.MaxSpeed 
+                && _needMaxSpeed)
                 _body.linearVelocity = _body.linearVelocity.normalized * _playerSettings.MaxSpeed;
             _playerDataWriter.MakeMove = true;
         }
 
-        public void Rotate(float horizontal)
+        public virtual void Rotate(float horizontal)
         {
             _body.angularVelocity = 0;
             _body.MoveRotation(_body.rotation + horizontal * _playerSettings.RotateSpeed * Time.fixedDeltaTime * -1f);
             _playerDataWriter.MakeMove = true;
         }
 
-        public void FixedTick()
+        public virtual void FixedTick()
         {
             _playerDataWriter.Position = _body.transform.position;
         }
@@ -66,6 +69,7 @@ namespace Game.Logic.Player.Handlers
 
             [field: SerializeField] public float RotateSpeed { get; private set; }
 
+            
         }
     }
 }

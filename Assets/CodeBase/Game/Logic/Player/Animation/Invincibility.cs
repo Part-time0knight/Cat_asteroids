@@ -48,14 +48,14 @@ namespace Game.Logic.Player.Animation
         public void Pause()
         {
             if (_sequence == null) return;
-
+            _timer.Pause();
             _sequence.Pause();
         }
 
         public void Continue()
         {
             if (_sequence == null) return;
-
+            _timer.Play();
             _sequence.Play();
         }
 
@@ -77,7 +77,7 @@ namespace Game.Logic.Player.Animation
         {
             [field: SerializeField] public float RotateSpeed { get; private set; } = 120f;
             [field: SerializeField] public float BlinkDuration { get; private set; } = 0.15f;
-            [field: SerializeField] public float Fade { get; private set; } = 0.4f;
+            [field: SerializeField] public float Fade { get; private set; } = 0.6f;
         }
     }
 }
