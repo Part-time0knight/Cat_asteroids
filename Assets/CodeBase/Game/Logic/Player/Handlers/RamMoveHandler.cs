@@ -9,6 +9,7 @@ namespace Game.Logic.Player.Handlers
     {
         private readonly Timer _ramTimer = new();
         private readonly float _angularDamping;
+        private readonly float _linearDamping;
         private readonly float _mass;
 
         public RamMoveHandler(Rigidbody2D body,
@@ -20,6 +21,7 @@ namespace Game.Logic.Player.Handlers
                 dataWriter)
         {
             _angularDamping = _body.angularDamping;
+            _linearDamping = _body.linearDamping;
             _mass = _body.mass;
         }
 
@@ -66,7 +68,10 @@ namespace Game.Logic.Player.Handlers
         {
             _body.mass = _mass;
             _body.angularDamping = _angularDamping;
-            _needMaxSpeed = true; ;
+            _needMaxSpeed = true;
+            _body.linearVelocity = _body.transform.up 
+                * Mathf.Min(_playerSettings.MaxSpeed, _body.linearVelocity.magnitude);
+
         }
 
         public void Dispose()
